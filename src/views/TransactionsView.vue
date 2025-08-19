@@ -1,7 +1,8 @@
 <script setup>
-  import { Clapperboard, Plus, Home, ArrowLeftRight, ChartArea, Banknote } from 'lucide-vue-next';
+  import { Clapperboard, Plus, Home, ArrowLeftRight, ChartArea, Banknote, Filter } from 'lucide-vue-next';
 
   import { RouterLink } from 'vue-router';
+  import { AutoComplete, Button } from 'primevue';
 </script>
 
 <template>
@@ -10,6 +11,18 @@
     <h1 class="text-2xl font-semibold static">Transactions</h1>
   </header>
   
+  <div class="mx-10 flex flex-row items-center gap-5">
+    <AutoComplete
+      placeholder="Search" 
+      class="w-full"
+      input-class="w-full bg-[#888888]/27! border-0!"
+    />
+      
+    <Button class="bg-emerald-300! border-0! hover:bg-emerald-400!">
+      <Filter />
+    </Button>
+  </div>
+
   <!-- Transactions -->
   <section>
     <header class="flex flex-row items-center justify-between m-10 mb-5">
