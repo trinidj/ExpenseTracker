@@ -1,9 +1,9 @@
 <script setup>
-  import { Search, DollarSign, ArrowDown, ArrowUp, Clapperboard, Plus } from 'lucide-vue-next';
+  import { Search, DollarSign, ArrowDown, ArrowUp, Clapperboard, Plus, Home, ArrowLeftRight, ChartArea, Banknote } from 'lucide-vue-next';
 </script>
 
 <template>
-  <div class="bg-[#FFE3C6] h-62 rounded-bl-2xl rounded-br-2xl">
+  <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
     <!-- Header -->
     <header class="flex flex-row justify-between items-center p-10">
       <h1 class="text-2xl font-semibold static">Home</h1>
@@ -146,13 +146,35 @@
       </ul>
     </section>
 
-    <nav class="fixed bottom-0 h-15 left-0 right-0 bg-white border-t-2 border-t-teal-400 px-6 py-4">
-      <div class="flex items-center justify-between relative">
-        <button class="absolute left-1/2 transform -translate-x-1/2 -translate-y-4 bg-teal-400 p-4 rounded-full shadow-lg">
+    <nav class="fixed bottom-0 h-auto left-0 right-0 bg-white border-t-2 border-t-teal-400 rounded-tr-3xl rounded-tl-3xl px-10 py-4 ">
+      <div class="flex flex-row items-center justify-between relative">
+        <button>
+          <Home 
+            :size="30"
+          />
+        </button>
+
+        <button>
+          <ArrowLeftRight 
+            :size="30"
+          />
+        </button>
+
+        <button class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8 bg-teal-400 p-4 rounded-full shadow-lg">
           <Plus :size="24" class="text-white" />
         </button>
         
-        
+        <button>
+          <ChartArea 
+            :size="30"
+          />
+        </button>
+
+        <button>
+          <Banknote
+            :size="30"
+          />
+        </button>
       </div>
     </nav>
   </div>
