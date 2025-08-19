@@ -1,5 +1,5 @@
 <script setup>
-  import { Search, DollarSign, ArrowDown, ArrowUp, Clapperboard } from 'lucide-vue-next';
+  import { Search, DollarSign, ArrowDown, ArrowUp, Clapperboard, Plus } from 'lucide-vue-next';
 </script>
 
 <template>
@@ -127,7 +127,33 @@
           </p>
         </li>
 
+        <li class="flex flex-row items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="bg-emerald-300 p-2 rounded-md">
+              <Clapperboard 
+                class="text-emerald-600"
+              />
+            </div>
+            <div class="flex flex-col">
+              <h3 class="text-lg">Netflix</h3>
+              <p class="text-black/45 text-sm">Entertainment</p>
+            </div>
+          </div>
+          <p class="text-lg font-semibold">
+            -$20.00
+          </p>
+        </li>
       </ul>
     </section>
+
+    <nav class="fixed bottom-0 h-15 left-0 right-0 bg-white border-t-2 border-t-teal-400 px-6 py-4">
+      <div class="flex items-center justify-between relative">
+        <button class="absolute left-1/2 transform -translate-x-1/2 -translate-y-4 bg-teal-400 p-4 rounded-full shadow-lg">
+          <Plus :size="24" class="text-white" />
+        </button>
+        
+        
+      </div>
+    </nav>
   </div>
 </template>
