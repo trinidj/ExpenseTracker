@@ -1,7 +1,8 @@
 <script setup>
-  import { Clapperboard, Plus, Home, ArrowLeftRight, ChartArea, Banknote, Filter, Search } from 'lucide-vue-next';
+  import { Clapperboard, Plus, Home, ArrowLeftRight, ChartArea, Banknote, Filter } from 'lucide-vue-next';
 
   import { RouterLink } from 'vue-router';
+  import SearchBar from '@/components/ui/SearchBar.vue';
 </script>
 
 <template>
@@ -10,8 +11,11 @@
     <h1 class="text-2xl font-semibold static">Transactions</h1>
   </header>
   
-  <div class="mx-10 flex flex-row items-center gap-5">
-    
+  <div class="mx-10 flex flex-row items-center gap-3">
+    <SearchBar />
+    <button class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out">
+      <Filter />
+    </button>
   </div>
 
   <!-- Transactions -->
