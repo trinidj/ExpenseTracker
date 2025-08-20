@@ -18,7 +18,7 @@
     </section>
 
     <!-- Transactions -->
-    <ScrollPanel class="flex flex-col gap-8 overflow-y-auto flex-1 pb-20">
+    <ScrollPanel class="flex! flex-col! gap-8! overflow-y-auto! flex-1! pb-20!">
       <section class="flex flex-col gap-5"> 
         <header>
           <h2 class="flex items-center justify-center text-black/50">Today</h2>

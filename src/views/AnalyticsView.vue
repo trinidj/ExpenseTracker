@@ -109,7 +109,7 @@
   </header>
   
   <!-- Analytics Content -->
-  <ScrollPanel class="h-[900px]">
+  <ScrollPanel style="height: 900px">
     <div class="flex flex-col gap-5">
       <!-- Budget Progress -->
       <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
@@ -121,8 +121,9 @@
             <h2 class="font-medium">Budget Progress</h2>
           </header>
           
-          <ProgressBar :value="50" class="h-4 rounded-full bg-slate-200">
-          </ProgressBar>
+          <div class="p-5 pt-0">
+            <ProgressBar :value="75" class="h-4 rounded-full bg-slate-200" />
+          </div>
         </div>
       </div>
 

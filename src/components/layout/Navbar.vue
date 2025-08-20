@@ -1,6 +1,9 @@
 <script setup>
   import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
+
+  import { Button } from 'primevue';
+
 </script>
 
 <template>
@@ -20,9 +23,11 @@
         />
       </RouterLink>
 
-      <button class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8 bg-teal-400 p-4 rounded-full shadow-lg">
+      <Button 
+        class="absolute! left-1/2! transform! -translate-x-1/2! -translate-y-8! bg-teal-400! p-4! rounded-full! shadow-lg!"
+      >
         <Plus :size="24" class="text-white" />
-      </button>
+      </Button>
       
       <RouterLink to="/analytics" v-slot="{ isActive }">
         <ChartArea 
