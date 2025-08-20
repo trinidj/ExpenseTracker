@@ -114,13 +114,12 @@
       <!-- Budget Progress -->
       <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
         <div class="flex flex-col">
-          <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
+          <header class="flex flex-row items-center p-5 gap-2">
             <Wallet 
               :size="20"
             />
             <h2 class="font-medium">Budget Progress</h2>
-          </div>
+          </header>
           
           <ProgressBar :value="50" class="h-4 rounded-full bg-slate-200">
           </ProgressBar>
@@ -131,12 +130,12 @@
       <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
         <div class="flex flex-col">
           <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
+          <header class="flex flex-row items-center p-5 gap-2">
             <Calendar 
               :size="20"
             />
             <h2 class=" font-medium">This Weeks Expenses</h2>
-          </div>
+          </header>
 
           <!-- Chart -->
           <div class="p-5 pt-0">
@@ -153,12 +152,12 @@
       <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
         <div class="flex flex-col">
           <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
+          <header class="flex flex-row items-center p-5 gap-2">
             <Tags 
               :size="20"
             />
             <h2 class="font-medium">Top Categories</h2>
-          </div>
+          </header>
 
           <!-- Chart -->
           <div class="flex flex-col items-center justify-center p-10">
