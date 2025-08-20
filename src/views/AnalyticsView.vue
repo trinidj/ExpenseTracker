@@ -7,10 +7,16 @@
   onMounted(() => {
     lineData.value = setLineData();
     lineOptions.value = setLineOptions();
+
+    doughnutData.value = setDoughnutData();
+    doughnutOptions.value = setDoughnutOptions();
   });
 
   const lineData = ref();
   const lineOptions = ref();
+
+  const doughnutData = ref();
+  const doughnutOptions = ref(null);
 
   const setLineData = () => {
     return {
@@ -64,6 +70,35 @@
       }
     };
   }
+
+  const setDoughnutData = () => {
+    return {
+      labels: ['Food', 'Entertainment', 'Travel', 'Housing'],
+      datasets: [
+        {
+          data: [540, 325, 702, 309],
+          backgroundColor: ['#ffb86a', '#6ee7b7', '#93c5fd', '#d8b4fe'],
+        }
+      ]
+    };
+  };
+
+  const setDoughnutOptions = () => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+
+    return {
+      plugins: {
+        legend: {
+          labels: {
+            cutout: '60%',
+            color: textColor
+          },
+          position: 'bottom'
+        }
+      }
+    };
+  };
 </script>
 
 <template>
@@ -74,7 +109,7 @@
     
     <section class="flex flex-col overflow-y-auto flex-1">
       <!-- Current Week's Spending -->
-      <section class="static flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
+      <section class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
         <div class="flex flex-col">
           <!-- Header -->
           <div class="flex flex-row items-center p-5 gap-2">
@@ -96,7 +131,7 @@
       </section>
 
       <!-- Top Categories -->
-      <section class="static h-95 flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5 mt-5">
+      <section class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5 mt-5">
         <div class="flex flex-col">
           <!-- Header -->
           <div class="flex flex-row items-center p-5 gap-2">
@@ -108,7 +143,11 @@
 
           <!-- Chart -->
           <div>
-
+            <Chart 
+              type="doughnut"
+              :data="doughnutData"
+              :options="doughnutOptions"
+            />
           </div>
         </div>
       </section>
