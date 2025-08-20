@@ -54,7 +54,7 @@
       <header class="flex flex-row items-center justify-between m-10 mb-5">
         <h2 class="text-lg">Recent Transactions</h2>
         <RouterLink to="/transactions">
-          <p class="text-sm">View All</p>
+          <p class="text-[#000000]/50 font-balance text-sm hover:underline">View All</p>
         </RouterLink>
       </header>
 
