@@ -24,12 +24,12 @@
         <Plus :size="24" class="text-white" />
       </button>
       
-      <button>
+      <RouterLink to="/analytics" v-slot="{ isActive }">
         <ChartArea 
           :size="25"
-          class="text-[#888888]"
+          :class="isActive ? 'text-emerald-500' : 'text-[#888888]'"
         />
-      </button>
+      </RouterLink>
 
       <button>
         <Banknote

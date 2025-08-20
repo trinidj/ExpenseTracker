@@ -12,8 +12,8 @@
     </header>
     
     <!-- Balance Card -->
-    <section class="static flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl gap-5">
-      <div class="flex flex-col p-6 gap-1">
+    <section class="static w-[422px] h-[216px] flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl gap-5 justify-between">
+      <div class="flex flex-col p-5 gap-1">
         <div class="flex flex-row items-center gap-1">
           <DollarSign 
             :size="16"
@@ -24,8 +24,8 @@
         <p class="font-bold text-3xl">$3,000.00</p>
       </div>
 
-      <div class="flex flex-row items-center justify-between">
-        <div class="flex flex-col p-6 pt-0 gap-1">
+      <div class="flex flex-row items-center justify-between p-5 pt-0">
+        <div class="flex flex-col gap-1">
           <div class="flex flex-row items-center gap-1">
             <ArrowDown 
               :size="16"
@@ -36,7 +36,7 @@
           <p class="font-semibold text-2xl">$500.00</p>
         </div>
 
-        <div class="flex flex-col p-6 pt-0 gap-1">
+        <div class="flex flex-col gap-1">
           <div class="flex flex-row items-center gap-1">
             <ArrowUp 
               :size="16"
