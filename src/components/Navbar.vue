@@ -1,10 +1,6 @@
 <script setup>
-  import { ref } from 'vue';
-
   import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
-
-  const isActive = ref(false);
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup>
-  import { Search, DollarSign, ArrowDown, ArrowUp, Clapperboard, Plus, Home, ArrowLeftRight, ChartArea, Banknote } from 'lucide-vue-next';
+  import { DollarSign, ArrowDown, ArrowUp, Clapperboard } from 'lucide-vue-next';
 
   import { RouterLink } from 'vue-router';
 </script>
@@ -9,20 +9,16 @@
     <!-- Header -->
     <header class="flex flex-row justify-between items-center p-10">
       <h1 class="text-2xl font-semibold static">Home</h1>
-      <Search 
-        class="static"
-        :size="20"
-      />
     </header>
     
     <!-- Balance Card -->
-    <section class="static flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl">
+    <section class="static flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl gap-5">
       <div class="flex flex-col p-6 gap-1">
         <div class="flex flex-row items-center gap-1">
           <DollarSign 
             :size="16"
           />
-          <p class="text-sm">Total Balance</p>
+          <p>Total Balance</p>
         </div>
 
         <p class="font-bold text-3xl">$3,000.00</p>
@@ -34,21 +30,21 @@
             <ArrowDown 
               :size="16"
             />
-            <p class="text-sm">Income</p>
+            <p>Income</p>
           </div>
 
-          <p class="font-bold text-lg">$500.00</p>
+          <p class="font-semibold text-2xl">$500.00</p>
         </div>
 
-        <div class="flex flex-col p-6 pt-0 gap-1">
+        <div class="flex flex-col p-6 pt-0 gap-1 mr-8">
           <div class="flex flex-row items-center gap-1">
             <ArrowUp 
               :size="16"
             />
-            <p class="text-sm">Expenses</p>
+            <p>Expenses</p>
           </div>
 
-          <p class="font-bold text-lg">$500.00</p>
+          <p class="font-bold text-2xl">$500.00</p>
         </div>
       </div>
     </section>
@@ -57,7 +53,9 @@
     <section>
       <header class="flex flex-row items-center justify-between m-10 mb-5">
         <h2 class="text-lg">Recent Transactions</h2>
-        <p class="text-sm">View All</p>
+        <RouterLink to="/transactions">
+          <p class="text-sm">View All</p>
+        </RouterLink>
       </header>
 
       <ul class="flex flex-col mx-10 gap-8">
