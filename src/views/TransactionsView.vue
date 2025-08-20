@@ -6,11 +6,11 @@
 <template>
   <div class="h-screen flex flex-col overflow-hidden">
     <!-- Header -->
-    <header class="flex flex-row justify-between items-center p-10 flex-shrink-0">
+    <header class="flex flex-row justify-between items-center p-6 flex-shrink-0">
       <h1 class="text-2xl font-semibold static">Transactions</h1>
     </header>
     
-    <div class="mx-10 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
+    <div class="mx-6 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
       <SearchBar />
       <button class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out">
         <Filter />
@@ -23,7 +23,7 @@
         <header>
           <h2 class="flex items-center justify-center text-black/50">Today</h2>
         </header>
-        <ul class="flex flex-col mx-10 gap-8">
+        <ul class="flex flex-col mx-6 gap-8">
           <li class="flex flex-row items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="bg-emerald-300 p-2 rounded-md">
@@ -81,7 +81,7 @@
         <header>
           <h2 class="flex items-center justify-center text-black/50">Yesterday</h2>
         </header>
-        <ul class="flex flex-col mx-10 gap-8">
+        <ul class="flex flex-col mx-6 gap-8">
           <li class="flex flex-row items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="bg-emerald-300 p-2 rounded-md">
