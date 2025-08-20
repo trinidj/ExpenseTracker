@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <nav class="fixed bottom-0 h-auto left-0 right-0 bg-white border-t-2 border-t-teal-400 rounded-tr-3xl rounded-tl-3xl px-10 py-4 ">
+  <nav class="fixed bottom-0 h-auto left-0 right-0 bg-white border-t-2 border-t-teal-400 rounded-tr-3xl rounded-tl-3xl px-10 py-4 z-10">
     <div class="flex flex-row items-center justify-between relative">
       <RouterLink to="/" v-slot="{ isActive }">
         <Home 

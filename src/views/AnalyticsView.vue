@@ -109,69 +109,67 @@
   </header>
   
   <!-- Analytics Content -->
-  <div class="flex-grow overflow-hidden">
-    <ScrollPanel class="h-full!">
-    <div class="flex flex-col gap-8">
-      <!-- Budget Progress -->
-      <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
-            <Wallet 
-              :size="20"
-            />
-            <h2 class="font-medium">Budget Progress</h2>
-          </div>
-          
-          <ProgressBar :value="50" class="h-4 rounded-full bg-slate-200">
-          </ProgressBar>
+  <ScrollPanel class="h-full! flex-grow! overflow-hidden!">
+  <div class="flex flex-col gap-8">
+    <!-- Budget Progress -->
+    <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
+      <div class="flex flex-col">
+        <!-- Header -->
+        <div class="flex flex-row items-center p-5 gap-2">
+          <Wallet 
+            :size="20"
+          />
+          <h2 class="font-medium">Budget Progress</h2>
         </div>
+        
+        <ProgressBar :value="50" class="h-4 rounded-full bg-slate-200">
+        </ProgressBar>
       </div>
+    </div>
 
-      <!-- Current Week's Spending -->
-      <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
-            <Calendar 
-              :size="20"
-            />
-            <h2 class=" font-medium">This Weeks Expenses</h2>
-          </div>
-
-          <!-- Chart -->
-          <div class="p-5 pt-0">
-            <Chart 
-              type="line"
-              :data="lineData"
-              :options="lineOptions"
-            />
-          </div>
+    <!-- Current Week's Spending -->
+    <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
+      <div class="flex flex-col">
+        <!-- Header -->
+        <div class="flex flex-row items-center p-5 gap-2">
+          <Calendar 
+            :size="20"
+          />
+          <h2 class=" font-medium">This Weeks Expenses</h2>
         </div>
-      </div>
 
-      <!-- Top Categories -->
-      <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
-            <Tags 
-              :size="20"
-            />
-            <h2 class="font-medium">Top Categories</h2>
-          </div>
-
-          <!-- Chart -->
-          <div class="flex flex-col items-center justify-center p-10">
-            <Chart 
-              type="doughnut"
-              :data="doughnutData"
-              :options="doughnutOptions"
-            />
-          </div>
+        <!-- Chart -->
+        <div class="p-5 pt-0">
+          <Chart 
+            type="line"
+            :data="lineData"
+            :options="lineOptions"
+          />
         </div>
       </div>
     </div>
-    </ScrollPanel>
+
+    <!-- Top Categories -->
+    <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
+      <div class="flex flex-col">
+        <!-- Header -->
+        <div class="flex flex-row items-center p-5 gap-2">
+          <Tags 
+            :size="20"
+          />
+          <h2 class="font-medium">Top Categories</h2>
+        </div>
+
+        <!-- Chart -->
+        <div class="flex flex-col items-center justify-center p-10">
+          <Chart 
+            type="doughnut"
+            :data="doughnutData"
+            :options="doughnutOptions"
+          />
+        </div>
+      </div>
+    </div>
   </div>
+  </ScrollPanel>
 </template>
