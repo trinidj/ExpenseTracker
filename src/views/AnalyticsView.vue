@@ -3,6 +3,7 @@
 
   import { Calendar, Tags } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
+  import { ProgressBar } from 'primevue';
 
   onMounted(() => {
     lineData.value = setLineData();
@@ -103,56 +104,54 @@
 </script>
 
 <template>
-  <div class="h-screen rounded-bl-3xl rounded-br-3xl">
-    <header class="flex flex-row justify-between items-center p-6">
-      <h1 class="text-2xl font-semibold static">Analytics</h1>
-    </header>
-    
-    <section class="flex flex-col overflow-y-clip">
-      <!-- Current Week's Spending -->
-      <div class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
-            <Calendar 
-              :size="20"
-            />
-            <h2 class="font-bold">This Weeks Expenses</h2>
-          </div>
+  <header class="flex flex-row justify-between items-center p-6">
+    <h1 class="text-2xl font-semibold static">Analytics</h1>
+  </header>
+  
+  <!-- Analytics Content -->
+  <section class="flex flex-col gap-8 overflow-y-auto">
+    <!-- Current Week's Spending -->
+    <div class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
+      <div class="flex flex-col">
+        <!-- Header -->
+        <div class="flex flex-row items-center p-5 gap-2">
+          <Calendar 
+            :size="20"
+          />
+          <h2 class="font-bold">This Weeks Expenses</h2>
+        </div>
 
-          <!-- Chart -->
-          <div class="p-5 pt-0">
-            <Chart 
-              type="line"
-              :data="lineData"
-              :options="lineOptions"
-            />
-          </div>
+        <!-- Chart -->
+        <div class="p-5 pt-0">
+          <Chart 
+            type="line"
+            :data="lineData"
+            :options="lineOptions"
+          />
         </div>
       </div>
+    </div>
 
-      <!-- Top Categories -->
-      <section class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5 mt-5">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <div class="flex flex-row items-center p-5 gap-2">
-            <Tags 
-              :size="20"
-            />
-            <h2 class="font-bold">Top Categories</h2>
-          </div>
-
-          <!-- Chart -->
-          <div class="flex flex-col items-center justify-center p-10">
-            <Chart 
-              type="doughnut"
-              :data="doughnutData"
-              :options="doughnutOptions"
-            />
-          </div>
+    <!-- Top Categories -->
+    <div class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xls gap-5">
+      <div class="flex flex-col">
+        <!-- Header -->
+        <div class="flex flex-row items-center p-5 gap-2">
+          <Tags 
+            :size="20"
+          />
+          <h2 class="font-bold">Top Categories</h2>
         </div>
-      </section>
-    </section>
-    <!-- Header -->
-  </div>
+
+        <!-- Chart -->
+        <div class="flex flex-col items-center justify-center p-10">
+          <Chart 
+            type="doughnut"
+            :data="doughnutData"
+            :options="doughnutOptions"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
