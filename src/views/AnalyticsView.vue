@@ -68,12 +68,12 @@
 
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <section class="overflow-y-auto">
-      <header class="flex flex-row justify-between items-center p-6">
-      <h1 class="text-2xl font-semibold static">Analytics</h1>
-      </header>
+    <header class="flex flex-row justify-between items-center p-6">
+    <h1 class="text-2xl font-semibold static">Analytics</h1>
+    </header>
     
     <!-- Current Week's Spending -->
+    <section class="overflow-y-auto">
       <section class="static flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
         <div class="flex flex-col">
           <!-- Header -->
