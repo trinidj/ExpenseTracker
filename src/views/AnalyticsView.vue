@@ -28,7 +28,7 @@
     </section>
 
     <!-- Top Categories -->
-    <section class="static w-[422px] h-95 flex flex-col bg-white rounded-xl mx-10 shadow-black/15 shadow-2xl gap-5 mt-5">
+    <section class="static h-95 flex flex-col bg-white rounded-xl mx-10 shadow-black/15 shadow-2xl gap-5 mt-5">
       <div class="flex flex-col">
         <!-- Header -->
         <div class="flex flex-row items-center p-5 gap-2">
