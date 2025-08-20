@@ -105,10 +105,10 @@
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
     <header class="flex flex-row justify-between items-center p-6">
-    <h1 class="text-2xl font-semibold static">Analytics</h1>
+      <h1 class="text-2xl font-semibold static">Analytics</h1>
     </header>
     
-    <section class="flex flex-col">
+    <section class="flex flex-col overflow-y-auto">
       <!-- Current Week's Spending -->
       <div class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
         <div class="flex flex-col">
