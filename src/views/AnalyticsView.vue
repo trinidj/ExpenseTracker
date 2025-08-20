@@ -10,7 +10,7 @@
     </header>
     
     <!-- Current Week's Spending -->
-    <section class="static w-[422px] h-65 flex flex-col bg-white rounded-xl mx-10 shadow-black/15 shadow-2xl gap-5">
+    <section class="static h-65 flex flex-col bg-white rounded-xl mx-10 shadow-black/15 shadow-2xl gap-5">
       <div class="flex flex-col">
         <!-- Header -->
         <div class="flex flex-row items-center p-5 gap-2">
