@@ -7,12 +7,12 @@
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
     <!-- Header -->
-    <header class="flex flex-row justify-between items-center p-10">
+    <header class="flex flex-row justify-between items-center p-6">
       <h1 class="text-2xl font-semibold static">Home</h1>
     </header>
     
     <!-- Balance Card -->
-    <section class="static flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl gap-5 justify-between">
+    <section class="static flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-6 shadow-black/20 shadow-2xl gap-5 justify-between">
       <div class="flex flex-col p-5 gap-1">
         <div class="flex flex-row items-center gap-1">
           <DollarSign 
@@ -51,14 +51,14 @@
 
     <!-- Recent Transactions -->
     <section>
-      <header class="flex flex-row items-center justify-between m-10 mb-5">
+      <header class="flex flex-row items-center justify-between m-6 mb-5">
         <h2 class="text-lg">Recent Transactions</h2>
         <RouterLink to="/transactions">
           <p class="text-[#000000]/50 font-balance text-sm hover:underline">View All</p>
         </RouterLink>
       </header>
 
-      <ul class="flex flex-col mx-10 gap-8">
+      <ul class="flex flex-col mx-6 gap-8">
         <li class="flex flex-row items-center justify-between">
           <div class="flex items-center gap-2">
             <div class="bg-emerald-300 p-2 rounded-md">
