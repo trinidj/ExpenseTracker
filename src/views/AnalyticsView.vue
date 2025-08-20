@@ -109,7 +109,8 @@
   </header>
   
   <!-- Analytics Content -->
-  <ScrollPanel style="height: 700px;">
+  <div class="flex-grow overflow-hidden">
+    <ScrollPanel class="h-full!">
     <div class="flex flex-col gap-8">
       <!-- Budget Progress -->
       <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
@@ -171,5 +172,6 @@
         </div>
       </div>
     </div>
-  </ScrollPanel>
+    </ScrollPanel>
+  </div>
 </template>
