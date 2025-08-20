@@ -122,7 +122,10 @@
           </header>
           
           <div class="p-5 pt-0">
-            <ProgressBar :value="75" class="h-4 rounded-full bg-slate-200" />
+            <ProgressBar 
+              :value="75" 
+              class="h-4 rounded-full bg-slate-200" 
+            />
           </div>
         </div>
       </div>
