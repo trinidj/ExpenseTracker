@@ -103,7 +103,7 @@
 </script>
 
 <template>
-  <div class="h-screen rounded-bl-3xl rounded-br-3xl overflow-hidden">
+  <div class="h-screen rounded-bl-3xl rounded-br-3xl">
     <header class="flex flex-row justify-between items-center p-6">
       <h1 class="text-2xl font-semibold static">Analytics</h1>
     </header>
