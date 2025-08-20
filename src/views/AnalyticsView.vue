@@ -1,7 +1,7 @@
 <script setup>
   import { ref, onMounted } from 'vue';
 
-  import { Calendar } from 'lucide-vue-next';
+  import { Calendar, Tags } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
 
   onMounted(() => {
@@ -28,7 +28,6 @@
           fill: true,
           borderColor: '#6EE7B7',
           backgroundColor: 'rgba(110, 231, 183, 0.2)',
-          tension: 0.4
         },
       ],
     }
@@ -88,17 +87,17 @@
     const textColor = documentStyle.getPropertyValue('--p-text-color');
 
     return {
+      cutout: '60%',
       plugins: {
         legend: {
           labels: {
-            cutout: '60%',
             color: textColor,
             usePointStyle: true,
+            padding: 20,
           },
           position: 'bottom',
-
         }
-      }
+      },
     };
   };
 </script>
@@ -109,9 +108,9 @@
     <h1 class="text-2xl font-semibold static">Analytics</h1>
     </header>
     
-    <section class="flex flex-col overflow-y-auto flex-1">
+    <section class="flex flex-col">
       <!-- Current Week's Spending -->
-      <section class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
+      <div class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
         <div class="flex flex-col">
           <!-- Header -->
           <div class="flex flex-row items-center p-5 gap-2">
@@ -130,21 +129,21 @@
             />
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- Top Categories -->
       <section class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5 mt-5">
         <div class="flex flex-col">
           <!-- Header -->
           <div class="flex flex-row items-center p-5 gap-2">
-            <Calendar 
+            <Tags 
               :size="20"
             />
             <h2 class="font-bold">Top Categories</h2>
           </div>
 
           <!-- Chart -->
-          <div>
+          <div class="flex flex-col items-center justify-center p-10">
             <Chart 
               type="doughnut"
               :data="doughnutData"
