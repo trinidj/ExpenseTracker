@@ -108,7 +108,7 @@
       <h1 class="text-2xl font-semibold static">Analytics</h1>
     </header>
     
-    <section class="flex flex-col overflow-y-auto">
+    <section class="flex flex-col overflow-y-auto flex-1">
       <!-- Current Week's Spending -->
       <div class="flex flex-col bg-white rounded-xl mx-6 shadow-black/15 shadow-2xl gap-5">
         <div class="flex flex-col">
