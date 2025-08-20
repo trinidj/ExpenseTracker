@@ -36,7 +36,7 @@
           <p class="font-semibold text-2xl">$500.00</p>
         </div>
 
-        <div class="flex flex-col p-6 pt-0 gap-1 mr-8">
+        <div class="flex flex-col p-6 pt-0 gap-1">
           <div class="flex flex-row items-center gap-1">
             <ArrowUp 
               :size="16"
