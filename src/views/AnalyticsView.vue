@@ -92,9 +92,11 @@
         legend: {
           labels: {
             cutout: '60%',
-            color: textColor
+            color: textColor,
+            usePointStyle: true,
           },
-          position: 'bottom'
+          position: 'bottom',
+
         }
       }
     };
