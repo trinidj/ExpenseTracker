@@ -12,7 +12,7 @@
     </header>
     
     <!-- Balance Card -->
-    <section class="static w-[422px] h-[216px] flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl gap-5 justify-between">
+    <section class="static flex flex-col bg-gradient-to-b from-teal-300 to-emerald-300 rounded-xl mx-10 shadow-black/20 shadow-2xl gap-5 justify-between">
       <div class="flex flex-col p-5 gap-1">
         <div class="flex flex-row items-center gap-1">
           <DollarSign 
