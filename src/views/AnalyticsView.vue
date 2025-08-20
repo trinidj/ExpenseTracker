@@ -1,5 +1,69 @@
 <script setup>
+  import { ref, onMounted } from 'vue';
+
   import { Calendar } from 'lucide-vue-next';
+  import Chart from 'primevue/chart';
+
+  onMounted(() => {
+    lineData.value = setLineData();
+    lineOptions.value = setLineOptions();
+  });
+
+  const lineData = ref();
+  const lineOptions = ref();
+
+  const setLineData = () => {
+    return {
+      labels: ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'],
+      datasets: [
+        {
+          label: 'This Week',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          fill: true,
+          borderColor: '#6EE7B7',
+          backgroundColor: 'rgba(110, 231, 183, 0.2)',
+          tension: 0.4
+        },
+      ],
+    }
+  };
+
+  const setLineOptions = () => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--p-text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+    return {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder
+          }
+        },
+        y: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder
+          }
+        }
+      }
+    };
+  }
 </script>
 
 <template>
@@ -10,7 +74,7 @@
     </header>
     
     <!-- Current Week's Spending -->
-    <section class="static h-65 flex flex-col bg-white rounded-xl mx-10 shadow-black/15 shadow-2xl gap-5">
+    <section class="static flex flex-col bg-white rounded-xl mx-10 shadow-black/15 shadow-2xl gap-5">
       <div class="flex flex-col">
         <!-- Header -->
         <div class="flex flex-row items-center p-5 gap-2">
@@ -21,8 +85,12 @@
         </div>
 
         <!-- Chart -->
-        <div>
-
+        <div class="p-5 pt-0">
+          <Chart 
+            type="line"
+            :data="lineData"
+            :options="lineOptions"
+          />
         </div>
       </div>
     </section>
