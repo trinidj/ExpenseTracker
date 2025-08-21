@@ -92,6 +92,7 @@
               v-model="dateTime12h" 
               name="date" 
               size="small"
+              placeholder="Select a Date"
             />
           </InputGroup>
         </div>
