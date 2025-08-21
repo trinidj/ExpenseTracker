@@ -135,6 +135,7 @@
         </div>
 
         <div class="flex mx-6 gap-5">
+          <!-- This Month's Spending -->
           <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
             <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
               <Wallet 
@@ -148,6 +149,7 @@
             </div>
           </div>
 
+          <!-- Trend Compared to Last Month -->
           <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
             <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
               <TrendingDown 

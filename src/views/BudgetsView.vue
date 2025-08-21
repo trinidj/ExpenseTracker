@@ -40,6 +40,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Category Budgets -->
       </div>
     </ScrollPanel>
   </div>
