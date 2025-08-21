@@ -110,7 +110,7 @@
     </header>
   
     <!-- Analytics Content -->
-    <ScrollPanel style="height: 1050px">
+    <ScrollPanel style="height: 900px">
       <div class="flex flex-col gap-5">
         <!-- Current Week's Spending -->
         <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
@@ -179,25 +179,6 @@
                 type="doughnut"
                 :data="doughnutData"
                 :options="doughnutOptions"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Budget Progress -->
-        <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
-          <div class="flex flex-col">
-            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-              <Wallet 
-                :size="16"
-              />
-              <h2 class="font-medium">Budget Progress</h2>
-            </header>
-            
-            <div class="p-5 pt-0">
-              <ProgressBar 
-                :value="75" 
-                class="h-4 rounded-full bg-slate-200" 
               />
             </div>
           </div>
