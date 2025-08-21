@@ -1,10 +1,10 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, } from 'lucide-vue-next';
+  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, InputText, Select, Textarea, SelectButton } from 'primevue';
+  import { Button, Dialog, InputText, Select, Textarea, SelectButton, InputGroup, InputGroupAddon } from 'primevue';
   import { Form } from '@primevue/forms';
 
   const position = ref('center');
@@ -28,7 +28,7 @@
     :draggable="false"
   >
     <Form>
-      <div class="grid grid-cols-2 gap-5">
+      <div class="grid grid-cols-2 gap-8">
         <div class="flex items-center gap-4 col-span-full">
           <SelectButton 
             fluid
@@ -38,17 +38,33 @@
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="amount">Amount</label>
-          <InputText v-keyfilter.money placeholder="0.00" fluid />
+          <InputGroup>
+            <InputGroupAddon class="flex! items-center! justify-center!">
+              <DollarSign 
+                :size="20"
+              />
+            </InputGroupAddon>
+            
+            <InputText v-keyfilter.money placeholder="Price" fluid />
+            
+            <InputGroupAddon class="flex! items-center! justify-center!">
+             .00
+            </InputGroupAddon>
+          </InputGroup>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="category">Category</label>
-          <Select placeholder="Select a Catgeory" fluid/>
+          <InputGroup>
+            <InputGroupAddon>
+              <Tags 
+                :size="20"
+              />
+            </InputGroupAddon>
+            <Select placeholder="Select a Catgeory" fluid/>
+          </InputGroup>
         </div>
 
         <div class="flex flex-col gap-2 col-span-full">
-          <label for="description">Description</label>
           <Textarea 
             fluid
             rows="5"
