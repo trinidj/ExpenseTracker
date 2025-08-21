@@ -15,8 +15,16 @@
       visible.value = true;
   };
 
-  const selectValue = ref('Income');
-  const selectOptions = ref(['Income', 'Expense']);
+  const selectButtonValue = ref('Income');
+  const selectButtonOptions = ref(['Income', 'Expense']);
+
+  const selectedCategory = ref();
+  const categories = ref([
+    { name: 'Food' },
+    { name: 'Entertainment' },
+    { name: 'Travel' },
+    { name: 'Housing' }
+  ]);
 </script>
 
 <template>
@@ -32,8 +40,8 @@
         <div class="flex items-center gap-4 col-span-full">
           <SelectButton 
             fluid
-            v-model="selectValue"
-            :options="selectOptions"
+            v-model="selectButtonValue"
+            :options="selectButtonOptions"
           />
         </div>
 
@@ -45,11 +53,7 @@
               />
             </InputGroupAddon>
             
-            <InputText v-keyfilter.money placeholder="Price" fluid />
-            
-            <InputGroupAddon class="flex! items-center! justify-center!">
-             .00
-            </InputGroupAddon>
+            <InputText v-keyfilter.money placeholder="Price" size="small" fluid />
           </InputGroup>
         </div>
 
@@ -60,7 +64,15 @@
                 :size="20"
               />
             </InputGroupAddon>
-            <Select placeholder="Select a Catgeory" fluid/>
+            <Select 
+              placeholder="Select a Catgeory" 
+              fluid
+              v-model="selectedCategory"
+              :options="categories"
+              option-label="name"
+              size="small"
+              class="flex! items-center!"
+            />
           </InputGroup>
         </div>
 
