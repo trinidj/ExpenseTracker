@@ -97,14 +97,14 @@
       <RouterLink to="/" v-slot="{ isActive }">
         <Home 
           :size="25"
-          :class="isActive ? 'text-emerald-500' : 'text-[#888888]'"
+          :class="isActive ? 'text-emerald-300' : 'text-[#888888]'"
         />
       </RouterLink>
 
       <RouterLink to="/transactions" v-slot="{ isActive }">
         <ArrowLeftRight 
           :size="25"
-          :class="isActive ? 'text-emerald-500' : 'text-[#888888]'"
+          :class="isActive ? 'text-emerald-300' : 'text-[#888888]'"
         />
       </RouterLink>
 
@@ -118,14 +118,14 @@
       <RouterLink to="/analytics" v-slot="{ isActive }">
         <ChartArea 
           :size="25"
-          :class="isActive ? 'text-emerald-500' : 'text-[#888888]'"
+          :class="isActive ? 'text-emerald-300' : 'text-[#888888]'"
         />
       </RouterLink>
 
       <RouterLink to="/budgets" v-slot="{ isActive }">
         <Banknote
           :size="25"
-          :class="isActive ? 'text-emerald-400' : 'text-[#888888]'"
+          :class="isActive ? 'text-emerald-300' : 'text-[#888888]'"
         />
       </RouterLink>
     </div>
