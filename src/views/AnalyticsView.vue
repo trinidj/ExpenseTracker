@@ -3,7 +3,7 @@
 
   import { Calendar, Tags, Wallet, TrendingDown } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
-  import { ProgressBar, ScrollPanel } from 'primevue';
+  import { ScrollPanel } from 'primevue';
 
   onMounted(() => {
     lineData.value = setLineData();
