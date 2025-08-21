@@ -4,12 +4,8 @@
   import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, Fluid, InputText, Select, Textarea, ToggleSwitch, Message } from 'primevue';
+  import { Button, Dialog, InputText, Select, Textarea, ToggleSwitch } from 'primevue';
   import { Form } from '@primevue/forms';
-
-  import { zodResolver } from '@primevue/forms/resolvers/zod';
-  import { useToast } from 'primevue/usetoast';
-  import { z } from 'zod';
 
   const position = ref('center');
   const visible = ref(false);
@@ -18,31 +14,12 @@
       position.value = pos;
       visible.value = true;
   };
-
-  const toast = useToast();
-  const initialValues = ref({
-    amount: '',
-    category: '',
-  });
-
-  const resolver = ref(zodResolver(
-    z.object({
-      amount: z.string().min(1, { message: 'Amount is required.' }),
-      category: z.string().min(1, { message: 'Category is required.' })
-    })
-  ));
-
-  const onFormSubmit = ({ valid }) => {
-    if (valid) {
-      toast.add({ severity: 'success', summary: 'Form is Submitted.', life: 3000 });
-    }
-  };
 </script>
 
 <template>
   <Dialog v-model:visible="visible" modal :position="position" header="Add Transaction">
     <Form>
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-2 gap-5">
         <div class="flex items-center gap-4 col-span-full">
           <p>Income</p>
           <ToggleSwitch />
