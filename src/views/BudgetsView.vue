@@ -1,6 +1,4 @@
 <script setup>
-  import { ref } from 'vue';
-
   import { ScrollPanel, ProgressBar } from 'primevue';
 
   import { PiggyBank } from 'lucide-vue-next';
