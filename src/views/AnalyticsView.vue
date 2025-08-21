@@ -110,100 +110,99 @@
     </header>
   
     <!-- Analytics Content -->
-    <ScrollPanel style="height: 1100px">
+    <ScrollPanel style="height: 1050px">
       <div class="flex flex-col gap-5">
-      <!-- Current Week's Spending -->
-      <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-            <Calendar 
-              :size="16"
-            />
-            <h2 class="font-medium text-sm">This Weeks Expenses</h2>
-          </header>
+        <!-- Current Week's Spending -->
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
+          <div class="flex flex-col">
+            <!-- Header -->
+            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+              <Calendar 
+                :size="16"
+              />
+              <h2 class="font-medium text-sm">This Weeks Expenses</h2>
+            </header>
 
-          <!-- Chart -->
-          <div class="p-5 pt-0">
-            <Chart 
-              type="line"
-              :data="lineData"
-              :options="lineOptions"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="flex mx-6 gap-5">
-        <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
-          <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-            <Wallet 
-              :size="16"
-            />
-            <h2 class="font-medium text-sm">Spent</h2>
-          </header>
-
-          <div class="p-6 text-zinc-800">
-            <p class="font-medium text-xl">$1,200</p>
+            <!-- Chart -->
+            <div class="p-5 pt-0">
+              <Chart 
+                type="line"
+                :data="lineData"
+                :options="lineOptions"
+              />
+            </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
-          <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-            <TrendingDown 
-              :size="16"
-            />
-            <h2 class="font-medium text-sm">Trend</h2>
-          </header>
+        <div class="flex mx-6 gap-5">
+          <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
+            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+              <Wallet 
+                :size="16"
+              />
+              <h2 class="font-medium text-sm">Spent</h2>
+            </header>
 
-          <div class="p-6 text-zinc-800">
-            <p class="font-medium text-xl">-8%</p>
+            <div class="p-6 pt-0 text-zinc-800">
+              <p class="font-medium text-xl">$1,200</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
+            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+              <TrendingDown 
+                :size="16"
+              />
+              <h2 class="font-medium text-sm">Trend</h2>
+            </header>
+
+            <div class="p-6 pt-0 text-zinc-800">
+              <p class="font-medium text-xl">-8%</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Top Categories -->
-      <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-            <Tags 
-              :size="16"
-            />
-            <h2 class="font-medium text-sm">Top Categories</h2>
-          </header>
+        <!-- Top Categories -->
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
+          <div class="flex flex-col">
+            <!-- Header -->
+            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+              <Tags 
+                :size="16"
+              />
+              <h2 class="font-medium text-sm">Top Categories</h2>
+            </header>
 
-          <!-- Chart -->
-          <div class="flex flex-col items-center justify-center p-10">
-            <Chart 
-              type="doughnut"
-              :data="doughnutData"
-              :options="doughnutOptions"
-            />
+            <!-- Chart -->
+            <div class="flex flex-col items-center justify-center p-10">
+              <Chart 
+                type="doughnut"
+                :data="doughnutData"
+                :options="doughnutOptions"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Budget Progress -->
-      <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
-        <div class="flex flex-col">
-          <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-            <Wallet 
-              :size="16"
-            />
-            <h2 class="font-medium">Budget Progress</h2>
-          </header>
-          
-          <div class="p-5 pt-0">
-            <ProgressBar 
-              :value="75" 
-              class="h-4 rounded-full bg-slate-200" 
-            />
+        <!-- Budget Progress -->
+        <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
+          <div class="flex flex-col">
+            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+              <Wallet 
+                :size="16"
+              />
+              <h2 class="font-medium">Budget Progress</h2>
+            </header>
+            
+            <div class="p-5 pt-0">
+              <ProgressBar 
+                :value="75" 
+                class="h-4 rounded-full bg-slate-200" 
+              />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </ScrollPanel>
-
   </div>
 </template>
