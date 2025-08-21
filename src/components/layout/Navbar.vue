@@ -4,8 +4,12 @@
   import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog } from 'primevue';
+  import { Button, Dialog, Fluid, InputText, Select, Textarea, ToggleSwitch, Message } from 'primevue';
   import { Form } from '@primevue/forms';
+
+  import { zodResolver } from '@primevue/forms/resolvers/zod';
+  import { useToast } from 'primevue/usetoast';
+  import { z } from 'zod';
 
   const position = ref('center');
   const visible = ref(false);
@@ -13,15 +17,61 @@
   const openPosition = (pos) => {
       position.value = pos;
       visible.value = true;
-  }
+  };
+
+  const toast = useToast();
+  const initialValues = ref({
+    amount: '',
+    category: '',
+  });
+
+  const resolver = ref(zodResolver(
+    z.object({
+      amount: z.string().min(1, { message: 'Amount is required.' }),
+      category: z.string().min(1, { message: 'Category is required.' })
+    })
+  ));
+
+  const onFormSubmit = ({ valid }) => {
+    if (valid) {
+      toast.add({ severity: 'success', summary: 'Form is Submitted.', life: 3000 });
+    }
+  };
 </script>
 
 <template>
   <Dialog v-model:visible="visible" modal :position="position" header="Add Transaction">
     <Form>
-      <div class="flex gap-2">
-        <Button label="Cancel" @click="visible = false"/>
-        <Button label="Add" @click="visible = false" />
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex items-center gap-4 col-span-full">
+          <p>Income</p>
+          <ToggleSwitch />
+          <p>Expense</p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="amount">Amount</label>
+          <InputText placeholder="0.00" fluid />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="category">Category</label>
+          <Select placeholder="Select a Catgeory" fluid/>
+        </div>
+
+        <div class="flex flex-col gap-2 col-span-full">
+          <label for="description">Description</label>
+          <Textarea 
+            fluid
+            rows="5"
+            class="resize-none"
+          />
+        </div>
+
+        <div class="flex col-span-full items-center justify-end gap-4">
+          <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
+          <Button type="submit" label="Add" />
+        </div>
       </div>
     </Form>
   </Dialog>
