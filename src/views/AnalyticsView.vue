@@ -104,75 +104,77 @@
 </script>
 
 <template>
-  <header class="flex flex-row justify-between items-center p-6">
-    <h1 class="text-2xl font-semibold static">Analytics</h1>
-  </header>
+  <div class="bg-[#FFE3C6] h-62">
+    <header class="flex flex-row justify-between items-center p-6">
+      <h1 class="text-2xl font-semibold static">Analytics</h1>
+    </header>
   
   <!-- Analytics Content -->
-  <ScrollPanel style="height: 900px">
-    <div class="flex flex-col gap-5">
-      <!-- Budget Progress -->
-      <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
-        <div class="flex flex-col">
-          <header class="flex flex-row items-center p-5 gap-2">
-            <Wallet 
-              :size="20"
-            />
-            <h2 class="font-medium">Budget Progress</h2>
-          </header>
-          
-          <div class="p-5 pt-0">
-            <ProgressBar 
-              :value="75" 
-              class="h-4 rounded-full bg-slate-200" 
-            />
+    <ScrollPanel style="height: 900px">
+      <div class="flex flex-col gap-5">
+        <!-- Budget Progress -->
+        <div class="flex flex-col bg-white rounded-xl mx-6 border border-emerald-300/50">
+          <div class="flex flex-col">
+            <header class="flex flex-row items-center p-5 gap-2">
+              <Wallet 
+                :size="20"
+              />
+              <h2 class="font-medium">Budget Progress</h2>
+            </header>
+            
+            <div class="p-5 pt-0">
+              <ProgressBar 
+                :value="75" 
+                class="h-4 rounded-full bg-slate-200" 
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Week's Spending -->
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
+          <div class="flex flex-col">
+            <!-- Header -->
+            <header class="flex flex-row items-center p-5 gap-2">
+              <Calendar 
+                :size="20"
+              />
+              <h2 class=" font-medium">This Weeks Expenses</h2>
+            </header>
+
+            <!-- Chart -->
+            <div class="p-5 pt-0">
+              <Chart 
+                type="line"
+                :data="lineData"
+                :options="lineOptions"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Categories -->
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
+          <div class="flex flex-col">
+            <!-- Header -->
+            <header class="flex flex-row items-center p-5 gap-2">
+              <Tags 
+                :size="20"
+              />
+              <h2 class="font-medium">Top Categories</h2>
+            </header>
+
+            <!-- Chart -->
+            <div class="flex flex-col items-center justify-center p-10">
+              <Chart 
+                type="doughnut"
+                :data="doughnutData"
+                :options="doughnutOptions"
+              />
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Current Week's Spending -->
-      <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <header class="flex flex-row items-center p-5 gap-2">
-            <Calendar 
-              :size="20"
-            />
-            <h2 class=" font-medium">This Weeks Expenses</h2>
-          </header>
-
-          <!-- Chart -->
-          <div class="p-5 pt-0">
-            <Chart 
-              type="line"
-              :data="lineData"
-              :options="lineOptions"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- Top Categories -->
-      <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50 ">
-        <div class="flex flex-col">
-          <!-- Header -->
-          <header class="flex flex-row items-center p-5 gap-2">
-            <Tags 
-              :size="20"
-            />
-            <h2 class="font-medium">Top Categories</h2>
-          </header>
-
-          <!-- Chart -->
-          <div class="flex flex-col items-center justify-center p-10">
-            <Chart 
-              type="doughnut"
-              :data="doughnutData"
-              :options="doughnutOptions"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </ScrollPanel>
+    </ScrollPanel>
+  </div>
 </template>
