@@ -1,8 +1,48 @@
 <script setup>
+  import { ref } from 'vue';
+
+  import { ScrollPanel, ProgressBar } from 'primevue';
+
+  import { PiggyBank } from 'lucide-vue-next';
+
+  const currentSpent = 800;
+  const totalBudget = 2500;
+
+  const budgetUsedPercentage = () => {
+    return (currentSpent / totalBudget) * 100;
+  }
 </script>
 
 <template>
-  <header class="flex flex-row justify-between items-center p-6">
-    <h1 class="text-2xl font-semibold static">Budgets</h1>
-  </header>
+  <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
+    <header class="flex flex-row justify-start items-center px-6 py-8">
+      <h1 class="text-zinc-800 text-2xl font-semibold">Budgets</h1>
+    </header>
+
+     <ScrollPanel>
+      <div class="flex flex-col gap-5">
+        <!-- Budget Progress -->
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
+          <header class="flex flex-row items-center gap-2 p-5">
+            <PiggyBank 
+              :size="16"
+            />
+            <h2 class="font-medium text-zinc-800">Budget Progress</h2>
+          </header>
+
+          <div class="flex flex-col gap-2 p-5 pt-0">
+            <h3 class="font-medium text-2xl">${{ totalBudget }}</h3>
+            <ProgressBar 
+              :value="budgetUsedPercentage()" 
+              :show-value="false" 
+            />
+            <div class="flex items-center justify-between">
+              <p class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">${{ currentSpent }}</span> spent so far</p>
+              <p class="text-black/50 text-sm">{{ budgetUsedPercentage() }}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScrollPanel>
+  </div>
 </template>
