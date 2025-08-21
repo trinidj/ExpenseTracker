@@ -83,12 +83,12 @@
         />
       </RouterLink>
 
-      <button>
+      <RouterLink to="/budgets" v-slot="{ isActive }">
         <Banknote
           :size="25"
-          class="text-[#888888]"
+          :class="isActive ? 'text-emerald-400' : 'text-[#888888]'"
         />
-      </button>
+      </RouterLink>
     </div>
   </nav>
 </template>
