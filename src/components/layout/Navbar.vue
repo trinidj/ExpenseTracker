@@ -1,10 +1,10 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags } from 'lucide-vue-next';
+  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Calendar } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, InputText, Select, Textarea, SelectButton, InputGroup, InputGroupAddon } from 'primevue';
+  import { Button, Dialog, InputText, Select, Textarea, SelectButton, InputGroup, InputGroupAddon, DatePicker } from 'primevue';
   import { Form } from '@primevue/forms';
 
   const position = ref('center');
@@ -25,6 +25,8 @@
     { name: 'Travel' },
     { name: 'Housing' }
   ]);
+
+  const dateTime12h = ref();
 </script>
 
 <template>
@@ -36,7 +38,7 @@
     :draggable="false"
   >
     <Form>
-      <div class="grid grid-cols-2 gap-8">
+      <div class="grid grid-cols-2 gap-6">
         <div class="flex items-center gap-4 col-span-full">
           <SelectButton 
             fluid
@@ -72,6 +74,23 @@
               option-label="name"
               size="small"
               class="flex! items-center!"
+            />
+          </InputGroup>
+        </div>
+
+        <div class="col-span-full">
+          <InputGroup>
+            <InputGroupAddon>
+              <Calendar 
+                :size="20"
+              />
+            </InputGroupAddon>
+            <DatePicker 
+              fluid 
+              show-time
+              hour-format="12"
+              v-model="dateTime12h" 
+              name="date"  
             />
           </InputGroup>
         </div>
