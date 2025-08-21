@@ -17,7 +17,13 @@
 </script>
 
 <template>
-  <Dialog v-model:visible="visible" modal :position="position" header="Add Transaction">
+  <Dialog 
+    modal
+    header="Add Transaction"
+    v-model:visible="visible"  
+    :position="position" 
+    :draggable="false"
+  >
     <Form>
       <div class="grid grid-cols-2 gap-5">
         <div class="flex items-center gap-4 col-span-full">
