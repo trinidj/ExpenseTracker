@@ -1,7 +1,7 @@
 <script setup>
   import { ref, onMounted } from 'vue';
 
-  import { Calendar, Scroll, Tags, Wallet } from 'lucide-vue-next';
+  import { Calendar, Tags, Wallet } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
   import { ProgressBar, ScrollPanel } from 'primevue';
 
