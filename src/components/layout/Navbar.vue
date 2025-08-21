@@ -90,7 +90,8 @@
               show-time
               hour-format="12"
               v-model="dateTime12h" 
-              name="date"  
+              name="date" 
+              size="small"
             />
           </InputGroup>
         </div>
