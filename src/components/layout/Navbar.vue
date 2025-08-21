@@ -4,7 +4,7 @@
   import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, InputText, Select, Textarea, ToggleSwitch } from 'primevue';
+  import { Button, Dialog, InputText, Select, Textarea, SelectButton } from 'primevue';
   import { Form } from '@primevue/forms';
 
   const position = ref('center');
@@ -14,6 +14,9 @@
       position.value = pos;
       visible.value = true;
   };
+
+  const selectValue = ref('Income');
+  const selectOptions = ref(['Income', 'Expense']);
 </script>
 
 <template>
@@ -27,14 +30,16 @@
     <Form>
       <div class="grid grid-cols-2 gap-5">
         <div class="flex items-center gap-4 col-span-full">
-          <p>Income</p>
-          <ToggleSwitch />
-          <p>Expense</p>
+          <SelectButton 
+            fluid
+            v-model="selectValue"
+            :options="selectOptions"
+          />
         </div>
 
         <div class="flex flex-col gap-2">
           <label for="amount">Amount</label>
-          <InputText placeholder="0.00" fluid />
+          <InputText v-keyfilter.money placeholder="0.00" fluid />
         </div>
 
         <div class="flex flex-col gap-2">
