@@ -1,20 +1,31 @@
 <script setup>
-  import { ScrollPanel, ProgressBar } from 'primevue';
+  import { ref } from 'vue';
 
-  import { PiggyBank } from 'lucide-vue-next';
+  import { ScrollPanel, ProgressBar, Button } from 'primevue';
+
+  import { PiggyBank, Wallet, Plus } from 'lucide-vue-next';
 
   const currentSpent = 200;
   const totalBudget = 800;
 
   const budgetUsedPercentage = () => {
     return (currentSpent / totalBudget) * 100;
-  }
+  };
+
+  const selectedCategory = ref();
+  const categories = ref([
+    { name: 'Food' },
+    { name: 'Entertainment' },
+    { name: 'Travel' },
+    { name: 'Housing' }
+  ]);
 </script>
 
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
     <header class="flex flex-row justify-start items-center px-6 py-8">
       <h1 class="text-zinc-800 text-2xl font-semibold">Budgets</h1>
+      <
     </header>
 
      <ScrollPanel>
@@ -42,6 +53,27 @@
         </div>
 
         <!-- Category Budgets -->
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
+          <header class="flex flex-row items-center justify-between p-5">
+            <div class="flex flex-row items-center gap-2">
+              <Wallet 
+              :size="16"
+              />
+              <h2 class="font-medium text-zinc-800">Category Budgets</h2>
+            </div>
+
+            <Button unstyled type="button" label="Add">
+              <div class="p-2 bg-emerald-400 rounded-md">
+                <Plus 
+                  :size="16"
+                  class="text-white"
+                />
+              </div>
+            </Button>
+          </header>
+
+          
+        </div>
       </div>
     </ScrollPanel>
   </div>
