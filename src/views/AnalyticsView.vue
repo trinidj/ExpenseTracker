@@ -1,7 +1,7 @@
 <script setup>
   import { ref, onMounted } from 'vue';
 
-  import { Calendar, Tags, Wallet, TrendingDown } from 'lucide-vue-next';
+  import { Tags, Wallet, TrendingDown } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
   import { ScrollPanel } from 'primevue';
 
@@ -36,27 +36,23 @@
 
   const setLineOptions = () => {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
     return {
       maintainAspectRatio: false,
       aspectRatio: 0.6,
       plugins: {
         legend: {
-          labels: {
-            color: textColor
-          }
+          display: false
         }
       },
       scales: {
         x: {
           ticks: {
-            color: textColorSecondary
+            color: textColorSecondary,
           },
           grid: {
-            color: surfaceBorder
+            display: false
           }
         },
         y: {
@@ -64,7 +60,7 @@
             color: textColorSecondary
           },
           grid: {
-            color: surfaceBorder
+            display: false
           }
         }
       }
@@ -104,61 +100,52 @@
 </script>
 
 <template>
-  <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <header class="flex flex-row justify-start items-center px-6 py-8">
+  <div class="h-110 rounded-bl-3xl rounded-br-3xl">
+    <header class="flex flex-row justify-start items-center px-6 py-8 bg-[#FFE3C6] rounded-bl-3xl rounded-br-3xl">
       <h1 class="text-zinc-800 text-2xl font-semibold">Analytics</h1>
     </header>
   
     <!-- Analytics Content -->
-    <ScrollPanel style="height: 900px">
+    <ScrollPanel style="height: 1050px">
       <div class="flex flex-col gap-5">
         <!-- Current Week's Spending -->
-        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
-          <div class="flex flex-col">
-            <!-- Header -->
-            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
-              <Calendar 
-                :size="16"
-              />
-              <h2 class="font-medium text-sm">This Weeks Expenses</h2>
-            </header>
-
-            <!-- Chart -->
-            <div class="p-5 pt-0">
-              <Chart 
-                type="line"
-                :data="lineData"
-                :options="lineOptions"
-              />
-            </div>
+        <div class="flex flex-col">
+          <!-- Chart -->
+          <div class="p-5">
+            <Chart 
+              type="line"
+              :data="lineData"
+              :options="lineOptions"
+              class="h-80!"
+            />
           </div>
         </div>
 
         <div class="flex mx-6 gap-5">
           <!-- This Month's Spending -->
           <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
-            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+            <header class="flex flex-row items-center p-4 gap-2 text-zinc-800">
               <Wallet 
                 :size="16"
               />
               <h2 class="font-medium text-sm">Spent</h2>
             </header>
 
-            <div class="p-6 pt-0 text-zinc-800">
+            <div class="p-4 pt-0 text-zinc-800">
               <p class="font-medium text-xl">$1,200</p>
             </div>
           </div>
 
           <!-- Trend Compared to Last Month -->
           <div class="bg-white rounded-xl gap-5 border border-emerald-300/50 flex-1">
-            <header class="flex flex-row items-center p-5 gap-2 text-zinc-800">
+            <header class="flex flex-row items-center p-4 gap-2 text-zinc-800">
               <TrendingDown 
                 :size="16"
               />
               <h2 class="font-medium text-sm">Trend</h2>
             </header>
 
-            <div class="p-6 pt-0 text-zinc-800">
+            <div class="p-4 pt-0 text-zinc-800">
               <p class="font-medium text-xl">-8%</p>
             </div>
           </div>
