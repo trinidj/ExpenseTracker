@@ -3,7 +3,7 @@
 
   import { Tags, Wallet, TrendingDown } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
-  import { ScrollPanel } from 'primevue';
+  import { ScrollPanel, SelectButton } from 'primevue';
 
   onMounted(() => {
     lineData.value = setLineData();
@@ -65,7 +65,7 @@
         }
       }
     };
-  }
+  };
 
   const setDoughnutData = () => {
     return {
@@ -97,26 +97,34 @@
       },
     };
   };
+
+  const selectButtonValue = ref('Week');
+  const selectButtonOptions = ref(['Day', 'Week', 'Month', 'Year']);
 </script>
 
 <template>
-  <div class="h-110 rounded-bl-3xl rounded-br-3xl">
-    <header class="flex flex-row justify-start items-center px-6 py-8 bg-[#FFE3C6] rounded-bl-3xl rounded-br-3xl">
+  <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
+    <header class="flex flex-row justify-start items-center px-6 py-8">
       <h1 class="text-zinc-800 text-2xl font-semibold">Analytics</h1>
     </header>
   
     <!-- Analytics Content -->
-    <ScrollPanel style="height: 1050px">
+    <ScrollPanel style="height: 1100px">
       <div class="flex flex-col gap-5">
         <!-- Current Week's Spending -->
         <div class="flex flex-col">
           <!-- Chart -->
-          <div class="p-5">
+          <div class="flex flex-col gap-5 mx-6 bg-white border border-emerald-300/50 p-5 rounded-xl">
             <Chart 
               type="line"
               :data="lineData"
               :options="lineOptions"
               class="h-80!"
+            />
+            <SelectButton 
+              fluid
+              v-model="selectButtonValue"
+              :options="selectButtonOptions"
             />
           </div>
         </div>
