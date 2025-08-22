@@ -3,8 +3,8 @@
 
   import { PiggyBank } from 'lucide-vue-next';
 
-  const currentSpent = 800;
-  const totalBudget = 2500;
+  const currentSpent = 200;
+  const totalBudget = 800;
 
   const budgetUsedPercentage = () => {
     return (currentSpent / totalBudget) * 100;
@@ -29,7 +29,7 @@
           </header>
 
           <div class="flex flex-col gap-2 p-5 pt-0">
-            <h3 class="font-medium text-2xl">${{ totalBudget }}</h3>
+            <h3 class="flex font-medium text-2xl">${{ totalBudget }}</h3>
             <ProgressBar 
               :value="budgetUsedPercentage()" 
               :show-value="false" 
