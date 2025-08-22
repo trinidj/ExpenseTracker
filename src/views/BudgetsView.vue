@@ -25,8 +25,8 @@
   const visible = ref(false);
 
   const openPosition = (pos) => {
-      position.value = pos;
-      visible.value = true;
+    position.value = pos;
+    visible.value = true;
   };
 </script>
 
