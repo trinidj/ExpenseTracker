@@ -1,10 +1,10 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { ScrollPanel, ProgressBar, Button, Dialog, Select } from 'primevue';
+  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon } from 'primevue';
   import { Form } from '@primevue/forms';
 
-  import { PiggyBank, Wallet, Plus } from 'lucide-vue-next';
+  import { PiggyBank, Wallet, Plus, Tags, DollarSign } from 'lucide-vue-next';
 
   const currentSpent = 200;
   const totalBudget = 800;
@@ -44,28 +44,47 @@
       :draggable="false"
     >
       <Form>
-        <div class="flex items-center gap-4 col-span-full">
-          <SelectButton 
-            fluid
-            v-model="selectButtonValue"
-            :options="selectButtonOptions"
-          />
-        </div>
-
-        <div class="flex flex-col gap-2">
+        <div class="grid grid-cols-2 gap-6">
           <InputGroup>
-            <InputGroupAddon class="flex! items-center! justify-center!">
-              <DollarSign 
-                :size="20"
+            <InputGroupAddon>
+              <Tags 
+                :size="16"
               />
             </InputGroupAddon>
             
-            <InputText v-keyfilter.money placeholder="Price" size="small" fluid />
+            <Select 
+              fluid
+              placeholder="Select a Category"
+              v-model="selectedCategory"
+              :options="categories"
+              option-label="name"
+              size="small"
+              class="flex! items-center!"
+            />
           </InputGroup>
+
+          <InputGroup>
+            <InputGroupAddon>
+              <DollarSign
+                :size="16"
+              />
+            </InputGroupAddon>
+
+            <InputText 
+              v-keyfilter.money
+              fluid
+              placeholder="Budget"
+              size="small"
+            />
+          </InputGroup>
+
+          <div class="flex col-span-full items-center justify-end gap-4">
+            <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
+            <Button type="submit" label="Add" />
+          </div>
         </div>
       </Form>
     </Dialog>
-
 
     <ScrollPanel>
       <div class="flex flex-col gap-5">
@@ -102,17 +121,15 @@
             </div>
 
             <Button 
-              unstyled 
               type="button" 
               label="Add" 
+              class="p-2! bg-emerald-400! rounded-md! border-0! hover:bg-emerald-500! cursor-pointer"
               @click="openPosition('bottom')"
             >
-              <div class="p-2 bg-emerald-400 rounded-md">
-                <Plus 
-                  :size="16"
-                  class="text-white"
-                />
-              </div>
+              <Plus 
+                :size="16"
+                class="text-white"
+              />
             </Button>
           </header>
 
