@@ -47,55 +47,54 @@
           />
         </div>
 
-        <div class="flex flex-col gap-2">
-          <InputGroup>
-            <InputGroupAddon class="flex! items-center! justify-center!">
-              <DollarSign 
-                :size="20"
-              />
-            </InputGroupAddon>
-            
-            <InputText v-keyfilter.money placeholder="Price" size="small" fluid />
-          </InputGroup>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <InputGroup>
-            <InputGroupAddon>
-              <Tags 
-                :size="20"
-              />
-            </InputGroupAddon>
-            <Select 
-              placeholder="Select a Catgeory" 
-              fluid
-              v-model="selectedCategory"
-              :options="categories"
-              option-label="name"
-              size="small"
-              class="flex! items-center!"
+        <InputGroup>
+          <InputGroupAddon class="flex! items-center! justify-center!">
+            <DollarSign 
+              :size="20"
             />
-          </InputGroup>
-        </div>
+          </InputGroupAddon>
+          
+          <InputText 
+            v-keyfilter.money 
+            fluid
+            placeholder="Price" 
+            size="small" 
+          />
+        </InputGroup>
 
-        <div class="col-span-full">
-          <InputGroup>
-            <InputGroupAddon>
-              <Calendar 
-                :size="20"
-              />
-            </InputGroupAddon>
-            <DatePicker 
-              fluid 
-              show-time
-              hour-format="12"
-              v-model="dateTime12h" 
-              name="date" 
-              size="small"
-              placeholder="Select a Date"
+        <InputGroup>
+          <InputGroupAddon>
+            <Tags 
+              :size="20"
             />
-          </InputGroup>
-        </div>
+          </InputGroupAddon>
+          <Select 
+            placeholder="Select a Catgeory" 
+            fluid
+            v-model="selectedCategory"
+            :options="categories"
+            option-label="name"
+            size="small"
+            class="flex! items-center!"
+          />
+        </InputGroup>
+
+        <InputGroup class="col-span-full!">
+          <InputGroupAddon>
+            <Calendar 
+              :size="20"
+            />
+          </InputGroupAddon>
+          <DatePicker 
+            fluid 
+            show-time
+            hour-format="12"
+            v-model="dateTime12h" 
+            name="date" 
+            size="small"
+            placeholder="Select a Date"
+          />
+        </InputGroup>
 
         <div class="flex flex-col gap-2 col-span-full">
           <Textarea 
