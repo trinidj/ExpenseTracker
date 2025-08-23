@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted, watch, computed } from 'vue';
 
   import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon, Listbox } from 'primevue';
   import { Form } from '@primevue/forms';
@@ -9,12 +9,16 @@
   import { loadFromStorage } from '@/utils/loadFromStorage';
   import { saveToStorage } from '@/utils/saveToStorage';
 
-  const currentSpent = 200;
-  const totalBudget = 800;
+  onMounted(() => {
+    loadFromStorage(STORAGE_KEY, listItems);
+  });
 
-  const budgetUsedPercentage = () => {
-    return (currentSpent / totalBudget) * 100;
-  };
+  const currentSpent = ref(0);
+  const totalBudget = ref(0);
+
+  const budgetUsedPercentage = computed(() => {
+    return (currentSpent.value / totalBudget.value) * 100;
+  })
 
   const setCategory = ref('');
   const categories = ref([
@@ -33,19 +37,11 @@
   };
 
   const setAmount = ref('');
-
-  // Add the missing listItems ref and selectedItem ref
   const listItems = ref([]);
   const selectedItem = ref(null);
 
   const STORAGE_KEY = 'budget-items';
 
-  // Load data when component mounts
-  onMounted(() => {
-    loadFromStorage(STORAGE_KEY, listItems);
-  });
-
-  // Watch for changes to listItems and save automatically
   watch(listItems, () => {
     saveToStorage(STORAGE_KEY, listItems);
   }, { deep: true });
@@ -58,18 +54,19 @@
         code: (listItems.value.length + 1).toString(),
         id: Date.now() 
       }
+
       listItems.value.push(newItem)
-      
+
+      const addToBudget = parseFloat(setAmount.value);
+      if (!isNaN(addToBudget)) {
+        totalBudget.value += addToBudget;
+      }
+
       setCategory.value = ''
       setAmount.value = ''
       
       visible.value = false;      
     }
-  };
-
-  const clearAllItems = () => {
-    listItems.value = [];
-    localStorage.removeItem(STORAGE_KEY);
   };
 </script>
 
@@ -83,7 +80,7 @@
       modal
       header="New Budget"
       v-model:visible="visible"  
-      :position="position" 
+      :position="position"
       :draggable="false"
     >
       <Form>
@@ -132,7 +129,6 @@
 
     <ScrollPanel>
       <div class="flex flex-col gap-5">
-        <!-- Budget Progress -->
         <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
           <header class="flex flex-row items-center gap-2 p-5">
             <PiggyBank 
@@ -144,17 +140,19 @@
           <div class="flex flex-col gap-2 p-5 pt-0">
             <h3 class="flex font-medium text-2xl">${{ totalBudget }}</h3>
             <ProgressBar 
-              :value="budgetUsedPercentage()" 
+              :value="budgetUsedPercentage"
               :show-value="false" 
             />
             <div class="flex items-center justify-between">
-              <p class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">${{ currentSpent }}</span> spent so far</p>                                
-              <p class="text-black/50 text-sm">{{ budgetUsedPercentage() }}%</p>
+              <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">${{ currentSpent }}</span> spent so far</p>
+              
+              <p v-else class="text-black/50 text-sm">No Budget Set</p>
+
+              <p class="text-black/50 text-sm">{{ budgetUsedPercentage.toFixed(0) || 0 }}%</p>
             </div>
           </div>
         </div>
 
-        <!-- Category Budgets -->
         <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
           <header class="flex flex-row items-center justify-between p-5">
             <div class="flex flex-row items-center gap-2">
