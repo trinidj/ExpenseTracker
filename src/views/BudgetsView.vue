@@ -6,6 +6,9 @@
 
   import { PiggyBank, Wallet, Plus, Tags, DollarSign } from 'lucide-vue-next';
 
+  import { loadFromStorage } from '@/utils/loadFromStorage';
+  import { saveToStorage } from '@/utils/saveToStorage';
+
   const currentSpent = 200;
   const totalBudget = 800;
 
@@ -35,59 +38,32 @@
   const listItems = ref([]);
   const selectedItem = ref(null);
 
-  // localStorage key
   const STORAGE_KEY = 'budget-items';
-
-  // Load data from localStorage
-  const loadFromStorage = () => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        listItems.value = JSON.parse(saved);
-        console.log('Loaded items from localStorage:', listItems.value);
-      }
-    } catch (error) {
-      console.error('Error loading from localStorage:', error);
-    }
-  };
-
-  // Save data to localStorage
-  const saveToStorage = () => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(listItems.value));
-      console.log('Saved items to localStorage:', listItems.value);
-    } catch (error) {
-      console.error('Error saving to localStorage:', error);
-    }
-  };
 
   // Load data when component mounts
   onMounted(() => {
-    loadFromStorage();
+    loadFromStorage(STORAGE_KEY, listItems);
   });
 
   // Watch for changes to listItems and save automatically
   watch(listItems, () => {
-    saveToStorage();
+    saveToStorage(STORAGE_KEY, listItems);
   }, { deep: true });
 
   const addItem = () => {
-    // Fix the validation - setAmount is a string, setCategory is an object
     if (setCategory.value && setCategory.value.name && setAmount.value.trim() !== '') {
       const newItem = {
-        name: setCategory.value.name, // Use the category name
-        description: `$${setAmount.value}`, // Format as currency
+        name: setCategory.value.name,
+        description: `$${setAmount.value}`, 
         code: (listItems.value.length + 1).toString(),
-        id: Date.now() // Add unique ID for better tracking
+        id: Date.now() 
       }
       listItems.value.push(newItem)
       
       setCategory.value = ''
       setAmount.value = ''
       
-      visible.value = false;
-      
-      console.log('Added item:', newItem)
+      visible.value = false;      
     }
   };
 
@@ -183,21 +159,13 @@
           <header class="flex flex-row items-center justify-between p-5">
             <div class="flex flex-row items-center gap-2">
               <Wallet 
-              :size="16"
+                :size="16"
               />
               <h2 class="font-medium text-zinc-800">Category Budgets</h2>
-              <span class="text-xs text-gray-500">({{ listItems.length }} items)</span>
+              <p class="text-xs text-gray-500">({{ listItems.length }} items)</p>
             </div>
 
             <div class="flex gap-2">
-              <Button 
-                v-if="listItems.length > 0"
-                type="button" 
-                label="Clear All" 
-                severity="secondary"
-                size="small"
-                @click="clearAllItems"
-              />
               <Button 
                 type="button" 
                 label="Add" 
@@ -219,7 +187,7 @@
               :options="listItems"
               optionLabel="name"
               placeholder="Select a budget item"
-              class="w-full"
+              class="w-full border-0!"
             >
               <template #option="slotProps">
                 <div class="flex justify-between items-center w-full">
