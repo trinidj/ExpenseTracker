@@ -180,7 +180,7 @@
             </div>
           </header>
 
-          <div class="flex justify-center p-5">
+          <div class="flex justify-center p-5 pt-0">
             <Listbox 
               v-if="listItems.length > 0"
               v-model="selectedItem"
