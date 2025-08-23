@@ -191,8 +191,8 @@
             >
               <template #option="slotProps">
                 <div class="flex justify-between items-center w-full">
-                  <span class="font-medium">{{ slotProps.option.name }}</span>
-                  <span class="text-emerald-600 font-semibold">{{ slotProps.option.description }}</span>
+                  <h3 class="font-medium">{{ slotProps.option.name }}</h3>
+                  <p class="text-emerald-600 font-semibold">{{ slotProps.option.description }}</p>
                 </div>
               </template>
             </Listbox>
