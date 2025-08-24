@@ -5,10 +5,7 @@
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
-  import { storeToRefs } from 'pinia';
-
   const transactionStore = useTransactionsStore();
-  const { transactions } = storeToRefs(transactionStore);
 </script>
 
 <template>
@@ -67,7 +64,7 @@
 
       <ul class="mx-6 flex flex-col gap-4">
         <li
-          v-for="transaction in transactions"
+          v-for="transaction in transactionStore.transactions"
           :key="transaction.id"
         >
           <div class="flex flex-row items-center justify-between">
