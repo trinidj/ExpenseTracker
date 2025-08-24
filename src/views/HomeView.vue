@@ -9,8 +9,6 @@
 
   const transactionStore = useTransactionsStore();
   const { transactions } = storeToRefs(transactionStore);
-
-  transactionStore.getTransactions();
 </script>
 
 <template>
