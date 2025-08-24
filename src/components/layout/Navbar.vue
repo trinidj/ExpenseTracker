@@ -16,7 +16,7 @@
     name: '',
     amount: '',
     category: null,
-    date: new Date(),
+    date: null,
   });
 
   const handleSubmit = () => {
