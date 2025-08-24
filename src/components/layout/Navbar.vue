@@ -1,10 +1,10 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Calendar } from 'lucide-vue-next';
+  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Calendar, Text } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, InputText, Select, Textarea, SelectButton, InputGroup, InputGroupAddon, DatePicker } from 'primevue';
+  import { Button, Dialog, InputText, Select, SelectButton, InputGroup, InputGroupAddon, DatePicker } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
@@ -13,29 +13,30 @@
 
   const formData = ref({
     type: 'Expense',
+    name: '',
     amount: '',
     category: null,
     date: new Date(),
-    description: '',
   });
 
   const handleSubmit = () => {
     const amount = parseFloat(formData.value.amount);
     const finalAmount = formData.value.type === 'Expense' ? -Math.abs(amount) : Math.abs(amount);
 
-    // Create transaction object
     const transaction = {
-      name: formData.value.description || formData.value.category.name,
+      name: formData.value.name,
       amount: finalAmount,
-      icon: formData.value.category.icon,
       category: formData.value.category.name,
       date: formData.value.date,
       type: formData.value.type,
       size: 35
     };
 
-    // Add to store
     transactionStore.addTransaction(transaction);
+
+    formData.value.name = '';
+    formData.value.amount = '';
+    formData.value.category = '';
 
     visible.value = false;
   }
@@ -44,8 +45,8 @@
   const visible = ref(false);
 
   const openPosition = (pos) => {
-      position.value = pos;
-      visible.value = true;
+    position.value = pos;
+    visible.value = true;
   };
 
   const selectButtonOptions = ref(['Income', 'Expense']);
@@ -77,9 +78,25 @@
         </div>
 
         <InputGroup>
+          <InputGroupAddon>
+            <Text 
+              :size="15"
+            />
+          </InputGroupAddon>
+
+          <InputText 
+            v-model="formData.name"
+            v-keyfilter.alphanum
+            fluid
+            placeholder="Name"
+            size="small"
+          />    
+        </InputGroup>
+
+        <InputGroup>
           <InputGroupAddon class="flex! items-center! justify-center!">
             <DollarSign 
-              :size="20"
+              :size="15"
             />
           </InputGroupAddon>
           
@@ -92,10 +109,10 @@
           />
         </InputGroup>
 
-        <InputGroup>
+        <InputGroup class="col-span-full">
           <InputGroupAddon>
             <Tags 
-              :size="20"
+              :size="15"
             />
           </InputGroupAddon>
           <Select 
@@ -110,9 +127,9 @@
         </InputGroup>
 
         <InputGroup class="col-span-full!">
-          <InputGroupAddon>
+          <InputGroupAddon> 
             <Calendar 
-              :size="20"
+              :size="15"
             />
           </InputGroupAddon>
           <DatePicker 
@@ -125,15 +142,6 @@
             placeholder="Select a Date"
           />
         </InputGroup>
-
-        <div class="flex flex-col gap-2 col-span-full">
-          <Textarea 
-            fluid
-            rows="5"
-            class="resize-none"
-            v-model="formData.description"
-          />
-        </div>
 
         <div class="flex col-span-full items-center justify-end gap-4">
           <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
