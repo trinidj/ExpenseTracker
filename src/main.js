@@ -6,9 +6,14 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primeuix/themes/aura';
 import { KeyFilter } from 'primevue';
 import { createPinia } from 'pinia';
+import { createPersistedState } from 'pinia-plugin-persistedstate';
 
 const app = createApp(App);
 const pinia = createPinia();
+
+pinia.use(createPersistedState({
+  storage: localStorage,
+}));
 
 app.directive('keyfilter', KeyFilter);
 app.use(router);
