@@ -10,7 +10,7 @@
   const transactionStore = useTransactionsStore();
   const { transactions } = storeToRefs(transactionStore);
 
-  
+  transactionStore.getTransactions();
 </script>
 
 <template>
@@ -70,12 +70,13 @@
       <ul class="mx-6 flex flex-col gap-4">
         <li
           v-for="transaction in transactions"
+          :key="transaction.id"
         >
           <div class="flex flex-row items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="flex flex-col">
                 <h3 class="text-base">{{ transaction.name }}</h3>
-                <p class="text-black/45 text-xs">{{  }}</p>
+                <p class="text-black/45 text-xs">{{ new Date(transaction.createdAt).toLocaleDateString() }}</p>
               </div>
             </div>
             <p :class="['text-base font-medium', {
