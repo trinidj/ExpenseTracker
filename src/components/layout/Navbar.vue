@@ -126,23 +126,6 @@
           />
         </InputGroup>
 
-        <InputGroup class="col-span-full!">
-          <InputGroupAddon> 
-            <Calendar 
-              :size="15"
-            />
-          </InputGroupAddon>
-          <DatePicker 
-            fluid 
-            show-time
-            hour-format="12"
-            v-model="formData.date" 
-            name="date" 
-            size="small"
-            placeholder="Select a Date"
-          />
-        </InputGroup>
-
         <div class="flex col-span-full items-center justify-end gap-4">
           <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
           <Button type="submit" label="Add" @click="handleSubmit" />
