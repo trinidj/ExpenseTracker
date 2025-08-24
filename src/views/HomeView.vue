@@ -8,7 +8,9 @@
   import { storeToRefs } from 'pinia';
 
   const transactionStore = useTransactionsStore();
-  const { transactions, categoies } = storeToRefs(transactionStore);
+  const { transactions } = storeToRefs(transactionStore);
+
+  
 </script>
 
 <template>
@@ -71,14 +73,9 @@
         >
           <div class="flex flex-row items-center justify-between">
             <div class="flex items-center gap-2">
-              <component 
-                :is="transaction.icon" 
-                :size="transaction.size" 
-                class="bg-emerald-300 p-2 rounded-md" 
-              />
               <div class="flex flex-col">
                 <h3 class="text-base">{{ transaction.name }}</h3>
-                <p class="text-black/45 text-xs">Entertainment</p>
+                <p class="text-black/45 text-xs">{{  }}</p>
               </div>
             </div>
             <p :class="['text-base font-medium', {
