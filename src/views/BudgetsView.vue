@@ -185,7 +185,7 @@
               :options="listItems"
               optionLabel="name"
               placeholder="Select a budget item"
-              class="w-full border-0!"
+              class="w-full border-0! flex flex-col gap-3"
             >
               <template #option="slotProps">
                 <div class="flex justify-between items-center w-full">

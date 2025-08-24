@@ -1,7 +1,16 @@
 <script setup>
-  import { DollarSign, ArrowDown, ArrowUp, Clapperboard } from 'lucide-vue-next';
+  import { DollarSign, ArrowDown, ArrowUp } from 'lucide-vue-next';
 
   import { RouterLink } from 'vue-router';
+
+  import { useTransactionsStore } from '@/stores/useTransactionsStore';
+
+  import { Listbox } from 'primevue';
+
+  import { storeToRefs } from 'pinia';
+
+  const transactionStore = useTransactionsStore();
+  const { transactions } = storeToRefs(transactionStore);
 </script>
 
 <template>
@@ -58,23 +67,29 @@
         </RouterLink>
       </header>
 
-      <ul class="flex flex-col mx-6 gap-6">
-        <li class="flex flex-row items-center justify-between">
-          <div class="flex items-center gap-2">
-            <div class="bg-emerald-300 p-2 rounded-md">
-              <Clapperboard 
-                :size="20"
-                class="text-emerald-100"
+      <ul class="mx-6 flex flex-col gap-4">
+        <li
+          v-for="transaction in transactions"
+        >
+          <div class="flex flex-row items-center justify-between">
+            <div class="flex items-center gap-2">
+              <component 
+                :is="transaction.icon" 
+                :size="transaction.size" 
+                class="bg-emerald-300 p-2 rounded-md" 
               />
+              <div class="flex flex-col">
+                <h3 class="text-base">{{ transaction.name }}</h3>
+                <p class="text-black/45 text-xs">Entertainment</p>
+              </div>
             </div>
-            <div class="flex flex-col">
-              <h3 class="text-base">Netflix</h3>
-              <p class="text-black/45 text-xs">Entertainment</p>
-            </div>
+            <p :class="['text-base font-medium', {
+              'text-red-400': transaction.amount <= 0,
+              'text-emerald-400': transaction.amount > 0,
+            }]">
+              {{ transaction.amount }}
+            </p>
           </div>
-          <p class="text-base font-medium text-red-400">
-            -$20.00
-          </p>
         </li>
       </ul>
     </section>
