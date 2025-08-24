@@ -6,6 +6,18 @@
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
   const transactionStore = useTransactionsStore();
+
+  const formatTime = (transaction) => {
+    const date = new Date(transaction.createdAt);
+    
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric', 
+      hour: 'numeric',
+      minute: '2-digit', 
+      hour12: true
+    });
+  };
 </script>
 
 <template>
@@ -71,7 +83,9 @@
             <div class="flex items-center gap-2">
               <div class="flex flex-col">
                 <h3 class="text-base">{{ transaction.name }}</h3>
-                <p class="text-black/45 text-xs">{{ new Date(transaction.createdAt).toLocaleDateString() }}</p>
+                <p class="text-black/45 text-xs">
+                  {{ formatTime(transaction) }}
+                </p>
               </div>
             </div>
             <p :class="['text-base font-medium', {
