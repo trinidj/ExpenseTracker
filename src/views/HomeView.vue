@@ -5,12 +5,10 @@
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
-  import { Listbox } from 'primevue';
-
   import { storeToRefs } from 'pinia';
 
   const transactionStore = useTransactionsStore();
-  const { transactions } = storeToRefs(transactionStore);
+  const { transactions, categoies } = storeToRefs(transactionStore);
 </script>
 
 <template>

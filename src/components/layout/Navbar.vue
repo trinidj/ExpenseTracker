@@ -7,6 +7,39 @@
   import { Button, Dialog, InputText, Select, Textarea, SelectButton, InputGroup, InputGroupAddon, DatePicker } from 'primevue';
   import { Form } from '@primevue/forms';
 
+  import { useTransactionsStore } from '@/stores/useTransactionsStore';
+
+  const transactionStore = useTransactionsStore();
+
+  const formData = ref({
+    type: 'Expense',
+    amount: '',
+    category: null,
+    date: new Date(),
+    description: '',
+  });
+
+  const handleSubmit = () => {
+    const amount = parseFloat(formData.value.amount);
+    const finalAmount = formData.value.type === 'Expense' ? -Math.abs(amount) : Math.abs(amount);
+
+    // Create transaction object
+    const transaction = {
+      name: formData.value.description || formData.value.category.name,
+      amount: finalAmount,
+      icon: formData.value.category.icon,
+      category: formData.value.category.name,
+      date: formData.value.date,
+      type: formData.value.type,
+      size: 35
+    };
+
+    // Add to store
+    transactionStore.addTransaction(transaction);
+
+    visible.value = false;
+  }
+
   const position = ref('center');
   const visible = ref(false);
 
@@ -15,10 +48,7 @@
       visible.value = true;
   };
 
-  const selectButtonValue = ref('Income');
   const selectButtonOptions = ref(['Income', 'Expense']);
-
-  const selectedCategory = ref();
   const categories = ref([
     { name: 'Food' },
     { name: 'Entertainment' },
@@ -26,7 +56,6 @@
     { name: 'Housing' }
   ]);
 
-  const dateTime12h = ref();
 </script>
 
 <template>
@@ -42,7 +71,7 @@
         <div class="flex items-center gap-4 col-span-full">
           <SelectButton 
             fluid
-            v-model="selectButtonValue"
+            v-model="formData.type"
             :options="selectButtonOptions"
           />
         </div>
@@ -55,6 +84,7 @@
           </InputGroupAddon>
           
           <InputText 
+            v-model="formData.amount"
             v-keyfilter.money 
             fluid
             placeholder="Price" 
@@ -71,7 +101,7 @@
           <Select 
             placeholder="Select a Catgeory" 
             fluid
-            v-model="selectedCategory"
+            v-model="formData.category"
             :options="categories"
             option-label="name"
             size="small"
@@ -89,7 +119,7 @@
             fluid 
             show-time
             hour-format="12"
-            v-model="dateTime12h" 
+            v-model="formData.date" 
             name="date" 
             size="small"
             placeholder="Select a Date"
@@ -101,12 +131,13 @@
             fluid
             rows="5"
             class="resize-none"
+            v-model="formData.description"
           />
         </div>
 
         <div class="flex col-span-full items-center justify-end gap-4">
           <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
-          <Button type="submit" label="Add" />
+          <Button type="submit" label="Add" @click="handleSubmit" />
         </div>
       </div>
     </Form>
