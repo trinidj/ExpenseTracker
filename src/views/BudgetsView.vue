@@ -164,14 +164,15 @@
             </div>
           </header>
 
-          <div class="flex justify-center p-5 pt-0">
+          <div class="flex p-5 pt-0">
             <ul 
               v-if="budgetStore.budgets.length > 0"
+              class="w-full"
             >
               <li 
                 v-for="budget in budgetStore.budgets"
               >
-                  <div class="flex justify-between items-center w-full">
+                <div class="flex justify-between items-center w-full">
                   <h3 class="font-medium">{{ budget.category }}</h3>
                   <p class="text-emerald-600 font-semibold">${{ budget.amount }}</p>
                 </div>
