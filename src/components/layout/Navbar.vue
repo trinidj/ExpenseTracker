@@ -29,7 +29,6 @@
       category: formData.value.category.name,
       date: formData.value.date,
       type: formData.value.type,
-      size: 35
     };
 
     transactionStore.addTransaction(transaction);
