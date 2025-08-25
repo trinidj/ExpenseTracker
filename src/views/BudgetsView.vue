@@ -1,26 +1,24 @@
 <script setup>
-  import { ref, onMounted, watch, computed } from 'vue';
+  import { ref, computed } from 'vue';
 
-  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon, Listbox } from 'primevue';
+  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { PiggyBank, Wallet, Plus, Tags, DollarSign } from 'lucide-vue-next';
 
-  import { loadFromStorage } from '@/utils/loadFromStorage';
-  import { saveToStorage } from '@/utils/saveToStorage';
+  import { useBudgetStore } from '@/stores/useBudgetStore';
 
-  onMounted(() => {
-    loadFromStorage(STORAGE_KEY, listItems);
+  const budgetStore = useBudgetStore();
+
+  const budgetData = ref({
+    amount: '',
+    category: '',
   });
 
-  const currentSpent = ref(0);
-  const totalBudget = ref(0);
-
   const budgetUsedPercentage = computed(() => {
-    return (currentSpent.value / totalBudget.value) * 100;
-  })
+    return (budgetStore.currentSpent / budgetStore.totalBudget) * 100;
+  });
 
-  const setCategory = ref('');
   const categories = ref([
     { name: 'Food' },
     { name: 'Entertainment' },
@@ -36,37 +34,25 @@
     visible.value = true;
   };
 
-  const setAmount = ref('');
   const listItems = ref([]);
-  const selectedItem = ref(null);
 
-  const STORAGE_KEY = 'budget-items';
+  const handleSubmit = () => {
+    const budget = {
+      amount: budgetData.value.amount,
+      category: budgetData.value.category.name,
+    };
 
-  watch(listItems, () => {
-    saveToStorage(STORAGE_KEY, listItems);
-  }, { deep: true });
+    budgetStore.addBudgetItem(budget);
 
-  const addItem = () => {
-    if (setCategory.value && setCategory.value.name && setAmount.value.trim() !== '') {
-      const newItem = {
-        name: setCategory.value.name,
-        description: `$${setAmount.value}`, 
-        code: (listItems.value.length + 1).toString(),
-        id: Date.now() 
-      }
-
-      listItems.value.push(newItem)
-
-      const addToBudget = parseFloat(setAmount.value);
-      if (!isNaN(addToBudget)) {
-        totalBudget.value += addToBudget;
-      }
-
-      setCategory.value = ''
-      setAmount.value = ''
-      
-      visible.value = false;      
+    const addToBudget = parseFloat(budgetData.value.amount);
+    if (!isNaN(addToBudget)) {
+      budgetStore.totalBudget += addToBudget;
     }
+
+    budgetData.value.name = '';
+    budgetData.value.category = '';
+
+    visible.value = false;
   };
 </script>
 
@@ -94,7 +80,7 @@
             
             <Select 
               fluid
-              v-model="setCategory"
+              v-model="budgetData.category"
               placeholder="Select a Category"
               :options="categories"
               option-label="name"
@@ -111,7 +97,7 @@
             </InputGroupAddon>
 
             <InputText 
-              v-model="setAmount"
+              v-model="budgetData.amount"
               v-keyfilter.money
               fluid
               placeholder="Budget"
@@ -121,7 +107,7 @@
 
           <div class="flex col-span-full items-center justify-end gap-4">
             <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
-            <Button type="submit" label="Add" @click="addItem" />
+            <Button type="submit" label="Add" @click="handleSubmit" />
           </div>
         </div>
       </Form>
@@ -138,13 +124,13 @@
           </header>
 
           <div class="flex flex-col gap-2 p-5 pt-0">
-            <h3 class="flex font-medium text-2xl">${{ totalBudget }}</h3>
+            <h3 class="flex font-medium text-2xl">${{ budgetStore.totalBudget }}</h3>
             <ProgressBar 
               :value="budgetUsedPercentage"
               :show-value="false" 
             />
             <div class="flex items-center justify-between">
-              <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">${{ currentSpent }}</span> spent so far</p>
+              <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">${{ budgetStore.currentSpent }}</span> spent so far</p>
               
               <p v-else class="text-black/50 text-sm">No Budget Set</p>
 
@@ -160,7 +146,7 @@
                 :size="16"
               />
               <h2 class="font-medium text-zinc-800">Category Budgets</h2>
-              <p class="text-xs text-gray-500">({{ listItems.length }} items)</p>
+              <p class="text-xs text-gray-500">({{ budgetStore.budgets.length }} items)</p>
             </div>
 
             <div class="flex gap-2">
@@ -179,21 +165,19 @@
           </header>
 
           <div class="flex justify-center p-5 pt-0">
-            <Listbox 
-              v-if="listItems.length > 0"
-              v-model="selectedItem"
-              :options="listItems"
-              optionLabel="name"
-              placeholder="Select a budget item"
+            <ul 
+              v-if="budgetStore.budgets.length > 0"
               class="w-full border-0! flex flex-col gap-3"
             >
-              <template #option="slotProps">
-                <div class="flex justify-between items-center w-full">
-                  <h3 class="font-medium">{{ slotProps.option.name }}</h3>
-                  <p class="text-emerald-600 font-semibold">{{ slotProps.option.description }}</p>
+              <li 
+                v-for="budget in budgetStore.budgets"
+              >
+                  <div class="flex justify-between items-center w-full">
+                  <h3 class="font-medium">{{ budget.category }}</h3>
+                  <p class="text-emerald-600 font-semibold">${{ budget.amount }}</p>
                 </div>
-              </template>
-            </Listbox>
+              </li>
+            </ul>
             <div v-else class="text-center text-gray-500 py-8">
               <p>No budget items yet.</p>
               <p class="text-sm">Click "Add" to create your first budget!</p>
