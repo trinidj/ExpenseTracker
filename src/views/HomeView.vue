@@ -82,7 +82,7 @@
           <div class="flex flex-row items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="flex flex-col">
-                <h3 class="text-base">{{ transaction.name }}</h3>
+                <h3 class="text-sm">{{ transaction.name }}</h3>
                 <p class="text-black/45 text-xs">
                   {{ formatTime(transaction) }}
                 </p>
@@ -92,7 +92,7 @@
               'text-red-400': transaction.amount <= 0,
               'text-emerald-400': transaction.amount > 0,
             }]">
-              {{ transaction.amount }}
+              {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
             </p>
           </div>
         </li>
