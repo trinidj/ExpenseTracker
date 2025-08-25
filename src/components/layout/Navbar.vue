@@ -1,10 +1,10 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Calendar, Text } from 'lucide-vue-next';
+  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Text } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, InputText, Select, SelectButton, InputGroup, InputGroupAddon, DatePicker } from 'primevue';
+  import { Button, Dialog, InputText, Select, SelectButton, InputGroup, InputGroupAddon } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
@@ -68,7 +68,7 @@
     :draggable="false"
   >
     <Form>
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-2 gap-4">
         <div class="flex items-center gap-4 col-span-full">
           <SelectButton 
             fluid
@@ -86,7 +86,6 @@
 
           <InputText 
             v-model="formData.name"
-            v-keyfilter.alphanum
             fluid
             placeholder="Name"
             size="small"
