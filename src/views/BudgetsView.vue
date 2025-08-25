@@ -4,7 +4,7 @@
   import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon } from 'primevue';
   import { Form } from '@primevue/forms';
 
-  import { PiggyBank, Wallet, Plus, Tags, DollarSign } from 'lucide-vue-next';
+  import { PiggyBank, Wallet, Plus, Tags, DollarSign, ChartBar } from 'lucide-vue-next';
 
   import { useBudgetStore } from '@/stores/useBudgetStore';
 
@@ -16,7 +16,7 @@
   });
 
   const budgetUsedPercentage = computed(() => {
-    return (budgetStore.currentSpent / budgetStore.totalBudget) * 100;
+    return (budgetStore.currentSpent / budgetStore.totalBudget) * 100 || 0;
   });
 
   const categories = ref([
@@ -113,7 +113,7 @@
       </Form>
     </Dialog>
 
-    <ScrollPanel>
+    <ScrollPanel style="height: 1000px;">
       <div class="flex flex-col gap-5">
         <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
           <header class="flex flex-row items-center gap-2 p-5">
@@ -167,7 +167,6 @@
           <div class="flex justify-center p-5 pt-0">
             <ul 
               v-if="budgetStore.budgets.length > 0"
-              class="w-full border-0! flex flex-col gap-3"
             >
               <li 
                 v-for="budget in budgetStore.budgets"
@@ -183,6 +182,81 @@
               <p class="text-sm">Click "Add" to create your first budget!</p>
             </div>
           </div>
+        </div>
+
+        <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
+          <header class="flex flex-row items-center gap-2 p-5">
+            <ChartBar 
+              :size="16"
+            />
+            <h2 class="font-medium text-zinc-800">Tracker</h2>
+          </header>
+
+          <ul>
+            <li>
+              <div class="flex flex-col gap-2 p-5 pt-0">
+                <h3 class="flex font-medium">Entertainment</h3>
+                <ProgressBar 
+                  :show-value="false" 
+                />
+                <div class="flex items-center justify-between">
+                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
+                  
+                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
+
+                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="flex flex-col gap-2 p-5 pt-0">
+                <h3 class="flex font-medium">Food</h3>
+                <ProgressBar 
+                  :show-value="false" 
+                />
+                <div class="flex items-center justify-between">
+                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
+                  
+                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
+
+                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="flex flex-col gap-2 p-5 pt-0">
+                <h3 class="flex font-medium">Housing</h3>
+                <ProgressBar 
+                  :show-value="false" 
+                />
+                <div class="flex items-center justify-between">
+                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
+                  
+                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
+
+                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="flex flex-col gap-2 p-5 pt-0">
+                <h3 class="flex font-medium">Travel</h3>
+                <ProgressBar 
+                  :show-value="false" 
+                />
+                <div class="flex items-center justify-between">
+                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
+                  
+                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
+
+                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </ScrollPanel>
