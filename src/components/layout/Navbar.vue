@@ -56,7 +56,6 @@
     { name: 'Travel' },
     { name: 'Housing' }
   ]);
-
 </script>
 
 <template>
