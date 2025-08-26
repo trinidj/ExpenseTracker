@@ -1,27 +1,23 @@
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
 
-  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon } from 'primevue';
+  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon, Message } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { PiggyBank, Wallet, Plus, Tags, DollarSign, ChartBar } from 'lucide-vue-next';
 
   import { useBudgetStore } from '@/stores/useBudgetStore';
-  import { useTransactionsStore } from '@/stores/useTransactionsStore';
+
+  import { zodResolver } from '@primevue/forms/resolvers/zod';
+  import { useToast } from 'primevue';
+  import z from 'zod';
 
   const budgetStore = useBudgetStore();
-  const transactionStore = useTransactionsStore();
-
-  console.log(transactionStore.transactions);
 
   const budgetData = ref({
     amount: '',
     category: '',
   });
-
-  // const budgetUsedPercentage = computed(() => {
-  //   return (budgetStore.currentSpent / budgetStore.totalBudget) * 100 || 0;
-  // });
 
   const categories = ref([
     { name: 'Food' },
@@ -38,7 +34,37 @@
     visible.value = true;
   };
 
+  const toast = useToast();
+  const initialValues = ref({
+    category: null,
+    budget: '',
+  });
+
+  const resolver = ref(zodResolver(
+    z.object({
+      category: z.nullable(
+        z.object({
+          name: z.string(),
+        })
+      ).refine(val => val !== null, {
+        message: "Please select a category."
+      }),
+
+      budget: z.string().min(1, { message: 'Budget is required.' })
+    })
+  ));
+
+  const onFormSubmit = ({ valid }) => {
+    if (valid) {
+      toast.add({ severity: 'success', summar: 'Form is submitted.', life: 2000 });
+    }
+  };
+
   const handleSubmit = () => {
+    if (!budgetData.value.category || !budgetData.value.amount) {
+      return;
+    }
+
     const budget = {
       amount: budgetData.value.amount,
       category: budgetData.value.category.name,
@@ -51,7 +77,7 @@
       budgetStore.totalBudget += addToBudget;
     }
 
-    budgetData.value.name = '';
+    budgetData.value.amount = '';
     budgetData.value.category = '';
 
     visible.value = false;
@@ -71,16 +97,12 @@
       :position="position"
       :draggable="false"
     >
-      <Form>
+      <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
         <div class="grid grid-cols-2 gap-6">
-          <InputGroup>
-            <InputGroupAddon>
-              <Tags 
-                :size="16"
-              />
-            </InputGroupAddon>
             
-            <Select 
+          <div class="flex flex-col gap-1">
+            <Select
+              name="category" 
               fluid
               v-model="budgetData.category"
               placeholder="Select a Category"
@@ -89,23 +111,35 @@
               size="small"
               class="flex! items-center!"
             />
-          </InputGroup>
 
-          <InputGroup>
-            <InputGroupAddon>
-              <DollarSign
-                :size="16"
-              />
-            </InputGroupAddon>
+            <Message 
+              v-if="$form.category?.invalid" 
+              severity="error" 
+              variant="simple"
+              size="small"
+            >
+              {{ $form.category.error?.message }}
+            </Message>
+          </div>
 
+          <div class="flex flex-col gap-1">
             <InputText 
+              name="budget"
               v-model="budgetData.amount"
               v-keyfilter.money
               fluid
               placeholder="Budget"
               size="small"
             />
-          </InputGroup>
+            <Message
+              v-if="$form.budget?.invalid"
+              severity="error"
+              variant="simple"
+              size="small"
+            >
+              {{ $form.budget.error?.message }}
+            </Message>
+          </div>
 
           <div class="flex col-span-full items-center justify-end gap-4">
             <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
