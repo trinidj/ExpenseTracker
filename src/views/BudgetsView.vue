@@ -7,17 +7,21 @@
   import { PiggyBank, Wallet, Plus, Tags, DollarSign, ChartBar } from 'lucide-vue-next';
 
   import { useBudgetStore } from '@/stores/useBudgetStore';
+  import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
   const budgetStore = useBudgetStore();
+  const transactionStore = useTransactionsStore();
+
+  console.log(transactionStore.transactions);
 
   const budgetData = ref({
     amount: '',
     category: '',
   });
 
-  const budgetUsedPercentage = computed(() => {
-    return (budgetStore.currentSpent / budgetStore.totalBudget) * 100 || 0;
-  });
+  // const budgetUsedPercentage = computed(() => {
+  //   return (budgetStore.currentSpent / budgetStore.totalBudget) * 100 || 0;
+  // });
 
   const categories = ref([
     { name: 'Food' },
@@ -33,8 +37,6 @@
     position.value = pos;
     visible.value = true;
   };
-
-  const listItems = ref([]);
 
   const handleSubmit = () => {
     const budget = {
@@ -115,6 +117,7 @@
 
     <ScrollPanel style="height: 1000px;">
       <div class="flex flex-col gap-5">
+        <!-- Budget Progress -->
         <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
           <header class="flex flex-row items-center gap-2 p-5">
             <PiggyBank 
@@ -126,15 +129,20 @@
           <div class="flex flex-col gap-2 p-5 pt-0">
             <h3 class="flex font-medium text-2xl">${{ budgetStore.totalBudget }}</h3>
             <ProgressBar 
-              :value="budgetUsedPercentage"
+              :value="budgetStore.budgetSpentPercentage"
               :show-value="false" 
             />
             <div class="flex items-center justify-between">
-              <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">${{ budgetStore.currentSpent }}</span> spent so far</p>
+              <p 
+                v-if="budgetStore.budgets.length > 0" 
+                class="text-black/50 text-sm"
+              >
+                <span class="font-medium text-lg text-zinc-800">${{ budgetStore.totalSpent }}</span> spent so far
+              </p>
               
               <p v-else class="text-black/50 text-sm">No Budget Set</p>
 
-              <p class="text-black/50 text-sm">{{ budgetUsedPercentage.toFixed(0) || 0 }}%</p>
+              <p class="text-black/50 text-sm">{{ budgetStore.budgetSpentPercentage }}%</p>
             </div>
           </div>
         </div>
@@ -164,7 +172,7 @@
             </div>
           </header>
 
-          <div class="flex p-5 pt-0">
+          <div class="flex p-5 pt-0 justify-center">
             <ul 
               v-if="budgetStore.budgets.length > 0"
               class="w-full"
@@ -172,13 +180,16 @@
               <li 
                 v-for="budget in budgetStore.budgets"
               >
-                <div class="flex justify-between items-center w-full">
+                <div class="flex justify-between items-center w-full p-2 hover:bg-emerald-300/30 rounded-md transition-all ease duration-200">
                   <h3 class="font-medium">{{ budget.category }}</h3>
                   <p class="text-emerald-600 font-semibold">${{ budget.amount }}</p>
                 </div>
               </li>
             </ul>
-            <div v-else class="text-center text-gray-500 py-8">
+            <div 
+              v-else 
+              class="text-center text-gray-500 py-8"
+            >
               <p>No budget items yet.</p>
               <p class="text-sm">Click "Add" to create your first budget!</p>
             </div>
@@ -194,64 +205,22 @@
           </header>
 
           <ul>
-            <li>
+            <li
+              v-for="budget in budgetStore.budgets"
+              :key="budget.category"
+            >
               <div class="flex flex-col gap-2 p-5 pt-0">
-                <h3 class="flex font-medium">Entertainment</h3>
+                <header class="flex flex-row justify-between items-center">
+                  <h3 class="flex font-medium">{{ budget.category }}</h3>
+                  <p class="text-zinc-800 font-medium text-xl">${{ budget.amount }}</p>
+                </header>
                 <ProgressBar 
                   :show-value="false" 
                 />
                 <div class="flex items-center justify-between">
-                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
+                  <p v-if="budgetStore.budgets.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
                   
-                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
-
-                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div class="flex flex-col gap-2 p-5 pt-0">
-                <h3 class="flex font-medium">Food</h3>
-                <ProgressBar 
-                  :show-value="false" 
-                />
-                <div class="flex items-center justify-between">
-                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
-                  
-                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
-
-                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div class="flex flex-col gap-2 p-5 pt-0">
-                <h3 class="flex font-medium">Housing</h3>
-                <ProgressBar 
-                  :show-value="false" 
-                />
-                <div class="flex items-center justify-between">
-                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
-                  
-                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
-
-                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div class="flex flex-col gap-2 p-5 pt-0">
-                <h3 class="flex font-medium">Travel</h3>
-                <ProgressBar 
-                  :show-value="false" 
-                />
-                <div class="flex items-center justify-between">
-                  <p v-if="listItems.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
-                  
-                  <p v-else class="text-black/50 text-sm">No Budget Set</p>
+                  <p v-else-if="budgetStore.budgets.length > 0" class="text-black/50 text-sm">No Budget Set</p>
 
                   <p class="text-black/50 text-sm">{{ '0%' }}</p>
                 </div>
