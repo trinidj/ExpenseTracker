@@ -1,10 +1,10 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, InputGroup, InputGroupAddon, Message } from 'primevue';
+  import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, Message } from 'primevue';
   import { Form } from '@primevue/forms';
 
-  import { PiggyBank, Wallet, Plus, Tags, DollarSign, ChartBar } from 'lucide-vue-next';
+  import { PiggyBank, Wallet, Plus, ChartBar } from 'lucide-vue-next';
 
   import { useBudgetStore } from '@/stores/useBudgetStore';
 
@@ -56,7 +56,11 @@
 
   const onFormSubmit = ({ valid }) => {
     if (valid) {
-      toast.add({ severity: 'success', summar: 'Form is submitted.', life: 2000 });
+      toast.add({ 
+        severity: 'success', 
+        summary: 'Form is submitted.', 
+        life: 2000 
+      });
     }
   };
 

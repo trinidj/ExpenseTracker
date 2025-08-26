@@ -4,10 +4,14 @@
   import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Text } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
-  import { Button, Dialog, InputText, Select, SelectButton, InputGroup, InputGroupAddon } from 'primevue';
+  import { Button, Dialog, InputText, Select, SelectButton, Message } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
+
+  import { zodResolver } from '@primevue/forms/resolvers/zod';
+  import { useToast } from 'primevue';
+  import z from 'zod';
 
   const transactionStore = useTransactionsStore();
 
@@ -55,6 +59,38 @@
     { name: 'Travel' },
     { name: 'Housing' }
   ]);
+
+  const toast = useToast();
+  const initialValues = ref({
+    name: '',
+    amount: '',
+    category: null
+  });
+
+  const resolver = ref(zodResolver(
+    z.object({
+      name: z.string().min(1, { message: 'Name is required.' }),
+      amount: z.string().min(1, { message: 'Amount is required.' }),
+
+      category: z.nullable(
+        z.object({
+          name: z.string(),
+        })
+      ).refine(val => val !== null, {
+        message: 'Please select a category.'
+      }),
+    })
+  ));
+
+  const onFormSubmit = ({ valid }) => {
+    if (valid) {
+      toast.add({
+        severity: 'success',
+        summary: 'Form is submitted.',
+        life: 2000
+      });
+    }
+  };
 </script>
 
 <template>
@@ -65,7 +101,7 @@
     :position="position" 
     :draggable="false"
   >
-    <Form>
+    <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
       <div class="grid grid-cols-2 gap-4">
         <div class="flex items-center gap-4 col-span-full">
           <SelectButton 
@@ -75,44 +111,48 @@
           />
         </div>
 
-        <InputGroup>
-          <InputGroupAddon>
-            <Text 
-              :size="15"
-            />
-          </InputGroupAddon>
-
+        <div class="flex flex-col gap-1">
           <InputText 
+            name="name"
             v-model="formData.name"
             fluid
             placeholder="Name"
             size="small"
-          />    
-        </InputGroup>
+          />
 
-        <InputGroup>
-          <InputGroupAddon class="flex! items-center! justify-center!">
-            <DollarSign 
-              :size="15"
-            />
-          </InputGroupAddon>
-          
+          <Message
+            v-if="$form.name?.invalid"
+            severity="error"
+            variant="simple"
+            size="small"
+          >
+            {{ $form.name.error?.message }}
+          </Message>
+        </div>      
+        
+        <div class="flex flex-col gap-1">
           <InputText 
+            name="amount"
             v-model="formData.amount"
             v-keyfilter.money 
             fluid
             placeholder="Price" 
             size="small" 
           />
-        </InputGroup>
 
-        <InputGroup class="col-span-full">
-          <InputGroupAddon>
-            <Tags 
-              :size="15"
-            />
-          </InputGroupAddon>
+          <Message
+            v-if="$form.amount?.invalid"
+            severity="error"
+            variant="simple"
+            size="small"
+          >
+            {{ $form.amount.error?.message }}
+          </Message>
+        </div>
+        
+        <div class="flex flex-col gap-1 col-span-full">
           <Select 
+            name="category"
             placeholder="Select a Catgeory" 
             fluid
             v-model="formData.category"
@@ -121,7 +161,17 @@
             size="small"
             class="flex! items-center!"
           />
-        </InputGroup>
+
+          <Message
+            v-if="$form.category?.invalid"
+            severity="error"
+            variant="simple"
+            size="small"
+          >
+            {{ $form.category.error?.message }}
+          </Message>
+        </div>
+
 
         <div class="flex col-span-full items-center justify-end gap-4">
           <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
