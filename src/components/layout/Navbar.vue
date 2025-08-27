@@ -44,13 +44,7 @@
     visible.value = false;
   }
 
-  const position = ref('center');
   const visible = ref(false);
-
-  const openPosition = (pos) => {
-    position.value = pos;
-    visible.value = true;
-  };
 
   const selectButtonOptions = ref(['Income', 'Expense']);
   const categories = ref([
@@ -98,12 +92,12 @@
     modal
     header="Add Transaction"
     v-model:visible="visible"  
-    :position="position" 
+    position="bottom" 
     :draggable="false"
   >
     <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
       <div class="grid grid-cols-2 gap-4">
-        <div class="flex items-center gap-4 col-span-full">
+        <div class="flex items-center col-span-full">
           <SelectButton 
             fluid
             v-model="formData.type"
@@ -200,7 +194,7 @@
       <Button 
         unstyled
         class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8 bg-teal-400 hover:bg-teal-500 border border-teal-400 hover:border-teal-500 p-4 rounded-full shadow-lg"
-        @click="openPosition('bottom')"
+        @click="visible = true"
       >
         <Plus :size="24" class="text-white" />
       </Button>
