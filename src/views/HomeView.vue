@@ -74,7 +74,10 @@
         </RouterLink>
       </header>
 
-      <ul class="mx-6 flex flex-col gap-4">
+      <ul
+        v-if="transactionStore.transactions.length > 0" 
+        class="mx-6 flex flex-col gap-4"
+      >
         <li
           v-for="transaction in transactionStore.transactions"
           :key="transaction.id"
@@ -97,6 +100,14 @@
           </div>
         </li>
       </ul>
+
+      <div
+        v-else
+        class="flex flex-col items-center justify-center min-h-64 text-black/50"
+      >
+        <p>No transactions yet.</p>
+        <p class="text-sm">Create your first transaction!</p>
+      </div>
     </section>
   </div>
 </template>
