@@ -97,7 +97,6 @@
     >
       <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
         <div class="grid grid-cols-2 gap-6">
-            
           <div class="flex flex-col gap-1">
             <Select
               name="category" 
