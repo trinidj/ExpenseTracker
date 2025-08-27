@@ -1,9 +1,9 @@
 <script setup>
-  import { ref } from 'vue';
+  import { ref, reactive } from 'vue';
 
   import { DollarSign, ArrowDown, ArrowUp, Ellipsis } from 'lucide-vue-next';
 
-  import { Button, Dialog, InputText, Message } from 'primevue';
+  import { Button, Dialog, InputText, Message, Toast } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { RouterLink } from 'vue-router';
@@ -13,6 +13,10 @@
 
   import { useBalanceStore } from '@/stores/useBalanceStore';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
+
+  import { useToast } from 'primevue/usetoast';
+
+  const toast = useToast();
 
   const balanceStore = useBalanceStore();
   const transactionStore = useTransactionsStore();
@@ -31,7 +35,7 @@
     });
   };
 
-  const initialValues = ref({
+  const initialValues = reactive({
     balance: '',
     income: '',
   });
@@ -49,20 +53,31 @@
   });
 
   const handleSubmit = () => {
-    const balanceAmount = parseFloat(balanceData.value.balance);
-    const incomeAmount = parseFloat(balanceData.value.income);
-
-    balanceStore.setBalance(balanceAmount);
-    balanceStore.setIncome(incomeAmount);
+    balanceStore.setBalance(balanceData.value.balance);
+    balanceStore.setIncome(balanceData.value.income);
 
     balanceData.value.balance = '';
     balanceData.value.income = '';
+  };
+
+  const onFormSubmit = ({ valid }) => {
+    if (valid) {
+      toast.add({ 
+        severity: 'success', 
+        summary: 'Balance Updated!',
+        life: 3000 
+      });
+    }
 
     visible.value = false;
-  }
+  };
 </script>
 
 <template>
+  <Toast    
+    class="w-fit!"
+  />
+
   <Dialog
     modal
     header="Edit Balance Card"
@@ -70,56 +85,56 @@
     position="center"
     :draggable="false"
   >
-    <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues">
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-1">
-          <InputText
-            name="balance" 
-            v-model="balanceData.balance"
-            fluid
-            v-keyfilter.money
-            placeholder="Total Balance"
-            size="small"
-          />
+      <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-1">
+            <InputText
+              name="balance" 
+              v-model="balanceData.balance"
+              fluid
+              v-keyfilter.money
+              placeholder="Total Balance"
+              size="small"
+            />
 
-          <Message
-            v-if="$form.balance?.invalid"
-            severity="error"
-            variant="simple"
-            size="small"
-          >
-            {{ $form.balance.error?.message }}
-          </Message>
+            <Message
+              v-if="$form.balance?.invalid"
+              severity="error"
+              variant="simple"
+              size="small"
+            >
+              {{ $form.balance.error?.message }}
+            </Message>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <InputText 
+              name="income"
+              v-model="balanceData.income"
+              fluid
+              v-keyfilter.money
+              placeholder="Income"
+              size="small"
+            />
+
+            <Message
+              v-if="$form.income?.invalid"
+              severity="error"
+              variant="simple"
+              size="small"
+            >
+              {{ $form.income.error?.message }}
+            </Message>
+          </div>
+
+          <div class="flex items-center justify-end gap-4">
+            <Button type="button" severity="secondary" label="Cancel" @click="visible = false" />
+            <Button type="submit" label="Save" @click="handleSubmit"/>
+          </div>
         </div>
-
-        <div class="flex flex-col gap-1">
-          <InputText 
-            name="income"
-            v-model="balanceData.income"
-            fluid
-            v-keyfilter.money
-            placeholder="Income"
-            size="small"
-          />
-
-          <Message
-            v-if="$form.income?.invalid"
-            severity="error"
-            variant="simple"
-            size="small"
-          >
-            {{ $form.income.error?.message }}
-          </Message>
-        </div>
-
-        <div class="flex items-center justify-end gap-4">
-          <Button type="button" severity="secondary" label="Cancel" @click="visible = false" />
-          <Button type="submit" label="Save" @click="handleSubmit"/>
-        </div>
-      </div>
-    </Form>
+      </Form>
   </Dialog>
-
+  
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
     <!-- Header -->                                           
     <header class="flex flex-row justify-start items-center px-6 py-8">
@@ -185,7 +200,7 @@
 
       <ul
         v-if="transactionStore.transactions.length > 0" 
-        class="mx-6 flex flex-col gap-4"
+        class="mx-6 flex flex-col gap-4 h-96"
       >
         <li
           v-for="transaction in transactionStore.transactions"
