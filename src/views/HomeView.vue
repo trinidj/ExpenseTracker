@@ -1,5 +1,7 @@
 <script setup>
-  import { DollarSign, ArrowDown, ArrowUp } from 'lucide-vue-next';
+  import { DollarSign, ArrowDown, ArrowUp, Ellipsis } from 'lucide-vue-next';
+
+  import { Button } from 'primevue';
 
   import { RouterLink } from 'vue-router';
 
@@ -30,14 +32,24 @@
     <!-- Balance Card -->
     <section class="static flex flex-col bg-gradient-to-b from-emerald-300 to-[#6EE7DB] rounded-xl mx-6 shadow-black/20 shadow-2xl gap-5 justify-between">
       <div class="flex flex-col p-5 gap-1 text-gray-50">
-        <div class="flex flex-row items-center gap-1">
-          <DollarSign 
-            :size="16"
-          />
-          <p class="">Total Balance</p>
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex items-center gap-1">
+            <DollarSign 
+              :size="16"
+            />
+            <p class="">Total Balance</p>
+          </div>
+
+          <Button 
+            unstyled
+            class="cursor-pointer"
+            @click="console.log('Button Clicked!')"
+          >
+            <Ellipsis />
+          </Button>
         </div>
 
-        <p class="font-medium text-3xl">$3,000.00</p>
+          <p class="font-medium text-3xl">$3,000.00</p>
       </div>
 
       <div class="flex flex-row items-center justify-between p-5 pt-0">
