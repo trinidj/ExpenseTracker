@@ -5,6 +5,8 @@ export const useBalanceStore = defineStore('balance', () => {
   // states
   let totalBalance = ref(0);
   let totalIncome = ref(0);
+  let totalExpenses = ref(0);
+
   // getters
 
   // actions
@@ -19,6 +21,7 @@ export const useBalanceStore = defineStore('balance', () => {
   return {
     totalBalance,
     totalIncome,
+    totalExpenses,
     setBalance,
     setIncome,
   }
