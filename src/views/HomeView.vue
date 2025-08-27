@@ -9,11 +9,12 @@
   import { RouterLink } from 'vue-router';
 
   import { zodResolver } from '@primevue/forms/resolvers/zod';
-  import { useToast } from 'primevue';
   import z from 'zod';
 
+  import { useBalanceStore } from '@/stores/useBalanceStore';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
+  const balanceStore = useBalanceStore();
   const transactionStore = useTransactionsStore();
 
   const visible = ref(false);
@@ -30,11 +31,9 @@
     });
   };
 
-  const toast = useToast();
   const initialValues = ref({
     balance: '',
     income: '',
-    expenses: '',
   });
 
   const resolver = ref(zodResolver(
@@ -43,6 +42,24 @@
       income: z.string().min(1, { message: 'Income is required.' }),
     })
   ));
+
+  const balanceData = ref({
+    balance: '',
+    income: '',
+  });
+
+  const handleSubmit = () => {
+    const balanceAmount = parseFloat(balanceData.value.balance);
+    const incomeAmount = parseFloat(balanceData.value.income);
+
+    balanceStore.setBalance(balanceAmount);
+    balanceStore.setIncome(incomeAmount);
+
+    balanceData.value.balance = '';
+    balanceData.value.income = '';
+
+    visible.value = false;
+  }
 </script>
 
 <template>
@@ -58,6 +75,7 @@
         <div class="flex flex-col gap-1">
           <InputText
             name="balance" 
+            v-model="balanceData.balance"
             fluid
             v-keyfilter.money
             placeholder="Total Balance"
@@ -77,6 +95,7 @@
         <div class="flex flex-col gap-1">
           <InputText 
             name="income"
+            v-model="balanceData.income"
             fluid
             v-keyfilter.money
             placeholder="Income"
@@ -95,7 +114,7 @@
 
         <div class="flex items-center justify-end gap-4">
           <Button type="button" severity="secondary" label="Cancel" @click="visible = false" />
-          <Button type="submit" label="Save"/>
+          <Button type="submit" label="Save" @click="handleSubmit"/>
         </div>
       </div>
     </Form>
@@ -127,7 +146,7 @@
           </Button>
         </div>
 
-          <p class="font-medium text-3xl">$3,000.00</p>
+          <p class="font-medium text-3xl">${{ balanceStore.totalBalance }}</p>
       </div>
 
       <div class="flex flex-row items-center justify-between p-5 pt-0">
@@ -139,7 +158,7 @@
             <p>Income</p>
           </div>
 
-          <p class="font-medium text-2xl">$500.00</p>
+          <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
         </div>
 
         <div class="flex flex-col gap-1 text-gray-50">
