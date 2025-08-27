@@ -169,7 +169,7 @@
             <p>Expenses</p>
           </div>
 
-          <p class="font-medium text-2xl">$500.00</p>
+          <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
         </div>
       </div>
     </section>
