@@ -31,14 +31,16 @@ export const useTransactionsStore = defineStore('transactions', () => {
       ...transaction,
       createdAt: new Date()
     };
-
     transactions.value.unshift(newTransaction);
     
     const balanceStore = useBalanceStore();
+    const absoluteAmount = Math.abs(transaction.amount);
+    
     if (transaction.amount < 0) {
-      balanceStore.totalBalance -= transaction.amount;
-    } else if (transaction.amount > 0) {
-      balanceStore.totalBalance += transaction.amount;
+      balanceStore.totalBalance -= absoluteAmount;
+      balanceStore.totalExpenses += absoluteAmount;
+    } else {
+      balanceStore.totalBalance += absoluteAmount;
     }
   };
 
