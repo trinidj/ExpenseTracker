@@ -7,7 +7,7 @@ import Aura from '@primeuix/themes/aura';
 import { KeyFilter } from 'primevue';
 import { createPinia } from 'pinia';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
-import { ToastService } from 'primevue';
+import ToastService from 'primevue/toastservice';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -17,8 +17,6 @@ pinia.use(createPersistedState({
 }));
 
 app.directive('keyfilter', KeyFilter);
-app.use(router);
-app.use(pinia);
 app.use(ToastService);
 app.use(PrimeVue, {
   theme: {
@@ -28,4 +26,7 @@ app.use(PrimeVue, {
     }
   }
 });
+
+app.use(router);
+app.use(pinia);
 app.mount('#app');
