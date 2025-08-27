@@ -26,13 +26,7 @@
     { name: 'Housing' }
   ]);
 
-  const position = ref('center');
   const visible = ref(false);
-
-  const openPosition = (pos) => {
-    position.value = pos;
-    visible.value = true;
-  };
 
   const toast = useToast();
   const initialValues = ref({
@@ -98,7 +92,7 @@
       modal
       header="New Budget"
       v-model:visible="visible"  
-      :position="position"
+      position="bottom"
       :draggable="false"
     >
       <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
