@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useBalanceStore } from "@/stores/useBalanceStore";
 
 export const useTransactionsStore = defineStore('transactions', () => {
   // state
@@ -32,6 +33,13 @@ export const useTransactionsStore = defineStore('transactions', () => {
     };
 
     transactions.value.unshift(newTransaction);
+    
+    const balanceStore = useBalanceStore();
+    if (transaction.amount < 0) {
+      balanceStore.totalBalance -= transaction.amount;
+    } else if (transaction.amount > 0) {
+      balanceStore.totalBalance += transaction.amount;
+    }
   };
 
   return { 
