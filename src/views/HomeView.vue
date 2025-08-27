@@ -1,13 +1,22 @@
 <script setup>
+  import { ref } from 'vue';
+
   import { DollarSign, ArrowDown, ArrowUp, Ellipsis } from 'lucide-vue-next';
 
-  import { Button } from 'primevue';
+  import { Button, Dialog, InputText, Message } from 'primevue';
+  import { Form } from '@primevue/forms';
 
   import { RouterLink } from 'vue-router';
+
+  import { zodResolver } from '@primevue/forms/resolvers/zod';
+  import { useToast } from 'primevue';
+  import z from 'zod';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
   const transactionStore = useTransactionsStore();
+
+  const visible = ref(false);
 
   const formatTime = (transaction) => {
     const date = new Date(transaction.createdAt);
@@ -20,9 +29,78 @@
       hour12: true
     });
   };
+
+  const toast = useToast();
+  const initialValues = ref({
+    balance: '',
+    income: '',
+    expenses: '',
+  });
+
+  const resolver = ref(zodResolver(
+    z.object({
+      balance: z.string().min(1, { message: 'Balance is required.'}),
+      income: z.string().min(1, { message: 'Income is required.' }),
+    })
+  ));
 </script>
 
 <template>
+  <Dialog
+    modal
+    header="Edit Balance Card"
+    v-model:visible="visible"
+    position="center"
+    :draggable="false"
+  >
+    <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues">
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+          <InputText
+            name="balance" 
+            fluid
+            v-keyfilter.money
+            placeholder="Total Balance"
+            size="small"
+          />
+
+          <Message
+            v-if="$form.balance?.invalid"
+            severity="error"
+            variant="simple"
+            size="small"
+          >
+            {{ $form.balance.error?.message }}
+          </Message>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <InputText 
+            name="income"
+            fluid
+            v-keyfilter.money
+            placeholder="Income"
+            size="small"
+          />
+
+          <Message
+            v-if="$form.income?.invalid"
+            severity="error"
+            variant="simple"
+            size="small"
+          >
+            {{ $form.income.error?.message }}
+          </Message>
+        </div>
+
+        <div class="flex items-center justify-end gap-4">
+          <Button type="button" severity="secondary" label="Cancel" @click="visible = false" />
+          <Button type="submit" label="Save"/>
+        </div>
+      </div>
+    </Form>
+  </Dialog>
+
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
     <!-- Header -->                                           
     <header class="flex flex-row justify-start items-center px-6 py-8">
@@ -43,7 +121,7 @@
           <Button 
             unstyled
             class="cursor-pointer"
-            @click="console.log('Button Clicked!')"
+            @click="visible = true"
           >
             <Ellipsis />
           </Button>
