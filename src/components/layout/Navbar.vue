@@ -198,7 +198,8 @@
       </RouterLink>
 
       <Button 
-        class="absolute! left-1/2! transform! -translate-x-1/2! -translate-y-8! bg-teal-400! hover:bg-teal-500! border! border-teal-400! hover:border-teal-500 p-4! rounded-full! shadow-lg!"
+        unstyled
+        class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8 bg-teal-400 hover:bg-teal-500 border border-teal-400 hover:border-teal-500 p-4 rounded-full shadow-lg"
         @click="openPosition('bottom')"
       >
         <Plus :size="24" class="text-white" />
