@@ -1,6 +1,8 @@
 <script setup>
   import { computed } from 'vue';
 
+  import Header from '@/components/layout/Header.vue';
+
   import { Clapperboard, Filter } from 'lucide-vue-next';
   import { ScrollPanel } from 'primevue';
   import SearchBar from '@/components/SearchBar.vue';
@@ -48,9 +50,7 @@
 <template>
   <div class="h-screen flex flex-col overflow-hidden">
     <!-- Header -->
-    <header class="flex flex-row justify-start items-center px-6 py-8">
-      <h1 class="text-zinc-800 text-2xl font-semibold">Transactions</h1>
-    </header>
+    <Header page-title="Transactions" />
     
     <div class="mx-6 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
       <SearchBar />

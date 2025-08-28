@@ -1,6 +1,8 @@
 <script setup>
   import { ref, onMounted } from 'vue';
 
+  import Header from '@/components/layout/Header.vue';
+
   import { Tags, Wallet, TrendingDown } from 'lucide-vue-next';
   import Chart from 'primevue/chart';
   import { ScrollPanel, SelectButton } from 'primevue';
@@ -104,9 +106,7 @@
 
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <header class="flex flex-row justify-start items-center px-6 py-8">
-      <h1 class="text-zinc-800 text-2xl font-semibold">Analytics</h1>
-    </header>
+    <Header page-title="Analaytics" />
   
     <!-- Analytics Content -->
     <ScrollPanel style="height: 1100px">

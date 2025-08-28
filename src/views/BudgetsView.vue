@@ -1,6 +1,8 @@
 <script setup>
   import { ref } from 'vue';
 
+  import Header from '@/components/layout/Header.vue';
+
   import { ScrollPanel, ProgressBar, Button, Dialog, Select, InputText, Message } from 'primevue';
   import { Form } from '@primevue/forms';
 
@@ -84,9 +86,7 @@
 
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <header class="flex flex-row justify-start items-center px-6 py-8">
-      <h1 class="text-zinc-800 text-2xl font-semibold">Budgets</h1>
-    </header>
+    <Header page-title="Budgets" />
 
     <Dialog
       modal

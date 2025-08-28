@@ -16,6 +16,8 @@
 
   import { useToast } from 'primevue/usetoast';
 
+  import Header from '@/components/layout/Header.vue';
+
   const toast = useToast();
 
   const balanceStore = useBalanceStore();
@@ -134,12 +136,10 @@
         </div>
       </Form>
   </Dialog>
-  
+   
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <!-- Header -->                                           
-    <header class="flex flex-row justify-start items-center px-6 py-8">
-      <h1 class="text-zinc-800 text-2xl font-semibold">Home</h1>
-    </header>
+    <!-- Header -->
+    <Header page-title="Home" />
     
     <!-- Balance Card -->
     <section class="static flex flex-col bg-gradient-to-b from-emerald-300 to-[#6EE7DB] rounded-xl mx-6 shadow-black/20 shadow-2xl gap-5 justify-between">
