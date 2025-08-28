@@ -1,7 +1,7 @@
 <script setup>
   import { ref } from 'vue';
 
-  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote, DollarSign, Tags, Text } from 'lucide-vue-next';
+  import { Plus, Home, ArrowLeftRight, ChartArea, Banknote } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
 
   import { Button, Dialog, InputText, Select, SelectButton, Message } from 'primevue';
