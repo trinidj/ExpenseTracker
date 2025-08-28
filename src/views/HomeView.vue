@@ -16,6 +16,8 @@
 
   import { useToast } from 'primevue/usetoast';
 
+  import AddTransactionButton from '@/components/ui/AddTransactionButton.vue';
+
   import Header from '@/components/layout/Header.vue';
 
   const toast = useToast();
@@ -232,6 +234,8 @@
         <p>No transactions yet.</p>
         <p class="text-sm">Create your first transaction!</p>
       </div>
+
+      <AddTransactionButton />
     </section>
   </div>
 </template>
