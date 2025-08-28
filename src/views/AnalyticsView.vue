@@ -106,7 +106,7 @@
 
 <template>
   <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <Header page-title="Analaytics" />
+    <Header page-title="Analytics" />
   
     <!-- Analytics Content -->
     <ScrollPanel style="height: 1100px">

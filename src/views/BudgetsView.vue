@@ -146,7 +146,7 @@
       </Form>
     </Dialog>
 
-    <ScrollPanel style="height: 1000px;">
+    <ScrollPanel>
       <div class="flex flex-col gap-5">
         <!-- Budget Progress -->
         <div class="bg-white rounded-xl mx-6 gap-5 border border-emerald-300/50">
