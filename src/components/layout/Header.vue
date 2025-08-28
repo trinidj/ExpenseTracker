@@ -1,9 +1,9 @@
 <script setup>
   import { ref } from 'vue';
-  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote  } from 'lucide-vue-next';
+  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
-  import { Drawer } from 'primevue';
+  import { Drawer, Button } from 'primevue';
 
   const props = defineProps({
     pageTitle: {
@@ -23,7 +23,7 @@
 </script>
 
 <template>
-  <header class="flex flex-row justify-between items-center px-6 py-8">
+  <header class="flex flex-row gap-4 items-center px-6 py-8">
     <Drawer 
       v-model:visible="visible" 
       header="Expense Tracker"
