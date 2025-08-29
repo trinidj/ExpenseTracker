@@ -1,10 +1,17 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useBalanceStore } from "@/stores/useBalanceStore";
+import { Clapperboard, Apple, Plane, House } from "lucide-vue-next";
 
 export const useTransactionsStore = defineStore('transactions', () => {
   // state
   const transactions = ref([]);
+  const categories = ref([
+    { name: 'Entertainment', icon: Clapperboard },
+    { name: 'Travel', icon: Plane },
+    { name: 'Food', icon: Apple },
+    { name: 'Housing', icon: House },
+  ]);
 
   // getters
   const getTransactionsByDate = (transactions) => {
@@ -26,10 +33,12 @@ export const useTransactionsStore = defineStore('transactions', () => {
     
   // actions
   const addTransaction = (transaction) => {
+    const categoryIcon = categories.value.find(cat => cat.name === transaction.category);
     const newTransaction = {
       id: Date.now(),
       ...transaction,
-      createdAt: new Date()
+      createdAt: new Date(),
+      icon: categoryIcon ? categoryIcon.icon : categories.value[0].icon
     };
     transactions.value.unshift(newTransaction);
     
@@ -46,6 +55,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
 
   return { 
     transactions,
+    categories,
     getTransactionsByDate,
     addTransaction,
   };
