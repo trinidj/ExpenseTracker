@@ -2,7 +2,6 @@
   import { ref } from 'vue';
 
   import { Plus } from 'lucide-vue-next';
-  import { RouterLink } from 'vue-router';
 
   import { Button, Dialog, InputText, Select, SelectButton, Message } from 'primevue';
   import { Form } from '@primevue/forms';
@@ -21,6 +20,7 @@
     amount: '',
     category: null,
     date: null,
+    icon: null,
   });
 
   const handleSubmit = () => {
@@ -33,6 +33,7 @@
       category: formData.value.category.name,
       date: formData.value.date,
       type: formData.value.type,
+      icon: formData.value.icon
     };
 
     transactionStore.addTransaction(transaction);
@@ -47,12 +48,7 @@
   const visible = ref(false);
 
   const selectButtonOptions = ref(['Income', 'Expense']);
-  const categories = ref([
-    { name: 'Food' },
-    { name: 'Entertainment' },
-    { name: 'Travel' },
-    { name: 'Housing' }
-  ]);
+  const categories = transactionStore.categories;
 
   const toast = useToast();
   const initialValues = ref({
