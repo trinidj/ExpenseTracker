@@ -4,7 +4,7 @@
   import Header from '@/components/layout/Header.vue';
 
   import { Filter } from 'lucide-vue-next';
-  import { ScrollPanel } from 'primevue';
+  import { ScrollPanel, Button } from 'primevue';
   import SearchBar from '@/components/SearchBar.vue';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
   import { storeToRefs } from 'pinia';
@@ -55,41 +55,46 @@
     <div class="mx-6 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
       <SearchBar />
       
-      <button class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out">
+      <Button
+        unstyled 
+        class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out"
+      >
         <Filter />
-      </button>
+      </Button>
     </div>
 
     <!-- Transactions -->
-    <ScrollPanel class="flex! flex-col! gap-4! overflow-y-auto! flex-1! pb-20!">
-      <section
-        v-for="(transactionsInDate, date) in groupedTransactions"
-        :key="date"
-        class="flex flex-col"
-      > 
-        <header>
-          <h2 class="flex m-3 mt-0 items-center justify-center text-black/50 text-xs">{{ formatDate(date) }}</h2>
-        </header>
-        <ul class="flex flex-col mx-6 gap-4">
-          <li
-            v-for="transaction in transactionsInDate"
-            :key="transaction.id" 
-            class="flex flex-row items-center justify-between"
-          >
-            <div class="flex items-center gap-2">
-              <div class="flex flex-col">
-                <h3 class="text-base">{{ transaction.name }}</h3>
-                <p class="text-black/45 text-xs">{{ formatTime(transaction) }}</p>
+    <ScrollPanel unstyled class="flex flex-col overflow-y-auto flex-1 pb-20">
+      <section class="flex flex-col gap-6">
+        <div
+          v-for="(transactionsInDate, date) in groupedTransactions"
+          :key="date"
+          class="flex flex-col"
+        > 
+          <header>
+            <h2 class="flex m-3 mt-0 items-center justify-center text-black/50 text-sm">{{ formatDate(date) }}</h2>
+          </header>
+          <ul class="flex flex-col mx-6 gap-4">
+            <li
+              v-for="transaction in transactionsInDate"
+              :key="transaction.id" 
+              class="flex flex-row items-center justify-between"
+            >
+              <div class="flex items-center gap-2">
+                <div class="flex flex-col">
+                  <h3 class="text-base">{{ transaction.name }}</h3>
+                  <p class="text-black/45 text-xs">{{ formatTime(transaction) }}</p>
+                </div>
               </div>
-            </div>
-            <p :class="['text-base font-medium', {
-              'text-red-400': transaction.amount <= 0,
-              'text-emerald-400': transaction.amount > 0,
-            }]">
-              {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
-            </p>
-          </li>
-        </ul>
+              <p :class="['text-base font-medium', {
+                'text-red-400': transaction.amount <= 0,
+                'text-emerald-400': transaction.amount > 0,
+              }]">
+                {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
+              </p>
+            </li>
+          </ul>
+        </div>
       </section>
     </ScrollPanel>
   </div>
