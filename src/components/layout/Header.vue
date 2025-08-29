@@ -59,7 +59,7 @@
         <div class="flex flex-col">
           <ul>
             <li class="flex flex-row p-2 rounded-md items-center gap-4 transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900">
-              <a href="https://github.com/trinidj/ExpenseTracker" target="_blank">
+              <a href="https://github.com/trinidj/ExpenseTracker/issues" target="_blank">
                 <div class="flex items-center gap-2">
                   <MessageCircle 
                     :size="20"
