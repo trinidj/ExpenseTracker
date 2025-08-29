@@ -1,17 +1,24 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useBalanceStore } from "@/stores/useBalanceStore";
-import { Clapperboard, Apple, Plane, House } from "lucide-vue-next";
+import { Clapperboard, Apple, Plane, ShoppingCart } from "lucide-vue-next";
 
 export const useTransactionsStore = defineStore('transactions', () => {
   // state
   const transactions = ref([]);
   const categories = ref([
-    { name: 'Entertainment', icon: Clapperboard },
-    { name: 'Travel', icon: Plane },
-    { name: 'Food', icon: Apple },
-    { name: 'Housing', icon: House },
+    { name: 'Entertainment', icon: 'Clapperboard', colour: 'emerald' },
+    { name: 'Travel', icon: 'Plane', colour: 'blue' },
+    { name: 'Food', icon: 'Apple', colour: 'orange' },
+    { name: 'Shopping', icon: 'ShoppingCart', colour: 'pink' },
   ]);
+
+  const iconMap = {
+    'Clapperboard': Clapperboard,
+    'Plane': Plane,
+    'Apple': Apple,
+    'ShoppingCart': ShoppingCart
+  };
 
   // getters
   const getTransactionsByDate = (transactions) => {
@@ -30,6 +37,10 @@ export const useTransactionsStore = defineStore('transactions', () => {
 
     return groupedTransactions;
   }
+
+  const getIconComponent = (iconName) => {
+    return iconMap[iconName] || Clapperboard;
+  }
     
   // actions
   const addTransaction = (transaction) => {
@@ -38,7 +49,8 @@ export const useTransactionsStore = defineStore('transactions', () => {
       id: Date.now(),
       ...transaction,
       createdAt: new Date(),
-      icon: categoryIcon ? categoryIcon.icon : categories.value[0].icon
+      icon: categoryIcon ? categoryIcon.icon : categories.value[0].icon,
+      colour: categoryIcon ? categoryIcon.colour : categories.value[0].colour
     };
     transactions.value.unshift(newTransaction);
     
@@ -57,6 +69,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
     transactions,
     categories,
     getTransactionsByDate,
+    getIconComponent,
     addTransaction,
   };
 }, {
