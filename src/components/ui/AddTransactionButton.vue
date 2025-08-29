@@ -177,7 +177,7 @@
 
   <Button 
     unstyled
-    class="absolute cursor-pointer right-0 transform -translate-x-1/2 -translate-y-8 bg-teal-400 hover:bg-teal-500 border border-teal-400 p-4 rounded-full shadow-lg bottom-0"
+    class="absolute cursor-pointer right-0 transform -translate-6 bg-teal-400 hover:bg-teal-500 border border-teal-400 p-4 rounded-full shadow-lg bottom-0"
     @click="visible = true"
   >
     <Plus :size="24" class="text-white" />
