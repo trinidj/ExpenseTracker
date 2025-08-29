@@ -3,7 +3,7 @@
   import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
-  import { Drawer, Button, Divider } from 'primevue';
+  import { Drawer, Button } from 'primevue';
 
   const props = defineProps({
     pageTitle: {
@@ -70,8 +70,7 @@
               </a>
             </li>
           </ul>
-        </div>
-        <Divider />                           
+        </div>                   
       </template>
     </Drawer>
     <Button
