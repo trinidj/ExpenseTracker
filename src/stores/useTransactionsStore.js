@@ -9,7 +9,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const categories = ref([
     { name: 'Entertainment', icon: 'Clapperboard', colour: 'emerald' },
     { name: 'Travel', icon: 'Plane', colour: 'blue' },
-    { name: 'Food', icon: 'Apple', colour: 'orange' },
+    { name: 'Food', icon: 'Apple', colour: 'amber' },
     { name: 'Shopping', icon: 'ShoppingCart', colour: 'pink' },
   ]);
 

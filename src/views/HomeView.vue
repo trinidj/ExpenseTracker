@@ -208,7 +208,7 @@
           >
             <div class="flex flex-row items-center justify-between">
               <div class="flex items-center gap-4">
-                <div :class="[`flex items-center justify-center bg-${transaction.colour}-300 p-1.5 rounded-lg`]">
+                <div :class="[`flex items-center justify-center bg-${transaction.colour}-300 p-2 rounded-lg`]"> 
                   <component 
                     :is="transactionStore.getIconComponent(transaction.icon)" 
                     :size="20" 
