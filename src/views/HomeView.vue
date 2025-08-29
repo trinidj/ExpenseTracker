@@ -200,32 +200,31 @@
         </RouterLink>
       </header>
 
-      <ul
-        v-if="transactionStore.transactions.length > 0" 
-        class="mx-6 flex flex-col gap-4 h-96"
-      >
-        <li
-          v-for="transaction in transactionStore.transactions"
-          :key="transaction.id"
-        >
-          <div class="flex flex-row items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="flex flex-col">
-                <h3 class="text-sm">{{ transaction.name }}</h3>
-                <p class="text-black/45 text-xs">
-                  {{ formatTime(transaction) }}
-                </p>
+      <div v-if="transactionStore.transactions.length > 0">
+        <ul class="mx-6 flex flex-col gap-4 h-fit">
+          <li
+            v-for="transaction in transactionStore.transactions"
+            :key="transaction.id"
+          >
+            <div class="flex flex-row items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="flex flex-col">
+                  <h3 class="text-sm">{{ transaction.name }}</h3>
+                  <p class="text-black/45 text-xs">
+                    {{ formatTime(transaction) }}
+                  </p>
+                </div>
               </div>
+              <p :class="['text-base font-medium', {
+                'text-red-400': transaction.amount <= 0,
+                'text-emerald-400': transaction.amount > 0,
+              }]">
+                {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
+              </p>
             </div>
-            <p :class="['text-base font-medium', {
-              'text-red-400': transaction.amount <= 0,
-              'text-emerald-400': transaction.amount > 0,
-            }]">
-              {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
-            </p>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
 
       <div
         v-else
