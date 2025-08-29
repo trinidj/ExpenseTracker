@@ -3,7 +3,7 @@
   import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
-  import { Drawer, Button } from 'primevue';
+  import { Drawer, Button, Divider } from 'primevue';
 
   const props = defineProps({
     pageTitle: {
@@ -54,8 +54,9 @@
             <p :class="['font-medium text-base', isActive ? 'text-emerald-300' : '']" >{{ navLink.name }}</p>
           </RouterLink>
         </div>
+      </nav>
 
-        <!-- External Links -->
+      <template #footer>
         <div class="flex flex-col">
           <ul>
             <li class="flex flex-row p-2 rounded-md items-center gap-4 transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900">
@@ -70,7 +71,8 @@
             </li>
           </ul>
         </div>
-      </nav>
+        <Divider />                           
+      </template>
     </Drawer>
     <Button
       unstyled
