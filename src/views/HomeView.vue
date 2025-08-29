@@ -209,6 +209,7 @@
             <div class="flex flex-row items-center justify-between">
               <div class="flex items-center gap-2">
                 <div class="flex flex-col">
+                  <component :is="transaction.icon" :size="20" />
                   <h3 class="text-sm">{{ transaction.name }}</h3>
                   <p class="text-black/45 text-xs">
                     {{ formatTime(transaction) }}
