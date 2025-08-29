@@ -21,6 +21,7 @@
     category: null,
     date: null,
     icon: null,
+    colour: '',
   });
 
   const handleSubmit = () => {
@@ -31,9 +32,7 @@
       name: formData.value.name,
       amount: finalAmount,
       category: formData.value.category.name,
-      date: formData.value.date,
-      type: formData.value.type,
-      icon: formData.value.icon
+      type: formData.value.type
     };
 
     transactionStore.addTransaction(transaction);
