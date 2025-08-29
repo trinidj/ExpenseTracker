@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from 'vue';
-  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote } from 'lucide-vue-next';
+  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
   import { Drawer, Button } from 'primevue';
@@ -19,30 +19,58 @@
     { name: 'Transactions', path: '/transactions', icon: ArrowLeftRight },
     { name: 'Analytics', path: '/analytics', icon: ChartArea },
     { name: 'Budgets', path: '/budgets', icon: Banknote }
-  ]
+  ];
 </script>
 
 <template>
   <header class="flex flex-row gap-4 items-center px-6 py-8">
     <Drawer 
       v-model:visible="visible" 
-      header="Expense Tracker"
-      class="border-2! border-r-emerald-300!"
+      class="border-2! border-r-emerald-300! w-72!"
     >
-      <div class="h-full">
-        <nav class="flex flex-col h-full overflow-hidden gap-2">
+      <template #header>
+        <div class="flex flex-row items-center gap-2">
+          <CircleDollarSign 
+            :size="25"
+          />
+          <h1 class="text-lg font-medium">Expense Tracker</h1>
+        </div>
+      </template>
+
+      <nav class="flex flex-col h-full justify-between overflow-hidden gap-2">
+        <!-- Site Nav Links -->
+        <div>
           <RouterLink 
             v-for="navLink in navLinks"
             :key="navLink.name"
             :to="navLink.path"
             v-slot="{ isActive }"
-            class="flex items-center gap-4 px-3 py-2 rounded-md transition-all ease duration-200 hover:bg-gray-200"
+            class="flex items-center gap-4 p-2 rounded-md transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900"
           >
-            <component :is="navLink.icon" :size="20" :class="isActive ? 'text-emerald-300' : ''" />
+            <component 
+              :is="navLink.icon" 
+              :size="20" 
+              :class="isActive ? 'text-emerald-300' : ''" />
             <p :class="['font-medium text-base', isActive ? 'text-emerald-300' : '']" >{{ navLink.name }}</p>
           </RouterLink>
-        </nav>
-      </div>
+        </div>
+
+        <!-- External Links -->
+        <div class="flex flex-col">
+          <ul>
+            <li class="flex flex-row p-2 rounded-md items-center gap-4 transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900">
+              <a href="https://github.com/trinidj/ExpenseTracker" target="_blank">
+                <div class="flex items-center gap-2">
+                  <MessageCircle 
+                    :size="20"
+                  />
+                  <p class="flex items-center font-medium text-base">Feedback <sup><ExternalLink :size="12" /></sup></p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </Drawer>
     <Button
       unstyled
