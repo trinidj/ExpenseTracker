@@ -207,10 +207,17 @@
             :key="transaction.id"
           >
             <div class="flex flex-row items-center justify-between">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-4">
+                <div :class="[`flex items-center justify-center bg-${transaction.colour}-300 p-1.5 rounded-lg`]">
+                  <component 
+                    :is="transactionStore.getIconComponent(transaction.icon)" 
+                    :size="20" 
+                    :class="[`text-${transaction.colour}-200`]"
+                  />
+                </div>
+
                 <div class="flex flex-col">
-                  <component :is="transaction.icon" :size="20" />
-                  <h3 class="text-sm">{{ transaction.name }}</h3>
+                  <h3 class="text-sm font-medium">{{ transaction.name }}</h3>
                   <p class="text-black/45 text-xs">
                     {{ formatTime(transaction) }}
                   </p>
