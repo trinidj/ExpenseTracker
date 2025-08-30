@@ -6,19 +6,20 @@ import { Clapperboard, Apple, Plane, ShoppingCart } from "lucide-vue-next";
 export const useTransactionsStore = defineStore('transactions', () => {
   // state
   const transactions = ref([]);
-  const categories = ref([
-    { name: 'Entertainment', icon: 'Clapperboard', colour: 'emerald' },
-    { name: 'Travel', icon: 'Plane', colour: 'blue' },
-    { name: 'Food', icon: 'Apple', colour: 'amber' },
-    { name: 'Shopping', icon: 'ShoppingCart', colour: 'pink' },
-  ]);
-
+  
   const iconMap = {
     'Clapperboard': Clapperboard,
     'Plane': Plane,
     'Apple': Apple,
     'ShoppingCart': ShoppingCart
   };
+
+  const categories = ref([
+    { name: 'Entertainment', icon: 'Clapperboard', colour: 'emerald' },
+    { name: 'Travel', icon: 'Plane', colour: 'blue' },
+    { name: 'Food', icon: 'Apple', colour: 'amber' },
+    { name: 'Shopping', icon: 'ShoppingCart', colour: 'pink' },
+  ]);
 
   // getters
   const getTransactionsByDate = (transactions) => {
@@ -36,11 +37,33 @@ export const useTransactionsStore = defineStore('transactions', () => {
     });
 
     return groupedTransactions;
-  }
+  };
+
+  const getBackgroundClass = (colour) => {
+    const colourMap = {
+      emerald: 'bg-emerald-300',
+      blue: 'bg-blue-300',
+      amber: 'bg-amber-300',
+      pink: 'bg-pink-300',
+    };
+
+    return colourMap[colour];
+  };
+
+  const getTextClass = (colour) => {
+    const colourMap = {
+      emerald: 'text-emerald-700',
+      blue: 'text-blue-700',
+      amber: 'text-amber-700',
+      pink: 'text-pink-700',
+    };
+    
+    return colourMap[colour];
+  };
 
   const getIconComponent = (iconName) => {
     return iconMap[iconName] || Clapperboard;
-  }
+  };
     
   // actions
   const addTransaction = (transaction) => {
@@ -69,6 +92,8 @@ export const useTransactionsStore = defineStore('transactions', () => {
     transactions,
     categories,
     getTransactionsByDate,
+    getBackgroundClass,
+    getTextClass,
     getIconComponent,
     addTransaction,
   };
