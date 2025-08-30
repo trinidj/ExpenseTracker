@@ -193,7 +193,7 @@
                 type="button" 
                 label="Add" 
                 class="p-2! bg-emerald-400! rounded-md! border-0! hover:bg-emerald-500! cursor-pointer"
-                @click="openPosition('bottom')"
+                @click="visible = true"
               >
                 <Plus 
                   :size="16"
