@@ -1,16 +1,18 @@
 <script setup>
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
 
   import Header from '@/components/layout/Header.vue';
 
   import { Filter } from 'lucide-vue-next';
-  import { ScrollPanel, Button } from 'primevue';
+  import { ScrollPanel, Button, Drawer } from 'primevue';
   import SearchBar from '@/components/SearchBar.vue';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
   import { storeToRefs } from 'pinia';
 
   const transactionStore = useTransactionsStore();
   const { transactions } = storeToRefs(transactionStore);
+
+  const visible = ref(false);
 
   const groupedTransactions = computed(() => {
     return transactionStore.getTransactionsByDate(transactions.value);
@@ -51,16 +53,26 @@
   <div class="h-screen flex flex-col overflow-hidden">
     <!-- Header -->
     <Header page-title="Transactions" />
+
+    <Drawer
+      header="Filter"
+      v-model:visible="visible"
+      position="bottom"
+      class="h-1/2! rounded-tl-lg rounded-tr-lg"
+    >
+    </Drawer>
     
     <div class="mx-6 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
       <SearchBar />
       
       <Button
         unstyled 
+        type="button"
         class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out"
+        @click="visible = true"
       >
         <Filter />
-      </Button>
+      </Button>                                         
     </div>
 
     <!-- Transactions -->
