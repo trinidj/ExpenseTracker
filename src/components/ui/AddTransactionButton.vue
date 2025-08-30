@@ -3,7 +3,7 @@
 
   import { Plus } from 'lucide-vue-next';
 
-  import { Button, Dialog, InputText, Select, SelectButton, Message } from 'primevue';
+  import { Button, Drawer, InputText, Select, SelectButton, Message } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
@@ -83,84 +83,84 @@
 </script>
 
 <template>
-  <Dialog 
-    modal
+  <Drawer 
     header="Add Transaction"
     v-model:visible="visible"  
-    position="bottom" 
-    :draggable="false"
+    position="bottom"
+    class="h-fit! rounded-tl-lg rounded-tr-lg" 
   >
     <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
-      <div class="grid grid-cols-2 gap-4">
-        <div class="flex items-center col-span-full">
+      <div class="flex flex-col gap-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex items-center col-span-full">
           <SelectButton 
             fluid
             v-model="formData.type"
             :options="selectButtonOptions"
           />
-        </div>
+          </div>
 
-        <div class="flex flex-col gap-1">
-          <InputText 
-            name="name"
-            v-model="formData.name"
-            fluid
-            placeholder="Name"
-            size="small"
-          />
+          <div class="flex flex-col gap-1">
+            <InputText 
+              name="name"
+              v-model="formData.name"
+              fluid
+              placeholder="Name"
+              size="small"
+            />
 
-          <Message
-            v-if="$form.name?.invalid"
-            severity="error"
-            variant="simple"
-            size="small"
-          >
-            {{ $form.name.error?.message }}
-          </Message>
-        </div>      
+            <Message
+              v-if="$form.name?.invalid"
+              severity="error"
+              variant="simple"
+              size="small"
+            >
+              {{ $form.name.error?.message }}
+            </Message>
+          </div>      
         
-        <div class="flex flex-col gap-1">
-          <InputText 
-            name="amount"
-            v-model="formData.amount"
-            v-keyfilter.money 
-            fluid
-            placeholder="Price" 
-            size="small" 
-          />
+          <div class="flex flex-col gap-1">
+            <InputText 
+              name="amount"
+              v-model="formData.amount"
+              v-keyfilter.money 
+              fluid
+              placeholder="Price" 
+              size="small" 
+            />
 
-          <Message
-            v-if="$form.amount?.invalid"
-            severity="error"
-            variant="simple"
-            size="small"
-          >
-            {{ $form.amount.error?.message }}
-          </Message>
-        </div>
+            <Message
+              v-if="$form.amount?.invalid"
+              severity="error"
+              variant="simple"
+              size="small"
+            >
+              {{ $form.amount.error?.message }}
+            </Message>
+          </div>
         
-        <div class="flex flex-col gap-1 col-span-full">
-          <Select 
-            name="category"
-            placeholder="Select a Catgeory" 
-            fluid
-            v-model="formData.category"
-            :options="categories"
-            option-label="name"
-            size="small"
-            class="flex! items-center!"
-          />
+          <div class="flex flex-col gap-1 col-span-full">
+            <Select 
+              name="category"
+              placeholder="Select a Catgeory" 
+              fluid
+              v-model="formData.category"
+              :options="categories"
+              option-label="name"
+              size="small"
+              class="flex! items-center!"
+            />
 
-          <Message
-            v-if="$form.category?.invalid"
-            severity="error"
-            variant="simple"
-            size="small"
-          >
-            {{ $form.category.error?.message }}
-          </Message>
+            <Message
+              v-if="$form.category?.invalid"
+              severity="error"
+              variant="simple"
+              size="small"
+            >
+              {{ $form.category.error?.message }}
+            </Message>
+          </div>
         </div>
-
 
         <div class="flex col-span-full items-center justify-end gap-4">
           <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
@@ -168,7 +168,7 @@
         </div>
       </div>
     </Form>
-  </Dialog>
+  </Drawer>
 
   <Button 
     unstyled
