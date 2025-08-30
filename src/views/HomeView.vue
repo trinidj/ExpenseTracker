@@ -1,7 +1,7 @@
 <script setup>
   import { ref, reactive } from 'vue';
 
-  import { DollarSign, ArrowDown, ArrowUp, Ellipsis } from 'lucide-vue-next';
+  import { DollarSign, ArrowDown, ArrowUp, CircleEllipsis } from 'lucide-vue-next';
 
   import { Button, Dialog, InputText, Message, Toast } from 'primevue';
   import { Form } from '@primevue/forms';
@@ -159,7 +159,7 @@
             class="cursor-pointer"
             @click="visible = true"
           >
-            <Ellipsis />
+            <CircleEllipsis />
           </Button>
         </div>
 
