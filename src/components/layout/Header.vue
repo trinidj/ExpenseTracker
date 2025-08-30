@@ -37,23 +37,21 @@
         </div>
       </template>
 
-      <nav class="flex flex-col h-full justify-between overflow-hidden gap-2">
+      <nav class="flex flex-col h-full overflow-hidden gap-4">
         <!-- Site Nav Links -->
-        <div>
-          <RouterLink 
-            v-for="navLink in navLinks"
-            :key="navLink.name"
-            :to="navLink.path"
-            v-slot="{ isActive }"
-            class="flex items-center gap-4 p-2 rounded-md transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900"
-          >
-            <component 
-              :is="navLink.icon" 
-              :size="20" 
-              :class="isActive ? 'text-emerald-300' : ''" />
-            <p :class="['font-medium text-base', isActive ? 'text-emerald-300' : '']" >{{ navLink.name }}</p>
-          </RouterLink>
-        </div>
+        <RouterLink 
+          v-for="navLink in navLinks"
+          :key="navLink.name"
+          :to="navLink.path"
+          v-slot="{ isActive }"
+          class="flex items-center gap-4 p-2 rounded-md transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900"
+        >
+          <component 
+            :is="navLink.icon" 
+            :size="20" 
+            :class="isActive ? 'text-emerald-300' : ''" />
+          <p :class="['font-medium text-base', isActive ? 'text-emerald-300' : '']" >{{ navLink.name }}</p>
+        </RouterLink>
       </nav>
 
       <template #footer>
