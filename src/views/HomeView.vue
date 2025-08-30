@@ -3,7 +3,7 @@
 
   import { DollarSign, ArrowDown, ArrowUp, CircleEllipsis } from 'lucide-vue-next';
 
-  import { Button, Dialog, InputText, Message, Toast, Drawer } from 'primevue';
+  import { Button, Dialog, InputText, Message, Toast } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { RouterLink } from 'vue-router';
