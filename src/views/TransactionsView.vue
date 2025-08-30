@@ -80,7 +80,15 @@
               :key="transaction.id" 
               class="flex flex-row items-center justify-between"
             >
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-4">
+                <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]">
+                  <component 
+                    :is="transactionStore.getIconComponent(transaction.icon)"
+                    :size="20"
+                    :class="transactionStore.getTextClass(transaction.colour)"
+                  />
+                </div>
+
                 <div class="flex flex-col">
                   <h3 class="text-base">{{ transaction.name }}</h3>
                   <p class="text-black/45 text-xs">{{ formatTime(transaction) }}</p>
