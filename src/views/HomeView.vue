@@ -208,11 +208,11 @@
           >
             <div class="flex flex-row items-center justify-between">
               <div class="flex items-center gap-4">
-                <div :class="[`flex items-center justify-center bg-${transaction.colour}-300 p-2 rounded-lg`]"> 
+                <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]"> 
                   <component 
                     :is="transactionStore.getIconComponent(transaction.icon)" 
                     :size="20" 
-                    :class="[`text-${transaction.colour}-200`]"
+                    :class="transactionStore.getTextClass(transaction.colour)"
                   />
                 </div>
 
