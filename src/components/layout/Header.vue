@@ -3,7 +3,7 @@
   import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
-  import { Drawer, Button } from 'primevue';
+  import { Drawer, Button, Popover } from 'primevue';
 
   const props = defineProps({
     pageTitle: {
@@ -13,6 +13,11 @@
   });
 
   const visible = ref(false);
+  const op = ref();
+
+  const toggle = (event) => {
+    op.value.toggle(event);
+  };
 
   const navLinks = [
     { name: 'Home', path: '/', icon: Home },
@@ -87,11 +92,16 @@
     <Button
       unstyled
       class="cursor-pointer relative"
+      @click="toggle"
     >
       <Bell className="bell-dot-icon" :size="20" />
       <div
         class="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full"
       ></div>
     </Button>
+
+    <Popover ref="op">
+      Notifications
+    </Popover>
   </header>
 </template>
