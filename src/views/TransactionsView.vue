@@ -39,7 +39,7 @@
   };
 
   const formatTime = (transaction) => {
-    const date = new Date(transaction.createdAt);
+    const date = new Date(transaction.created);
     
     return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
