@@ -14,13 +14,9 @@
   import { useBalanceStore } from '@/stores/useBalanceStore';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
-  import { useToast } from 'primevue/usetoast';
-
   import AddTransactionButton from '@/components/ui/AddTransactionButton.vue';
 
   import Header from '@/components/layout/Header.vue';
-
-  const toast = useToast();
 
   const balanceStore = useBalanceStore();
   const transactionStore = useTransactionsStore();
@@ -62,16 +58,6 @@
 
     balanceData.value.balance = '';
     balanceData.value.income = '';
-  };
-
-  const onFormSubmit = ({ valid }) => {
-    if (valid) {
-      toast.add({ 
-        severity: 'success', 
-        summary: 'Balance Updated!',
-        life: 3000 
-      });
-    }
 
     visible.value = false;
   };
@@ -89,7 +75,7 @@
     position="center"
     :draggable="false"
   >
-      <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
+      <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues">
         <div class="flex flex-col gap-4">
           <div class="flex flex-col gap-1">
             <InputText
