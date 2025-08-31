@@ -3,7 +3,7 @@
 
   import { Plus } from 'lucide-vue-next';
 
-  import { Button, Drawer, InputText, Select, SelectButton, Message } from 'primevue';
+  import { Button, Drawer, InputText, Select, SelectButton, Message, Popover } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
@@ -16,7 +16,16 @@
   const transactionStore = useTransactionsStore();
   const balanceStore = useBalanceStore();
 
-  const visible = ref(false);
+  let visible = ref(false);
+  const op = ref();
+
+  const handleAddTransactionClick = (event) => {
+    if (balanceStore.totalBalance <= 0) {
+      op.value.toggle(event);
+    } else {
+      visible.value = true;
+    }
+  };
 
   let currentTransactionType = ref('Expense');
 
@@ -278,9 +287,14 @@
 
   <Button 
     unstyled
+    type="button"
     class="absolute cursor-pointer right-0 transform -translate-6 bg-teal-400 hover:bg-teal-500 border border-teal-400 p-4 rounded-full shadow-lg bottom-0"
-    @click="balanceStore.totalBalance <= 0 ? console.log('Please enter a Balance First!') : visible = true"
+    @click="handleAddTransactionClick"
   >
     <Plus :size="24" class="text-white" />
   </Button>
+
+  <Popover ref="op">
+    <p>Please update your balance before proceeding.</p>
+  </Popover>
 </template>
