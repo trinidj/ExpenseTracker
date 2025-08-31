@@ -10,13 +10,12 @@
   import { useBalanceStore } from '@/stores/useBalanceStore';
 
   import { zodResolver } from '@primevue/forms/resolvers/zod';
-  import { useToast } from 'primevue';
   import z from 'zod';
 
   const transactionStore = useTransactionsStore();
   const balanceStore = useBalanceStore();
 
-  let visible = ref(false);
+  const visible = ref(false);
   const op = ref();
 
   const handleAddTransactionClick = (event) => {
@@ -51,7 +50,6 @@
   const incomeCategories = transactionStore.incomeCategories;
   const expenseCategories = transactionStore.expenseCategories;
 
-  const toast = useToast();
   const initalValues = ref({
     name: '',
     amount: '',
@@ -72,16 +70,6 @@
       }),
     })
   ));
-
-  const onFormSubmit = ({ valid }) => {
-    if (valid) {
-      toast.add({
-        severity: 'success',
-        summary: 'Form is submitted.',
-        life: 2000
-      });
-    }
-  };
 
   const handleSubmit = () => {
     if (currentTransactionType.value === 'Income') {
@@ -132,7 +120,6 @@
       v-slot="$form" 
       :resolver="resolver"
       :initial-values="initalValues" 
-      @submit="onFormSubmit"
     >
       <div class="flex flex-col gap-4">
         <div class="grid grid-cols-2 gap-4">
