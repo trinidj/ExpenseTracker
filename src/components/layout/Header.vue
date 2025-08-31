@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from 'vue';
-  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink } from 'lucide-vue-next';
+  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
   import { Drawer, Button } from 'primevue';
@@ -23,7 +23,7 @@
 </script>
 
 <template>
-  <header class="flex flex-row gap-4 items-center px-6 py-8">
+  <header class="flex flex-row justify-between items-center px-6 py-8">
     <Drawer 
       v-model:visible="visible" 
       class="border-2! border-r-emerald-300! w-72!"
@@ -71,15 +71,27 @@
         </div>                   
       </template>
     </Drawer>
+
+    <div class="flex gap-4 items-center ">
+      <Button
+        unstyled
+        class="cursor-pointer"
+        @click="visible = true"
+      >
+        <Menu 
+          :size="20"
+        />
+      </Button>
+      <h1 class="text-zinc-800 text-2xl font-semibold">{{ pageTitle }}</h1>
+    </div>
     <Button
       unstyled
-      class="cursor-pointer"
-      @click="visible = true"
+      class="cursor-pointer relative"
     >
-      <Menu 
-        :size="20"
-      />
+      <Bell className="bell-dot-icon" :size="20" />
+      <div
+        class="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full"
+      ></div>
     </Button>
-    <h1 class="text-zinc-800 text-2xl font-semibold">{{ pageTitle }}</h1>
   </header>
 </template>
