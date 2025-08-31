@@ -24,8 +24,8 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const incomeCategories = ref([
     { name: 'Salary', icon: 'BriefcaseBusiness' },
     { name: 'Investments', icon: 'TrendingUp' },
-    { name: 'Gifts / Allowance', icon: 'Gift' },
-    { name: 'Refunds / Reimbursments', icon: 'CreditCard' },
+    { name: 'Gifts / Allowance', icon: 'Gift / Allowance' },
+    { name: 'Refunds / Reimbursments', icon: 'Refunds / Reimbursments' },
   ]);
 
   const expenseCategories = ref([
@@ -85,40 +85,39 @@ export const useTransactionsStore = defineStore('transactions', () => {
     
   // actions
   const addTransaction = (transaction) => {
-    const incomeCategoryIcon = incomeCategories.value.find(cat => cat.name === transaction.category);
-    const expenseCategoryIcon = expenseCategories.value.find(cat => cat.name === transaction.category);
-
     const balanceStore = useBalanceStore();
+    const amount = parseFloat(transaction.amount);
 
-    const parsedAmount = parseFloat(transaction.amount);
-    const absoluteAmount = Math.abs(parsedAmount);
+    let categoryIcon, newTransaction;
 
     if (transaction.type === 'Expense') {
-      const newExpenseTransaction = {
+      categoryIcon = expenseCategories.value.find(cat => cat.name === transaction.category);
+      
+      newTransaction = {
         id: Date.now(),
         ...transaction,
         created: new Date(),
-        icon: expenseCategoryIcon ? expenseCategoryIcon.icon : expenseCategoryIcon.value[0].icon,
-        colour: categoryIcon ? categoryIcon.colour : categories.value[0].colour,
+        icon: categoryIcon ? categoryIcon.icon : expenseCategories.value[0].icon,
+        colour: categoryIcon ? categoryIcon.colour : expenseCategories.value[0].colour,
       };
 
-      transactions.value.unshift(newExpenseTransaction);
-
-      balanceStore.totalBalance -= absoluteAmount;
-      balanceStore.totalExpenses += absoluteAmount;
+      balanceStore.totalBalance -= amount;
+      balanceStore.totalExpenses += amount;
       
     } else if (transaction.type === 'Income') {
-      const newIncomeTransaction = {
+      categoryIcon = incomeCategories.value.find(cat => cat.name === transaction.category);
+      
+      newTransaction = {
         id: Date.now(),
         ...transaction,
         created: new Date(),
-        icon: incomeCategoryIcon ? incomeCategoryIcon.icon : expenseCategoryIcon.value[0].icon,
+        icon: categoryIcon ? categoryIcon.icon : incomeCategories.value[0].icon,
       };
 
-      transactions.value.unshift(newIncomeTransaction);
-
-      balanceStore.totalBalance += absoluteAmount;
+      balanceStore.totalBalance = parseFloat(balanceStore.totalBalance) + amount;
     }
+
+    transactions.value.unshift(newTransaction);
   };
 
   return { 
