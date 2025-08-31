@@ -3,7 +3,7 @@
   import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
-  import { Drawer, Button, Popover } from 'primevue';
+  import { Drawer, Button, Popover, OverlayBadge } from 'primevue';
 
   const props = defineProps({
     pageTitle: {
@@ -90,18 +90,17 @@
       <h1 class="text-zinc-800 text-2xl font-semibold">{{ pageTitle }}</h1>
     </div>
     <Button
-      unstyled
-      class="cursor-pointer relative"
       @click="toggle"
     >
-      <Bell className="bell-dot-icon" :size="20" />
-      <div
-        class="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full"
-      ></div>
+      <OverlayBadge severity="danger">
+        <Bell :size="20" />
+      </OverlayBadge>
     </Button>
 
     <Popover ref="op">
-      Notifications
+      <div class="flex flex-col gap-4">
+        Notifications
+      </div>
     </Popover>
   </header>
 </template>
