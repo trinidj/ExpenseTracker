@@ -43,13 +43,7 @@
   const expenseCategories = transactionStore.expenseCategories;
 
   const toast = useToast();
-  const initialExpenseValues = ref({
-    name: '',
-    amount: '',
-    category: null
-  });
-
-  const initialIncomeValue = ref({
+  const initalValues = ref({
     name: '',
     amount: '',
     category: null,
@@ -93,7 +87,9 @@
 
       transactionStore.addTransaction(incomeTransaction);
 
+      incomeFormData.value.name = '';
       incomeFormData.value.amount = '';
+      incomeFormData.value.category = '';
 
     } else if (currentTransactionType.value === 'Expense') {
       const expenseAmount = -Math.abs(parseFloat(expenseFormData.value.amount));
@@ -126,7 +122,7 @@
     <Form
       v-slot="$form" 
       :resolver="resolver"
-      :initial-values="currentTransactionType.value === 'Expense' ? initialExpenseValues : initialIncomeValue" 
+      :initial-values="initalValues" 
       @submit="onFormSubmit"
     >
       <div class="flex flex-col gap-4">
