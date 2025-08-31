@@ -1,20 +1,34 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useBalanceStore } from "@/stores/useBalanceStore";
-import { Clapperboard, Apple, Plane, ShoppingCart } from "lucide-vue-next";
+import { Clapperboard, Apple, Plane, ShoppingCart, BriefcaseBusiness, TrendingUp, Gift, CreditCard, Briefcase } from "lucide-vue-next";
 
 export const useTransactionsStore = defineStore('transactions', () => {
   // state
   const transactions = ref([]);
   
-  const iconMap = {
+  const incomeIconMap = {
+    'BriefcaseBusiness': BriefcaseBusiness,
+    'TrendingUp': TrendingUp,
+    'Gifts / Allowance': Gift,
+    'Refunds / Reimbursments': CreditCard,
+  };
+
+  const expenseIconMap = {
     'Clapperboard': Clapperboard,
     'Plane': Plane,
     'Apple': Apple,
-    'ShoppingCart': ShoppingCart
+    'ShoppingCart': ShoppingCart,
   };
 
-  const categories = ref([
+  const incomeCategories = ref([
+    { name: 'Salary', icon: 'BriefcaseBusiness' },
+    { name: 'Investments', icon: 'TrendingUp' },
+    { name: 'Gifts / Allowance', icon: 'Gift' },
+    { name: 'Refunds / Reimbursments', icon: 'CreditCard' },
+  ]);
+
+  const expenseCategories = ref([
     { name: 'Entertainment', icon: 'Clapperboard', colour: 'emerald' },
     { name: 'Travel', icon: 'Plane', colour: 'blue' },
     { name: 'Food', icon: 'Apple', colour: 'amber' },
@@ -61,36 +75,56 @@ export const useTransactionsStore = defineStore('transactions', () => {
     return colourMap[colour];
   };
 
-  const getIconComponent = (iconName) => {
-    return iconMap[iconName] || Clapperboard;
+  const getIconComponent = (iconName, transactionType) => {
+    if (transactionType === 'Expense') {
+      return expenseIconMap[iconName];
+    } 
+    
+    return incomeIconMap[iconName];
   };
     
   // actions
   const addTransaction = (transaction) => {
-    const categoryIcon = categories.value.find(cat => cat.name === transaction.category);
-    const newTransaction = {
-      id: Date.now(),
-      ...transaction,
-      createdAt: new Date(),
-      icon: categoryIcon ? categoryIcon.icon : categories.value[0].icon,
-      colour: categoryIcon ? categoryIcon.colour : categories.value[0].colour
-    };
-    transactions.value.unshift(newTransaction);
-    
+    const incomeCategoryIcon = incomeCategories.value.find(cat => cat.name === transaction.category);
+    const expenseCategoryIcon = expenseCategories.value.find(cat => cat.name === transaction.category);
+
     const balanceStore = useBalanceStore();
-    const absoluteAmount = Math.abs(transaction.amount);
-    
-    if (transaction.amount < 0) {
+
+    const parsedAmount = parseFloat(transaction.amount);
+    const absoluteAmount = Math.abs(parsedAmount);
+
+    if (transaction.type === 'Expense') {
+      const newExpenseTransaction = {
+        id: Date.now(),
+        ...transaction,
+        created: new Date(),
+        icon: expenseCategoryIcon ? expenseCategoryIcon.icon : expenseCategoryIcon.value[0].icon,
+        colour: categoryIcon ? categoryIcon.colour : categories.value[0].colour,
+      };
+
+      transactions.value.unshift(newExpenseTransaction);
+
       balanceStore.totalBalance -= absoluteAmount;
       balanceStore.totalExpenses += absoluteAmount;
-    } else {
+      
+    } else if (transaction.type === 'Income') {
+      const newIncomeTransaction = {
+        id: Date.now(),
+        ...transaction,
+        created: new Date(),
+        icon: incomeCategoryIcon ? incomeCategoryIcon.icon : expenseCategoryIcon.value[0].icon,
+      };
+
+      transactions.value.unshift(newIncomeTransaction);
+
       balanceStore.totalBalance += absoluteAmount;
     }
   };
 
   return { 
     transactions,
-    categories,
+    incomeCategories,
+    expenseCategories,
     getTransactionsByDate,
     getBackgroundClass,
     getTextClass,
