@@ -7,12 +7,16 @@
   import { Form } from '@primevue/forms';
 
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
+  import { useBalanceStore } from '@/stores/useBalanceStore';
 
   import { zodResolver } from '@primevue/forms/resolvers/zod';
   import { useToast } from 'primevue';
   import z from 'zod';
 
   const transactionStore = useTransactionsStore();
+  const balanceStore = useBalanceStore();
+
+  const visible = ref(false);
 
   let currentTransactionType = ref('Expense');
 
@@ -28,13 +32,15 @@
 
   const incomeFormData = ref({
     type: 'Income',
+    name: '',
     amount: '',
+    category: null,
   });
 
-  const visible = ref(false);
-
   const selectButtonOptions = ref(['Income', 'Expense']);
-  const categories = transactionStore.categories;
+
+  const incomeCategories = transactionStore.incomeCategories;
+  const expenseCategories = transactionStore.expenseCategories;
 
   const toast = useToast();
   const initialExpenseValues = ref({
@@ -44,10 +50,12 @@
   });
 
   const initialIncomeValue = ref({
+    name: '',
     amount: '',
+    category: null,
   });
 
-  const expenseResolver = ref(zodResolver(
+  const resolver = ref(zodResolver(
     z.object({
       name: z.string().min(1, { message: 'Name is required.' }),
       amount: z.string().min(1, { message: 'Amount is required.' }),
@@ -61,12 +69,6 @@
       }),
     })
   ));
-
-  const incomeResolver = ref(zodResolver(
-    z.object({
-      amount: z.string().min(1, { message: 'Amount is required.' }),
-    })
-  )); 
 
   const onFormSubmit = ({ valid }) => {
     if (valid) {
@@ -84,7 +86,9 @@
 
       const incomeTransaction = {
         type: incomeFormData.value.type,
+        name: incomeFormData.value.name,
         amount: incomeAmount,
+        category: incomeFormData.value.category.name,
       };
 
       transactionStore.addTransaction(incomeTransaction);
@@ -95,10 +99,10 @@
       const expenseAmount = -Math.abs(parseFloat(expenseFormData.value.amount));
 
       const expenseTransaction = {
+        type: expenseFormData.value.type,
         name: expenseFormData.value.name,
         amount: expenseAmount,
         category: expenseFormData.value.category.name,
-        type: expenseFormData.value.type,
       };
 
       transactionStore.addTransaction(expenseTransaction);
@@ -121,7 +125,7 @@
   >
     <Form
       v-slot="$form" 
-      :resolver="currentTransactionType.value === 'Expense' ? expenseResolver : incomeResolver" 
+      :resolver="resolver"
       :initial-values="currentTransactionType.value === 'Expense' ? initialExpenseValues : initialIncomeValue" 
       @submit="onFormSubmit"
     >
@@ -140,22 +144,22 @@
             class="grid grid-cols-2 gap-4 col-span-full"
           >
             <div class="flex flex-col gap-1">
-            <InputText 
-              name="name"
-              v-model="expenseFormData.name"
-              fluid
-              placeholder="Name"
-              size="small"
-            />
+              <InputText 
+                name="name"
+                v-model="expenseFormData.name"
+                fluid
+                placeholder="Name"
+                size="small"
+              />
 
-            <Message
-              v-if="$form.name?.invalid"
-              severity="error"
-              variant="simple"
-              size="small"
-            >
-              {{ $form.name.error?.message }}
-            </Message>
+              <Message
+                v-if="$form.name?.invalid"
+                severity="error"
+                variant="simple"
+                size="small"
+              >
+                {{ $form.name.error?.message }}
+              </Message>
             </div>      
           
             <div class="flex flex-col gap-1">
@@ -184,7 +188,7 @@
                 placeholder="Select a Category" 
                 fluid
                 v-model="expenseFormData.category"
-                :options="categories"
+                :options="expenseCategories"
                 option-label="name"
                 size="small"
                 class="flex! items-center!"
@@ -203,25 +207,68 @@
 
           <div
             v-else
-            class="flex justify-center items-center col-span-full"
+            class="grid grid-cols-2 gap-4 col-span-full"
           >
-            <InputText 
-              name="amount"
-              fluid
-              v-model="incomeFormData.amount"
-              v-keyfilter.money
-              placeholder="0.00"
-              size="large"
-            />
+            <div class="flex flex-col gap-1">
+              <InputText 
+                name="name"
+                v-model="incomeFormData.name"
+                fluid
+                placeholder="Name"
+                size="small"
+              />
 
-            <Message
-              v-if="$form.amount?.invalid"
-              severity="error"
-              variant="simple"
-              size="small"
-            >
-              {{ $form.amount.error?.message }}
-            </Message>
+              <Message
+                v-if="$form.name?.invalid"
+                severity="error"
+                variant="simple"
+                size="small"
+              >
+                {{ $form.name.error?.message }}
+              </Message>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <InputText 
+                name="amount"
+                fluid
+                v-model="incomeFormData.amount"
+                v-keyfilter.money
+                placeholder="0.00"
+                size="small"
+              />
+
+              <Message
+                v-if="$form.amount?.invalid"
+                severity="error"
+                variant="simple"
+                size="small"
+              >
+                {{ $form.amount.error?.message }}
+              </Message>
+            </div>
+            
+            <div class="flex flex-col gap-1 col-span-full">
+              <Select 
+                name="category"
+                placeholder="Select a Category"
+                fluid
+                v-model="incomeFormData.category"
+                :options="incomeCategories"
+                option-label="name"
+                size="small"
+                class="flex! items-center!"
+              />
+
+              <Message
+                v-if="$form.category?.invalid"
+                severity="error"
+                variant="simple"
+                size="small"
+              >
+                {{ $form.category.error?.message }}
+              </Message>
+            </div>
           </div>
         </div>
 
@@ -236,7 +283,7 @@
   <Button 
     unstyled
     class="absolute cursor-pointer right-0 transform -translate-6 bg-teal-400 hover:bg-teal-500 border border-teal-400 p-4 rounded-full shadow-lg bottom-0"
-    @click="visible = true"
+    @click="balanceStore.totalBalance <= 0 ? console.log('Please enter a Balance First!') : visible = true"
   >
     <Plus :size="24" class="text-white" />
   </Button>
