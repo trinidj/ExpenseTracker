@@ -28,7 +28,7 @@
   const visible = ref(false);
 
   const formatTime = (transaction) => {
-    const date = new Date(transaction.createdAt);
+    const date = new Date(transaction.created);
     
     return date.toLocaleDateString('en-US', {
       month: 'short',
@@ -210,7 +210,7 @@
               <div class="flex items-center gap-4">
                 <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]"> 
                   <component 
-                    :is="transactionStore.getIconComponent(transaction.icon)" 
+                    :is="transactionStore.getIconComponent(transaction.icon, transaction.type)" 
                     :size="20" 
                     :class="transactionStore.getTextClass(transaction.colour)"
                   />
