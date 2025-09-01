@@ -1,9 +1,9 @@
 <script setup>
   import { ref } from 'vue';
-  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell } from 'lucide-vue-next';
+  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
-  import { Drawer, Button, Popover, OverlayBadge } from 'primevue';
+  import { Drawer, Button } from 'primevue';
 
   const props = defineProps({
     pageTitle: {
@@ -13,12 +13,6 @@
   });
 
   const visible = ref(false);
-  const op = ref();
-
-  const toggle = (event) => {
-    op.value.toggle(event);
-  };
-
   const navLinks = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Transactions', path: '/transactions', icon: ArrowLeftRight },
@@ -89,18 +83,5 @@
       </Button>
       <h1 class="text-zinc-800 text-2xl font-semibold">{{ pageTitle }}</h1>
     </div>
-    <Button
-      @click="toggle"
-    >
-      <OverlayBadge severity="danger">
-        <Bell :size="20" />
-      </OverlayBadge>
-    </Button>
-
-    <Popover ref="op">
-      <div class="flex flex-col gap-4">
-        Notifications
-      </div>
-    </Popover>
   </header>
 </template>

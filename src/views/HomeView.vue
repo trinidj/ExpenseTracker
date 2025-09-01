@@ -3,7 +3,7 @@
 
   import { DollarSign, ArrowDown, ArrowUp, CircleEllipsis } from 'lucide-vue-next';
 
-  import { Button, Dialog, InputText, Message, Toast } from 'primevue';
+  import { Button, Dialog, InputText, Message, Toast, ScrollPanel } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { RouterLink } from 'vue-router';
@@ -186,47 +186,49 @@
         </RouterLink>
       </header>
 
-      <div v-if="transactionStore.transactions.length > 0">
-        <ul class="mx-6 flex flex-col gap-4 h-fit">
-          <li
-            v-for="transaction in transactionStore.transactions"
-            :key="transaction.id"
-          >
-            <div class="flex flex-row items-center justify-between">
-              <div class="flex items-center gap-4">
-                <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]"> 
-                  <component 
-                    :is="transactionStore.getIconComponent(transaction.icon, transaction.type)" 
-                    :size="20" 
-                    :class="transactionStore.getTextClass(transaction.colour)"
-                  />
-                </div>
+      <ScrollPanel class="h-72">
+        <div v-if="transactionStore.transactions.length > 0">
+          <ul class="mx-6 flex flex-col gap-4 h-fit">
+            <li
+              v-for="transaction in transactionStore.transactions"
+              :key="transaction.id"
+            >
+              <div class="flex flex-row items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]"> 
+                    <component 
+                      :is="transactionStore.getIconComponent(transaction.icon, transaction.type)" 
+                      :size="20" 
+                      :class="transactionStore.getTextClass(transaction.colour)"
+                    />
+                  </div>
 
-                <div class="flex flex-col">
-                  <h3 class="text-sm font-medium">{{ transaction.name }}</h3>
-                  <p class="text-black/45 text-xs">
-                    {{ formatTime(transaction) }}
-                  </p>
+                  <div class="flex flex-col">
+                    <h3 class="text-sm font-medium">{{ transaction.name }}</h3>
+                    <p class="text-black/45 text-xs">
+                      {{ formatTime(transaction) }}
+                    </p>
+                  </div>
                 </div>
+                <p :class="['text-base font-medium', {
+                  'text-red-400': transaction.amount <= 0,
+                  'text-emerald-400': transaction.amount > 0,
+                }]">
+                  {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
+                </p>
               </div>
-              <p :class="['text-base font-medium', {
-                'text-red-400': transaction.amount <= 0,
-                'text-emerald-400': transaction.amount > 0,
-              }]">
-                {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </li>
+          </ul>
+        </div>
 
-      <div
-        v-else
-        class="flex flex-col items-center justify-center min-h-64 text-black/50"
-      >
-        <p>No transactions yet.</p>
-        <p class="text-sm">Create your first transaction!</p>
-      </div>
+        <div
+          v-else
+          class="flex flex-col items-center justify-center min-h-64 text-black/50"
+        >
+          <p>No transactions yet.</p>
+          <p class="text-sm">Create your first transaction!</p>
+        </div>
+      </ScrollPanel>
 
       <AddTransactionButton />
     </section>
