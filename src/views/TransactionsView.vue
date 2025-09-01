@@ -49,7 +49,7 @@
   };
 
   const currentDateOption = ref('');
-  const dateRangeOptions = ref(['Today', 'This Week', 'This Month', 'Last Month']);
+  const dateRangeOptions = ref(['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'This Year']);
 
   const currentTransactionType = ref('');
   const transactionTypeOptions = ref(['Income', 'Expense']);
