@@ -89,7 +89,7 @@
       incomeFormData.value.category = '';
 
     } else if (currentTransactionType.value === 'Expense') {
-      const expenseAmount = -Math.abs(parseFloat(expenseFormData.value.amount));
+      const expenseAmount = Math.abs(parseFloat(expenseFormData.value.amount));
 
       const expenseTransaction = {
         type: expenseFormData.value.type,
@@ -275,7 +275,7 @@
   <Button 
     unstyled
     type="button"
-    class="absolute cursor-pointer p-3 bottom-0 right-0 transform! -translate-6 bg-teal-400 0 border border-teal-400 shadow-lg rounded-4xl hover:bg-teal-500"
+    class="absolute cursor-pointer p-3 bottom-0 right-0 transform! -translate-6 bg-teal-400 0 border border-teal-400 shadow-lg rounded-full hover:bg-teal-500"
     @click="handleAddTransactionClick"
   >
     <Plus :size="24" class="text-white" />

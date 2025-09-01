@@ -211,8 +211,8 @@
                   </div>
                 </div>
                 <p :class="['text-base font-medium', {
-                  'text-red-400': transaction.amount <= 0,
-                  'text-emerald-400': transaction.amount > 0,
+                  'text-red-400': transaction.type === 'Expense',
+                  'text-emerald-400': transaction.type ==='Income',
                 }]">
                   {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
                 </p>

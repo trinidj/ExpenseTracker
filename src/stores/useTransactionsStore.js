@@ -101,8 +101,8 @@ export const useTransactionsStore = defineStore('transactions', () => {
         colour: categoryIcon ? categoryIcon.colour : expenseCategories.value[0].colour,
       };
 
-      balanceStore.totalBalance -= amount;
-      balanceStore.totalExpenses += amount;
+      balanceStore.totalBalance = parseFloat(balanceStore.totalBalance) - amount;
+      balanceStore.totalExpenses = parseFloat(balanceStore.totalExpenses) + amount;
       
     } else if (transaction.type === 'Income') {
       categoryIcon = incomeCategories.value.find(cat => cat.name === transaction.category);
