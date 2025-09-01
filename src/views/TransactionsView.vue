@@ -4,7 +4,7 @@
   import Header from '@/components/layout/Header.vue';
 
   import { Filter } from 'lucide-vue-next';
-  import { ScrollPanel, Button, Drawer } from 'primevue';
+  import { ScrollPanel, Button, Drawer, SelectButton, Select } from 'primevue';
   import SearchBar from '@/components/SearchBar.vue';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
   import { storeToRefs } from 'pinia';
@@ -47,6 +47,23 @@
       hour12: true
     });
   };
+
+  const currentDateOption = ref('');
+  const dateRangeOptions = ref(['Today', 'This Week', 'This Month', 'Last Month']);
+
+  const currentTransactionType = ref('');
+  const transactionTypeOptions = ref(['Income', 'Expense']);
+
+  const selectedCategory = ref('');
+
+  const availableCategories = computed(() => {
+    if (currentTransactionType.value === 'Income') {
+      return transactionStore.incomeCategories;
+    } else if (currentTransactionType.value === 'Expense') {
+      return transactionStore.expenseCategories;
+    }
+    return [];
+  });
 </script>
 
 <template>
@@ -58,8 +75,48 @@
       header="Filter"
       v-model:visible="visible"
       position="bottom"
-      class="h-1/2! rounded-tl-lg rounded-tr-lg"
+      class="h-fit! rounded-tl-lg rounded-tr-lg"
     >
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <h2 class=" font-medium">Start Date</h2>
+          <SelectButton 
+            fluid 
+            v-model="currentDateOption"
+            :options="dateRangeOptions"
+            size="small"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h2 class="font-medium">Transaction Type</h2>
+          <SelectButton 
+            fluid
+            v-model="currentTransactionType"
+            :options="transactionTypeOptions"
+            size="small"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h2 class="font-medium">Category</h2>
+          <Select 
+            placeholder="Select a Category"
+            fluid                     
+            v-model="selectedCategory"
+            :options="availableCategories"
+            option-label="name"
+            option-value="name"
+            :disabled="!currentTransactionType"
+            size="small"
+          />
+        </div>
+
+        <div class="flex justify-end gap-4">
+          <Button label="Cancel" severity="secondary" @click="visible = false"/>
+          <Button label="Filter" />
+        </div>
+      </div>
     </Drawer>
     
     <div class="mx-6 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
