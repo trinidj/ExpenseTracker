@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { useBalanceStore } from "@/stores/useBalanceStore";
-import { Clapperboard, Apple, Plane, ShoppingCart, BriefcaseBusiness, TrendingUp, Gift, CreditCard, Briefcase } from "lucide-vue-next";
+import { Clapperboard, Apple, Plane, ShoppingCart, BriefcaseBusiness, TrendingUp, Gift, CreditCard } from "lucide-vue-next";
 
 export const useTransactionsStore = defineStore('transactions', () => {
   // state
