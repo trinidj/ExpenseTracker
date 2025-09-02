@@ -123,7 +123,7 @@
       <Button
         unstyled 
         type="button"
-        class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out"
+        class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out touch-manipulation"
         @click="visible = true"
       >
         <Filter />
