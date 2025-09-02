@@ -9,24 +9,19 @@
   import { PiggyBank, Wallet, Plus, ChartBar } from 'lucide-vue-next';
 
   import { useBudgetStore } from '@/stores/useBudgetStore';
+  import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
   import { zodResolver } from '@primevue/forms/resolvers/zod';
   import { useToast } from 'primevue';
   import z from 'zod';
 
   const budgetStore = useBudgetStore();
+  const transactionStore = useTransactionsStore();
 
   const budgetData = ref({
     amount: '',
     category: '',
   });
-
-  const categories = ref([
-    { name: 'Food' },
-    { name: 'Entertainment' },
-    { name: 'Travel' },
-    { name: 'Housing' }
-  ]);
 
   const visible = ref(false);
 
@@ -103,7 +98,7 @@
               fluid
               v-model="budgetData.category"
               placeholder="Select a Category"
-              :options="categories"
+              :options="transactionStore.expenseCategories"
               option-label="name"
               size="small"
               class="flex! items-center!"
@@ -160,7 +155,7 @@
           <div class="flex flex-col gap-2 p-5 pt-0">
             <h3 class="flex font-medium text-2xl">${{ budgetStore.totalBudget }}</h3>
             <ProgressBar 
-              :value="budgetStore.budgetSpentPercentage"
+              :value="budgetStore.getBudgetSpentPercentage"
               :show-value="false" 
             />
             <div class="flex items-center justify-between">
@@ -173,7 +168,7 @@
               
               <p v-else class="text-black/50 text-sm">No Budget Set</p>
 
-              <p class="text-black/50 text-sm">{{ budgetStore.budgetSpentPercentage }}%</p>
+              <p class="text-black/50 text-sm">{{ budgetStore.getBudgetSpentPercentage }}%</p>
             </div>
           </div>
         </div>
@@ -246,14 +241,15 @@
                   <p class="text-zinc-800 font-medium text-xl">${{ budget.amount }}</p>
                 </header>
                 <ProgressBar 
+                  :value="budget.amount > 0 ? ((budgetStore.getCategorySpending(budget.category) / budget.amount) * 100) : 0"
                   :show-value="false" 
                 />
                 <div class="flex items-center justify-between">
-                  <p v-if="budgetStore.budgets.length > 0" class="text-black/50 text-sm"><span class="font-medium text-lg text-zinc-800">{{  }}</span> spent so far</p>
-                  
-                  <p v-else-if="budgetStore.budgets.length > 0" class="text-black/50 text-sm">No Budget Set</p>
+                  <p class="text-black/50 text-sm">
+                    <span class="font-medium text-lg text-zinc-800">${{ budgetStore.getCategorySpending(budget.category) }}</span> spent so far
+                  </p>
 
-                  <p class="text-black/50 text-sm">{{ '0%' }}</p>
+                  <p class="text-black/50 text-sm">{{ budget.amount > 0 ? ((budgetStore.getCategorySpending(budget.category) / budget.amount) * 100).toFixed(0) : 0 }}%</p>
                 </div>
               </div>
             </li>
