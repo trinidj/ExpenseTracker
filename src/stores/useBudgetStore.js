@@ -5,21 +5,36 @@ import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
 export const useBudgetStore = defineStore('budgets', () => {
   // states
+  const transactionsStore = useTransactionsStore();
   const budgets = ref([]);
   let totalBudget = ref(0);
 
   // getters
   const totalSpent = computed(() => {
-    const transactionsStore = useTransactionsStore();
 
     return transactionsStore.transactions.reduce((total, transaction) => {
-      const amount = transaction.amount || 0;
-      return amount < 0 ? total + Math.abs(amount) : total;
+      if (transaction.type === 'Expense') {
+        const amount = parseFloat(transaction.amount) || 0;
+        return total + amount;
+      }
+      return total;
     }, 0);
   });
 
-  const budgetSpentPercentage = computed(() => {
+  const getBudgetSpentPercentage = computed(() => {
     return totalBudget.value > 0 ? ((totalSpent.value / totalBudget.value) * 100).toFixed(0) : 0;
+  });
+
+  const getCategorySpending = computed(() => {
+    return (category) => {
+      return transactionsStore.transactions.reduce((total, transaction) => {
+        if (transaction.type === 'Expense' && transaction.category === category) {
+          const amount = parseFloat(transaction.amount) || 0;
+          return total + amount;
+        }
+        return total;
+      }, 0);
+    };
   });
 
   // actions
@@ -35,8 +50,9 @@ export const useBudgetStore = defineStore('budgets', () => {
   return {
     budgets,
     totalBudget,
-    budgetSpentPercentage,
     totalSpent,
+    getBudgetSpentPercentage,
+    getCategorySpending,
     addBudgetItem,
   };
 }, {
