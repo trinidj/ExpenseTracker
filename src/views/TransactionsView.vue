@@ -11,9 +11,28 @@
   const transactionStore = useTransactionsStore();
 
   const visible = ref(false);
+  const activeFilters = ref({});
+
+  const filteredTransactions = computed(() => {
+    let filtered = transactionStore.transactions;
+
+    if (activeFilters.value.type) {
+      filtered = filtered.filter(transaction => 
+        transaction.type === activeFilters.value.type
+      );
+    }
+
+    if (activeFilters.value.category) {
+      filtered = filtered.filter(transaction => 
+        transaction.category === activeFilters.value.category
+      );
+    }
+
+    return filtered;
+  });
 
   const groupedTransactions = computed(() => {
-    return transactionStore.getTransactionsByDate(transactionStore.transactions);
+    return transactionStore.getTransactionsByDate(filteredTransactions.value);
   });
 
   const formatDate = (dateString) => {
@@ -62,6 +81,25 @@
     }
     return [];
   });
+
+  const handleFilterSubmit = () => {
+    activeFilters.value = {
+      type: currentTransactionType.value || null,
+      category: selectedCategory.value || null
+    };  
+
+    visible.value = false;
+  }
+
+  const clearFilters = () => {
+    currentDateOption.value = '';
+    currentTransactionType.value = '';
+    selectedCategory.value = '';
+    activeFilters.value = {
+      type: null,
+      category: null
+    };
+  }
 </script>
 
 <template>
@@ -83,6 +121,7 @@
             v-model="currentDateOption"
             :options="dateRangeOptions"
             size="small"
+            class="touch-manipulation"
           />
         </div>
 
@@ -93,6 +132,7 @@
             v-model="currentTransactionType"
             :options="transactionTypeOptions"
             size="small"
+            class="touch-manipulation"
           />
         </div>
 
@@ -107,12 +147,14 @@
             option-value="name"
             :disabled="!currentTransactionType"
             size="small"
+            class="touch-manipulation"
           />
         </div>
 
         <div class="flex justify-end gap-4">
-          <Button label="Cancel" severity="secondary" @click="visible = false"/>
-          <Button label="Filter" />
+          <Button label="Clear" severity="secondary" @click="clearFilters" class="touch-manipulation"/>
+          <Button label="Cancel" severity="secondary" @click="visible = false" class="touch-manipulation"/>
+          <Button label="Filter" @click="handleFilterSubmit" class="touch-manipulation"/>
         </div>
       </div>
     </Drawer>
