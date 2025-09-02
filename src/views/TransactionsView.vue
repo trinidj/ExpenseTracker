@@ -7,15 +7,13 @@
   import { ScrollPanel, Button, Drawer, SelectButton, Select } from 'primevue';
   import SearchBar from '@/components/SearchBar.vue';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
-  import { storeToRefs } from 'pinia';
 
   const transactionStore = useTransactionsStore();
-  const { transactions } = storeToRefs(transactionStore);
 
   const visible = ref(false);
 
   const groupedTransactions = computed(() => {
-    return transactionStore.getTransactionsByDate(transactions.value);
+    return transactionStore.getTransactionsByDate(transactionStore.transactions);
   });
 
   const formatDate = (dateString) => {
