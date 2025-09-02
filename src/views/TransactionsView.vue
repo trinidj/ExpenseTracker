@@ -2,7 +2,7 @@
   import { computed, ref } from 'vue';
 
   import Header from '@/components/layout/Header.vue';
-
+  
   import { Filter } from 'lucide-vue-next';
   import { ScrollPanel, Button, Drawer, SelectButton, Select } from 'primevue';
   import SearchBar from '@/components/SearchBar.vue';
@@ -176,6 +176,7 @@
     <ScrollPanel unstyled class="flex flex-col overflow-y-auto flex-1 pb-20">
       <section class="flex flex-col gap-6">
         <div
+          v-if="transactionStore.transactions.length > 0"
           v-for="(transactionsInDate, date) in groupedTransactions"
           :key="date"
           class="flex flex-col"
@@ -183,6 +184,7 @@
           <header>
             <h2 class="flex m-3 mt-0 items-center justify-center text-black/50 text-sm">{{ formatDate(date) }}</h2>
           </header>
+          
           <ul class="flex flex-col mx-6 gap-4">
             <li
               v-for="transaction in transactionsInDate"
@@ -211,6 +213,14 @@
               </p>
             </li>
           </ul>
+        </div>
+
+        <div
+          v-else
+          class="flex flex-col items-center justify-center min-h-64 text-black/50"
+        >
+          <p>No transactions yet.</p>
+          <p class="text-sm">Create your first transaction!</p>
         </div>
       </section>
     </ScrollPanel>
