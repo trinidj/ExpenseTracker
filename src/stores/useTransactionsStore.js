@@ -24,7 +24,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const incomeCategories = ref([
     { name: 'Salary', icon: 'BriefcaseBusiness' },
     { name: 'Investments', icon: 'TrendingUp' },
-    { name: 'Gifts / Allowance', icon: 'Gift / Allowance' },
+    { name: 'Gifts / Allowance', icon: 'Gifts / Allowance' },
     { name: 'Refunds / Reimbursments', icon: 'Refunds / Reimbursments' },
   ]);
 
