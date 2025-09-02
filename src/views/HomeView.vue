@@ -129,108 +129,110 @@
     <!-- Header -->
     <Header page-title="Home" />
     
-    <!-- Balance Card -->
-    <section class="static flex flex-col bg-gradient-to-b from-emerald-300 to-[#6EE7DB] rounded-xl mx-6 shadow-black/20 shadow-2xl gap-5 justify-between">
-      <div class="flex flex-col p-5 gap-1 text-gray-50">
-        <div class="flex flex-row items-center justify-between">
-          <div class="flex items-center gap-1">
-            <DollarSign 
-              :size="16"
-            />
-            <p class="">Total Balance</p>
-          </div>
+    <div class="flex flex-col gap-4">
+      <!-- Balance Card -->
+      <section class="static flex flex-col bg-gradient-to-b from-emerald-300 to-[#6EE7DB] rounded-xl mx-6 shadow-black/20 shadow-2xl gap-5 justify-between">
+        <div class="flex flex-col p-5 gap-1 text-gray-50">
+          <div class="flex flex-row items-center justify-between">
+            <div class="flex items-center gap-1">
+              <DollarSign 
+                :size="16"
+              />
+              <p class="">Total Balance</p>
+            </div>
 
-          <Button 
-            unstyled
-            class="cursor-pointer touch-manipulation"
-            @click="visible = true"
-          >
-            <CircleEllipsis />
-          </Button>
-        </div>
-
-          <p class="font-medium text-3xl">${{ balanceStore.totalBalance }}</p>
-      </div>
-
-      <div class="flex flex-row items-center justify-between p-5 pt-0">
-        <div class="flex flex-col gap-1 text-gray-50">
-          <div class="flex flex-row items-center gap-1">
-            <ArrowDown 
-              :size="16"
-            />
-            <p>Income</p>
-          </div>
-
-          <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
-        </div>
-
-        <div class="flex flex-col gap-1 text-gray-50">
-          <div class="flex flex-row items-center gap-1">
-            <ArrowUp 
-              :size="16"
-            />
-            <p>Expenses</p>
-          </div>
-
-          <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Recent Transactions -->
-    <section>
-      <header class="flex flex-row items-center justify-between m-6 mb-5">
-        <h2 class="text-lg text-zinc-900">Recent Transactions</h2>
-        <RouterLink to="/transactions">
-          <p class="text-[#000000]/50 font-balance text-sm hover:underline">View All</p>
-        </RouterLink>
-      </header>
-
-      <ScrollPanel class="h-72">
-        <div v-if="transactionStore.transactions.length > 0">
-          <ul class="mx-6 flex flex-col gap-4 h-fit">
-            <li
-              v-for="transaction in transactionStore.transactions"
-              :key="transaction.id"
+            <Button 
+              unstyled
+              class="cursor-pointer touch-manipulation"
+              @click="visible = true"
             >
-              <div class="flex flex-row items-center justify-between">
-                <div class="flex items-center gap-4">
-                  <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]"> 
-                    <component 
-                      :is="transactionStore.getIconComponent(transaction.icon, transaction.type)" 
-                      :size="20" 
-                      :class="transactionStore.getTextClass(transaction.colour)"
-                    />
-                  </div>
+              <CircleEllipsis />
+            </Button>
+          </div>
 
-                  <div class="flex flex-col">
-                    <h3 class="text-sm font-medium">{{ transaction.name }}</h3>
-                    <p class="text-black/45 text-xs">
-                      {{ formatTime(transaction) }}
-                    </p>
+            <p class="font-medium text-3xl">${{ balanceStore.totalBalance }}</p>
+        </div>
+
+        <div class="flex flex-row items-center justify-between p-5 pt-0">
+          <div class="flex flex-col gap-1 text-gray-50">
+            <div class="flex flex-row items-center gap-1">
+              <ArrowDown 
+                :size="16"
+              />
+              <p>Income</p>
+            </div>
+
+            <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
+          </div>
+
+          <div class="flex flex-col gap-1 text-gray-50">
+            <div class="flex flex-row items-center gap-1">
+              <ArrowUp 
+                :size="16"
+              />
+              <p>Expenses</p>
+            </div>
+
+            <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Transactions -->
+      <section class="flex flex-col gap-5 mx-6 bg-white border border-emerald-300/50 p-5 rounded-xl">
+        <header class="flex flex-row items-center justify-between">
+          <h2 class="text-lg text-zinc-900">Recent Transactions</h2>
+          <RouterLink to="/transactions">
+            <p class="text-[#000000]/50 font-balance text-sm hover:underline">View All</p>
+          </RouterLink>                                                               
+        </header>
+
+        <ScrollPanel class="h-fit">
+          <div v-if="transactionStore.transactions.length > 0">
+            <ul class="flex flex-col gap-4 h-fit">
+              <li
+                v-for="transaction in transactionStore.transactions"
+                :key="transaction.id"
+              >
+                <div class="flex flex-row items-center justify-between">
+                  <div class="flex items-center gap-4">
+                    <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]"> 
+                      <component 
+                        :is="transactionStore.getIconComponent(transaction.icon, transaction.type)" 
+                        :size="20" 
+                        :class="transactionStore.getTextClass(transaction.colour)"
+                      />
+                    </div>
+
+                    <div class="flex flex-col">
+                      <h3 class="text-sm font-medium">{{ transaction.name }}</h3>
+                      <p class="text-black/45 text-xs">
+                        {{ formatTime(transaction) }}
+                      </p>
+                    </div>
                   </div>
+                  <p :class="['text-base font-medium', {
+                    'text-red-400': transaction.type === 'Expense',
+                    'text-emerald-400': transaction.type ==='Income',
+                  }]">
+                    {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
+                  </p>
                 </div>
-                <p :class="['text-base font-medium', {
-                  'text-red-400': transaction.type === 'Expense',
-                  'text-emerald-400': transaction.type ==='Income',
-                }]">
-                  {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
+              </li>
+            </ul>
+          </div>
 
-        <div
-          v-else
-          class="flex flex-col items-center justify-center min-h-64 text-black/50"
-        >
-          <p>No transactions yet.</p>
-          <p class="text-sm">Create your first transaction!</p>
-        </div>
-      </ScrollPanel>
+          <div
+            v-else
+            class="flex flex-col items-center justify-center min-h-64 text-black/50"
+          >
+            <p>No transactions yet.</p>
+            <p class="text-sm">Create your first transaction!</p>
+          </div>
+        </ScrollPanel>
 
-      <AddTransactionButton />
-    </section>
+        <AddTransactionButton />
+      </section>              
+    </div>
   </div>
 </template>
