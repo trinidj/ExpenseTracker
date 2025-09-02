@@ -40,7 +40,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
     const groupedTransactions = {};
 
     transactions.forEach(transaction => {
-      const date = new Date(transaction.createdAt);
+      const date = new Date(transaction.created);
       const dateKey = date.toDateString();
 
       if (!groupedTransactions[dateKey]) {
