@@ -275,7 +275,7 @@
   <Button 
     unstyled
     type="button"
-    class="absolute cursor-pointer p-3 bottom-0 right-0 transform! -translate-6 bg-teal-400 0 border border-teal-400 shadow-lg rounded-full hover:bg-teal-500"
+    class="fixed p-3 bottom-4 right-4 bg-teal-400 border border-teal-400 shadow-lg rounded-full hover:bg-teal-500 touch-manipulation z-50"
     @click="handleAddTransactionClick"
   >
     <Plus :size="24" class="text-white" />
