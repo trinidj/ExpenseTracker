@@ -142,7 +142,7 @@
 
           <Button 
             unstyled
-            class="cursor-pointer"
+            class="cursor-pointer touch-manipulation"
             @click="visible = true"
           >
             <CircleEllipsis />

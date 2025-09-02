@@ -43,7 +43,7 @@
           :key="navLink.name"
           :to="navLink.path"
           v-slot="{ isActive }"
-          class="flex items-center gap-4 p-2 rounded-md transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900"
+          class="flex items-center gap-4 p-2 rounded-md transition-all ease duration-200 hover:bg-gray-200 hover:text-zinc-900 touch-manipulation"
         >
           <component 
             :is="navLink.icon" 
@@ -74,7 +74,7 @@
     <div class="flex gap-4 items-center ">
       <Button
         unstyled
-        class="cursor-pointer"
+        class="cursor-pointer touch-manipulation"
         @click="visible = true"
       >
         <Menu 
