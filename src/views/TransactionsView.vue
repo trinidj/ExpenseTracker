@@ -150,7 +150,7 @@
               <div class="flex items-center gap-4">
                 <div :class="[`flex items-center justify-center p-2 rounded-lg`, transactionStore.getBackgroundClass(transaction.colour)]">
                   <component 
-                    :is="transactionStore.getIconComponent(transaction.icon)"
+                    :is="transactionStore.getIconComponent(transaction.icon, transaction.type)"
                     :size="20"
                     :class="transactionStore.getTextClass(transaction.colour)"
                   />
@@ -162,8 +162,8 @@
                 </div>
               </div>
               <p :class="['text-base font-medium', {
-                'text-red-400': transaction.amount <= 0,
-                'text-emerald-400': transaction.amount > 0,
+                'text-red-400': transaction.type === 'Expense',
+                'text-emerald-400': transaction.type === 'Income',
               }]">
                 {{ transaction.type === 'Expense' ? '-' : '+' }}${{ Math.abs(transaction.amount).toFixed(2) }}
               </p>
