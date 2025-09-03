@@ -1,7 +1,7 @@
 <script setup>
   import { ref, reactive } from 'vue';
 
-  import { DollarSign, ArrowDown, ArrowUp, CircleEllipsis } from 'lucide-vue-next';
+  import { DollarSign, TrendingDown, CircleEllipsis, TrendingUp } from 'lucide-vue-next';
 
   import { Button, Dialog, InputText, Message, Toast, ScrollPanel } from 'primevue';
   import { Form } from '@primevue/forms';
@@ -13,6 +13,7 @@
 
   import { useBalanceStore } from '@/stores/useBalanceStore';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
+  import { useBudgetStore } from '@/stores/useBudgetStore';
 
   import AddTransactionButton from '@/components/ui/AddTransactionButton.vue';
 
@@ -20,6 +21,7 @@
 
   const balanceStore = useBalanceStore();
   const transactionStore = useTransactionsStore();
+  const budgetStore = useBudgetStore();
 
   const visible = ref(false);
 
@@ -125,61 +127,70 @@
       </Form>
   </Dialog>
    
-  <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <!-- Header -->
-    <Header page-title="Home" />
-    
-    <div class="flex flex-col gap-4">
+  <Header page-title="Home" />
+
+  <section class="flex flex-col p-6 pt-0">
+    <div class="flex flex-col gap-6">
+      <AddTransactionButton />
+
       <!-- Balance Card -->
-      <section class="static flex flex-col bg-gradient-to-b from-emerald-300 to-[#6EE7DB] rounded-xl mx-6 shadow-black/20 shadow-2xl gap-5 justify-between">
-        <div class="flex flex-col p-5 gap-1 text-gray-50">
-          <div class="flex flex-row items-center justify-between">
-            <div class="flex items-center gap-1">
-              <DollarSign 
-                :size="16"
-              />
-              <p class="">Total Balance</p>
-            </div>
+      <section class="flex p-5 rounded-xl gap-5 justify-between items-center border border-emerald-300">
+        <div class="flex flex-col gap-6 text-zinc-800">
+          <h2 class="font-semibold text-zinc-400">Total Balance</h2>
+          <p class="font-medium text-2xl">${{ balanceStore.totalBalance }}</p>
+        </div>
+        
+        <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <DollarSign 
+            class="text-white"
+          />
+        </div>
+      </section>
 
-            <Button 
-              unstyled
-              class="cursor-pointer touch-manipulation"
-              @click="visible = true"
-            >
-              <CircleEllipsis />
-            </Button>
-          </div>
-
-            <p class="font-medium text-3xl">${{ balanceStore.totalBalance }}</p>
+      <!-- Income Card -->
+      <section class="flex items-center justify-between p-5 rounded-xl gap-5 border border-emerald-300">
+        <div class="flex flex-col gap-6 text-zinc-800">
+          <h2 class="font-semibold text-zinc-400">Income</h2>
+          <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
         </div>
 
-        <div class="flex flex-row items-center justify-between p-5 pt-0">
-          <div class="flex flex-col gap-1 text-gray-50">
-            <div class="flex flex-row items-center gap-1">
-              <ArrowDown 
-                :size="16"
-              />
-              <p>Income</p>
-            </div>
+        <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <TrendingUp 
+            class="text-white"
+          />
+        </div>
+      </section>
 
-            <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
-          </div>
+      <!-- Expense Card -->
+      <section class="flex items-center justify-between p-5 rounded-xl gap-5 border border-emerald-300">
+        <div class="flex flex-col gap-6 text-zinc-800">
+          <h2 class="font-semibold text-zinc-400">Expenses</h2>
+          <p class="font-medium text-2xl text-zinc-800">${{ balanceStore.totalExpenses }}</p>
+        </div>
 
-          <div class="flex flex-col gap-1 text-gray-50">
-            <div class="flex flex-row items-center gap-1">
-              <ArrowUp 
-                :size="16"
-              />
-              <p>Expenses</p>
-            </div>
+        <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <TrendingDown 
+            class="text-white"
+          />
+        </div>
+      </section>
 
-            <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
-          </div>
+      <!-- Active Budget Card -->
+      <section class="flex items-center justify-between p-5 rounded-xl gap-5 border border-emerald-300">
+        <div class="flex flex-col gap-6 text-zinc-800">
+          <h2 class="font-semibold text-zinc-400">Active Budget</h2>
+          <p class="font-medium text-2xl text-zinc-800">${{ budgetStore.totalBudget }}</p>
+        </div>
+
+        <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <TrendingDown 
+            class="text-white"
+          />
         </div>
       </section>
 
       <!-- Recent Transactions -->
-      <section class="flex flex-col gap-5 mx-6 bg-white border border-emerald-300/50 p-5 rounded-xl">
+      <section class="flex flex-col gap-5 bg-white border border-emerald-300/50 p-5 rounded-xl">
         <header class="flex flex-row items-center justify-between">
           <h2 class="text-lg text-zinc-900">Recent Transactions</h2>
           <RouterLink to="/transactions">
@@ -230,9 +241,7 @@
             <p class="text-sm">Create your first transaction!</p>
           </div>
         </ScrollPanel>
-
-        <AddTransactionButton />
       </section>              
     </div>
-  </div>
+  </section>
 </template>
