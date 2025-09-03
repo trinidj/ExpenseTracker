@@ -275,10 +275,11 @@
   <Button 
     unstyled
     type="button"
-    class="fixed p-3 bottom-4 right-4 bg-teal-400 border border-teal-400 shadow-lg rounded-full hover:bg-teal-500 touch-manipulation z-50"
+    class="flex items-center gap-4 rounded-lg justify-center p-1.5 bg-teal-400 border border-teal-400 hover:bg-teal-500 touch-manipulation"
     @click="handleAddTransactionClick"
   >
     <Plus :size="24" class="text-white" />
+    <p class="font-medium text-white text-sm">Add Transcation</p>
   </Button>
 
   <Popover ref="op">
