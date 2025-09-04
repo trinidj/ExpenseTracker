@@ -130,62 +130,66 @@
   <Header page-title="Home" />
 
   <section class="flex flex-col p-6 pt-0 bg-gradient-to-t from-emerald-300 to-white">
-    <div class="flex flex-col gap-6 h-fit">
+    <div class="flex flex-col gap-4 h-fit">
       <AddTransactionButton />
 
       <div class="grid grid-cols-2 grid-rows-2 gap-4">
         <!-- Balance Card -->
-        <section class="flex bg-white p-5 rounded-xl gap-5 justify-between items-center border border-emerald-300">
-          <div class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400">Total Balance</h2>
+        <section class="flex bg-white p-5 rounded-xl gap-5 h-fit justify-between items-start border border-emerald-300">
+          <header class="flex flex-col gap-6 text-zinc-800">
+            <h2 class="font-semibold text-zinc-400 text-xs">Balance</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalBalance }}</p>
-          </div>
+          </header>
           
           <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
             <DollarSign 
               class="text-white"
+              :size=16
             />
           </div>
         </section>
 
         <!-- Income Card -->
-        <section class="flex bg-white items-center justify-between p-5 rounded-xl gap-5 border border-emerald-300">
-          <div class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400">Income</h2>
+        <section class="flex bg-white h-fit items-start justify-between p-5 rounded-xl gap-5 border border-emerald-300">
+          <header class="flex flex-col gap-6 text-zinc-800">
+            <h2 class="font-semibold text-zinc-400 text-xs">Income</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
-          </div>
+          </header>
 
           <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
             <TrendingUp 
               class="text-white"
+              :size="16"
             />
           </div>
         </section>
 
         <!-- Expense Card -->
-        <section class="flex bg-white items-center justify-between p-5 rounded-xl gap-5 border border-emerald-300 row-start-2">
-          <div class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400">Expenses</h2>
-            <p class="font-medium text-2xl text-zinc-800">${{ balanceStore.totalExpenses }}</p>
-          </div>
+        <section class="flex bg-white items-start justify-between p-5 rounded-xl gap-5 border border-emerald-300 row-start-2">
+          <header class="flex flex-col gap-6 text-zinc-800">
+            <h2 class="font-semibold text-zinc-400 text-xs">Expenses</h2>
+            <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
+          </header>
 
           <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
             <TrendingDown 
               class="text-white"
+              :size="16"
             />
           </div>
         </section>
 
         <!-- Active Budget Card -->
-        <section class="flex bg-white items-center justify-between p-5 rounded-xl gap-5 border border-emerald-300 row-start-2">
-          <div class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400">Active Budget</h2>
+        <section class="flex bg-white items-start justify-between p-5 rounded-xl gap-5 border border-emerald-300 row-start-2">
+          <header class="flex flex-col gap-6 text-zinc-800">
+            <h2 class="font-semibold text-zinc-400 text-xs">Budget</h2>
             <p class="font-medium text-2xl text-zinc-800">${{ budgetStore.totalBudget }}</p>
-          </div>
+          </header>
 
           <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
             <CreditCard 
               class="text-white"
+              :size="16"
             />
           </div>
         </section> 
@@ -243,7 +247,15 @@
             <p class="text-sm">Create your first transaction!</p>
           </div>
         </ScrollPanel>
-      </section>   
+      </section>
+      
+      <section class="bg-white border border-emerald-300/50 p-5 rounded-xl">
+        <header>
+          <h2 class="text-lg text-zinc-900">Budget Overview</h2>
+        </header>
+
+        
+      </section>
     </div>
   </section>
 </template>
