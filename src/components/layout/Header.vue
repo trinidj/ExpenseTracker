@@ -22,7 +22,7 @@
 </script>
 
 <template>
-  <header class="flex flex-row justify-between items-center px-6 py-8">
+  <header class="flex flex-row justify-between items-center px-5 py-8 bg-[#121212]">
     <Drawer 
       v-model:visible="visible" 
       class="border-2! border-r-emerald-300! w-72!"
@@ -79,9 +79,10 @@
       >
         <Menu 
           :size="20"
+          class="text-white"
         />
       </Button>
-      <h1 class="text-zinc-800 text-2xl font-semibold">{{ pageTitle }}</h1>
+      <h1 class="text-white text-2xl font-semibold">{{ pageTitle }}</h1>
     </div>
   </header>
 </template>
