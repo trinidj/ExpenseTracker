@@ -1,9 +1,9 @@
 <script setup>
   import { ref, reactive } from 'vue';
 
-  import { DollarSign, TrendingDown, CircleEllipsis, TrendingUp, CreditCard } from 'lucide-vue-next';
+  import { DollarSign, TrendingDown, TrendingUp, CreditCard } from 'lucide-vue-next';
 
-  import { Button, Dialog, InputText, Message, Toast, ScrollPanel } from 'primevue';
+  import { Button, Dialog, InputText, Message, Toast, ScrollPanel, ProgressBar } from 'primevue';
   import { Form } from '@primevue/forms';
 
   import { RouterLink } from 'vue-router';
@@ -131,7 +131,7 @@
 
   <section class="flex flex-col p-5 pt-0 bg-[#121212] gap-6">
     <AddTransactionButton />
-    <div class="flex flex-col gap-2.5 h-fit">
+    <div class="flex flex-col gap-6 h-fit">
       <div class="grid grid-cols-2 grid-rows-2 gap-2.5">
         <!-- Balance Card -->
         <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl gap-5 h-fit justify-between items-start">
@@ -195,24 +195,49 @@
       </div>      
       
       <!-- Budget Overview -->
-      <section class="bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl">
-        <header>
+      <section class="bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 rounded-xl">
+        <header class="p-5">
           <h2 class="text-lg text-white">Budget Overview</h2>
         </header>
 
-        
+        <ul class="flex flex-col gap-5 p-5 pt-0">
+          <li
+            v-for="budget in budgetStore.budgets"
+            :key="budget.category"
+          >
+            <div class="flex flex-col gap-2">
+              <header class="flex justify-between text-white">
+                <h3>{{ budget.category }}</h3>
+                <p>${{ budget.amount }}</p>
+              </header>
+
+              <ProgressBar
+                :value="budget.amount > 0 ? ((budgetStore.getCategorySpending(budget.category) / budget.amount) * 100) : 0"
+                :show-value="false"
+              />
+
+              <div class="flex items-center justify-between">
+                <p class="text-zinc-400 text-sm">{{ budget.amount > 0 ? ((budgetStore.getCategorySpending(budget.category) / budget.amount) * 100).toFixed(0) : 0 }}% used</p>
+                
+                <p class="text-zinc-400 text-sm">
+                  <span class="font-medium text-lg text-white">${{ budgetStore.getCategorySpending(budget.category) }}</span> spent
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
       </section>
 
       <!-- Recent Transactions -->
-      <section class="flex flex-col gap-5 bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl">
-        <header class="flex flex-row items-center justify-between text-white">
+      <section class="flex flex-col bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 rounded-xl">
+        <header class="flex flex-row items-center justify-between p-5 text-white">
           <h2 class="text-lg ">Recent Transactions</h2>
           <RouterLink to="/transactions">
             <p class="text-zinc-400 font-balance text-sm hover:underline">View All</p>
           </RouterLink>                                                               
         </header>
 
-        <ScrollPanel class="h-fit">
+        <ScrollPanel class="h-fit p-5 pt-0">
           <div v-if="transactionStore.transactions.length > 0">
             <ul class="flex flex-col gap-4 h-fit">
               <li
