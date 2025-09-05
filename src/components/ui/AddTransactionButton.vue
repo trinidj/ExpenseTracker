@@ -275,7 +275,7 @@
   <Button 
     unstyled
     type="button"
-    class="flex cursor-pointer transition duration-200 ease items-center gap-4 rounded-lg justify-center p-1.5 bg-teal-400 border border-teal-400 hover:bg-teal-500 touch-manipulation"
+    class="flex cursor-pointer transition duration-200 ease items-center gap-4 rounded-lg justify-center p-1.5 bg-emerald-400/40 border border-emerald-400/40 hover:bg-emerald-500 touch-manipulation"
     @click="handleAddTransactionClick"
   >
     <Plus :size="24" class="text-white" />
