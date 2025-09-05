@@ -129,19 +129,18 @@
    
   <Header page-title="Home" />
 
-  <section class="flex flex-col p-6 pt-0 bg-gradient-to-t from-emerald-300 to-white">
-    <div class="flex flex-col gap-4 h-fit">
-      <AddTransactionButton />
-
-      <div class="grid grid-cols-2 grid-rows-2 gap-4">
+  <section class="flex flex-col p-5 pt-0 bg-[#121212] gap-6">
+    <AddTransactionButton />
+    <div class="flex flex-col gap-2.5 h-fit">
+      <div class="grid grid-cols-2 grid-rows-2 gap-2.5">
         <!-- Balance Card -->
-        <section class="flex bg-white p-5 rounded-xl gap-5 h-fit justify-between items-start border border-emerald-300">
-          <header class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400 text-xs">Balance</h2>
+        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl gap-5 h-fit justify-between items-start">
+          <header class="flex flex-col gap-6 text-white">
+            <h2 class="font-semibold text-xs">Balance</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalBalance }}</p>
           </header>
           
-          <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
             <DollarSign 
               class="text-white"
               :size=16
@@ -150,13 +149,13 @@
         </section>
 
         <!-- Income Card -->
-        <section class="flex bg-white h-fit items-start justify-between p-5 rounded-xl gap-5 border border-emerald-300">
-          <header class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400 text-xs">Income</h2>
+        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 h-fit items-start justify-between p-5 rounded-xl gap-5">
+          <header class="flex flex-col gap-6 text-white">
+            <h2 class="font-semibold text-xs">Income</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
           </header>
 
-          <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
             <TrendingUp 
               class="text-white"
               :size="16"
@@ -165,13 +164,13 @@
         </section>
 
         <!-- Expense Card -->
-        <section class="flex bg-white items-start justify-between p-5 rounded-xl gap-5 border border-emerald-300 row-start-2">
-          <header class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400 text-xs">Expenses</h2>
+        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 items-start justify-between p-5 rounded-xl gap-5 row-start-2">
+          <header class="flex flex-col gap-6 text-white">
+            <h2 class="font-semibold text-xs">Expenses</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
           </header>
 
-          <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
             <TrendingDown 
               class="text-white"
               :size="16"
@@ -180,13 +179,13 @@
         </section>
 
         <!-- Active Budget Card -->
-        <section class="flex bg-white items-start justify-between p-5 rounded-xl gap-5 border border-emerald-300 row-start-2">
-          <header class="flex flex-col gap-6 text-zinc-800">
-            <h2 class="font-semibold text-zinc-400 text-xs">Budget</h2>
-            <p class="font-medium text-2xl text-zinc-800">${{ budgetStore.totalBudget }}</p>
+        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 items-start justify-between p-5 rounded-xl gap-5 row-start-2">
+          <header class="flex flex-col gap-6 text-white">
+            <h2 class="font-semibold text-xs">Budget</h2>
+            <p class="font-medium text-2xl">${{ budgetStore.totalBudget }}</p>
           </header>
 
-          <div class="flex items-center justify-center bg-emerald-300 p-2 rounded-lg">
+          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
             <CreditCard 
               class="text-white"
               :size="16"
@@ -195,12 +194,21 @@
         </section> 
       </div>      
       
+      <!-- Budget Overview -->
+      <section class="bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl">
+        <header>
+          <h2 class="text-lg text-white">Budget Overview</h2>
+        </header>
+
+        
+      </section>
+
       <!-- Recent Transactions -->
-      <section class="flex flex-col gap-5 bg-white border border-emerald-300/50 p-5 rounded-xl">
-        <header class="flex flex-row items-center justify-between">
-          <h2 class="text-lg text-zinc-900">Recent Transactions</h2>
+      <section class="flex flex-col gap-5 bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl">
+        <header class="flex flex-row items-center justify-between text-white">
+          <h2 class="text-lg ">Recent Transactions</h2>
           <RouterLink to="/transactions">
-            <p class="text-[#000000]/50 font-balance text-sm hover:underline">View All</p>
+            <p class="text-zinc-400 font-balance text-sm hover:underline">View All</p>
           </RouterLink>                                                               
         </header>
 
@@ -222,8 +230,8 @@
                     </div>
 
                     <div class="flex flex-col">
-                      <h3 class="text-sm font-medium">{{ transaction.name }}</h3>
-                      <p class="text-black/45 text-xs">
+                      <h3 class="text-sm font-medium text-white">{{ transaction.name }}</h3>
+                      <p class="text-zinc-400 text-xs">
                         {{ formatTime(transaction) }}
                       </p>
                     </div>
@@ -247,14 +255,6 @@
             <p class="text-sm">Create your first transaction!</p>
           </div>
         </ScrollPanel>
-      </section>
-      
-      <section class="bg-white border border-emerald-300/50 p-5 rounded-xl">
-        <header>
-          <h2 class="text-lg text-zinc-900">Budget Overview</h2>
-        </header>
-
-        
       </section>
     </div>
   </section>
