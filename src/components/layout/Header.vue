@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from 'vue';
-  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink } from 'lucide-vue-next';
+  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
   import { Drawer, Button } from 'primevue';
@@ -84,5 +84,10 @@
       </Button>
       <h1 class="text-white text-2xl font-semibold">{{ pageTitle }}</h1>
     </div>
+
+    <Bell 
+      :size="20"
+      class="text-white"
+    />
   </header>
 </template>
