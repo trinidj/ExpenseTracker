@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from 'vue';
-  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell } from 'lucide-vue-next';
+  import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell, Settings, Moon, Sun } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
   
   import { Drawer, Button } from 'primevue';
@@ -13,16 +13,23 @@
   });
 
   const visible = ref(false);
+  const isDarkMode = ref(false);
   const navLinks = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Transactions', path: '/transactions', icon: ArrowLeftRight },
     { name: 'Analytics', path: '/analytics', icon: ChartArea },
-    { name: 'Budgets', path: '/budgets', icon: Banknote }
+    { name: 'Budgets', path: '/budgets', icon: Banknote },
+    { name: 'Settings', path: '/settings', icon: Settings },
   ];
+
+  const toggleDarkMode = () => {
+    document.documentElement.classList.toggle('dark');
+    isDarkMode.value = !isDarkMode.value;
+  }
 </script>
 
 <template>
-  <header class="flex flex-row justify-between items-center px-5 py-8 bg-[#121212]">
+  <header class="flex flex-row justify-between items-center px-5 py-8 bg-white dark:bg-[#121212]">
     <Drawer 
       v-model:visible="visible" 
       class="border-2! border-r-emerald-300! w-72!"
@@ -48,7 +55,8 @@
           <component 
             :is="navLink.icon" 
             :size="20" 
-            :class="isActive ? 'text-emerald-300' : ''" />
+            :class="isActive ? 'text-emerald-300' : ''" 
+          />
           <p :class="['font-medium text-base', isActive ? 'text-emerald-300' : '']" >{{ navLink.name }}</p>
         </RouterLink>
       </nav>
@@ -79,15 +87,34 @@
       >
         <Menu 
           :size="20"
-          class="text-white"
+          class="text-zinc-800 dark:text-white"
         />
       </Button>
-      <h1 class="text-white text-2xl font-semibold">{{ pageTitle }}</h1>
+      <h1 class="text-2xl font-semibold text-zinc-800 dark:text-white">{{ pageTitle }}</h1>
     </div>
 
-    <Bell 
-      :size="20"
-      class="text-white"
-    />
+    <div class="flex items-center gap-4">
+      <Bell 
+        :size="20"
+        class="text-zinc-800 dark:text-white"
+      />
+      
+      <Button
+        unstyled
+        class="cursor-pointer touch-manipulation"
+        @click="toggleDarkMode"
+      >
+        <Sun 
+          v-if="isDarkMode"
+          :size="20"
+          class="text-zinc-800 dark:text-white"
+        />
+        <Moon 
+          v-else
+          :size="20"
+          class="text-zinc-800 dark:text-white"
+        />
+      </Button>
+    </div>
   </header>
 </template>
