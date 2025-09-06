@@ -22,7 +22,7 @@ app.use(PrimeVue, {
   theme: {
     preset: Lara,
     options: {
-      darkModeSelector: false || 'none',
+      darkModeSelector: '.dark-mode',
     }
   }
 });
