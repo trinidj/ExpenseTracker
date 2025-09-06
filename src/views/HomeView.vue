@@ -129,18 +129,18 @@
    
   <Header page-title="Home" />
 
-  <section class="flex flex-col p-5 pt-0 bg-[#121212] gap-6">
+  <section class="flex flex-col p-5 pt-0 gap-6 bg-white dark:bg-[#121212]">
     <AddTransactionButton />
     <div class="flex flex-col gap-6 h-fit">
       <div class="grid grid-cols-2 grid-rows-2 gap-2.5">
         <!-- Balance Card -->
-        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 p-5 rounded-xl gap-5 h-fit justify-between items-start">
-          <header class="flex flex-col gap-6 text-white">
-            <h2 class="font-semibold text-xs">Balance</h2>
+        <section class="flex bg-gradient-to-tr p-5 rounded-xl gap-5 h-fit justify-between items-start from-[#FFFFFF] to-[#BEBEBE]/10 shadow-lg dark:shadow-none dark:from-[#3A3A3A] dark:to-[#BEBEBE]/10">
+          <header class="flex flex-col gap-6 dark:text-white">
+            <h2 class="font-semibold text-xs text-zinc-400">Balance</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalBalance }}</p>
           </header>
           
-          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
+          <div class="flex items-center justify-centerp-2 rounded-lg p-2 bg-emerald-300 dark:bg-emerald-300/40">
             <DollarSign 
               class="text-white"
               :size=16
@@ -149,13 +149,13 @@
         </section>
 
         <!-- Income Card -->
-        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 h-fit items-start justify-between p-5 rounded-xl gap-5">
-          <header class="flex flex-col gap-6 text-white">
-            <h2 class="font-semibold text-xs">Income</h2>
+        <section class="flex bg-gradient-to-tr h-fit items-start justify-between p-5 rounded-xl gap-5 from-[#FFFFFF] to-[#BEBEBE]/10 shadow-lg dark:shadow-none dark:from-[#3A3A3A] dark:to-[#BEBEBE]/10">
+          <header class="flex flex-col gap-6 dark:text-white">
+            <h2 class="font-semibold text-xs text-zinc-400">Income</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalIncome }}</p>
           </header>
 
-          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
+          <div class="flex items-center justify-center p-2 rounded-lg bg-emerald-300 dark:bg-emerald-300/40">
             <TrendingUp 
               class="text-white"
               :size="16"
@@ -164,13 +164,13 @@
         </section>
 
         <!-- Expense Card -->
-        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 items-start justify-between p-5 rounded-xl gap-5 row-start-2">
-          <header class="flex flex-col gap-6 text-white">
-            <h2 class="font-semibold text-xs">Expenses</h2>
+        <section class="flex bg-gradient-to-tr items-start justify-between p-5 rounded-xl gap-5 row-start-2 from-[#FFFFFF] to-[#BEBEBE]/10 shadow-lg dark:shadow-none dark:from-[#3A3A3A] dark:to-[#BEBEBE]/10">
+          <header class="flex flex-col gap-6 dark:text-white">
+            <h2 class="font-semibold text-xs text-zinc-400">Expenses</h2>
             <p class="font-medium text-2xl">${{ balanceStore.totalExpenses }}</p>
           </header>
 
-          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
+          <div class="flex items-center justify-center p-2 rounded-lg bg-emerald-300 dark:bg-emerald-300/40">
             <TrendingDown 
               class="text-white"
               :size="16"
@@ -179,13 +179,13 @@
         </section>
 
         <!-- Active Budget Card -->
-        <section class="flex bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 items-start justify-between p-5 rounded-xl gap-5 row-start-2">
-          <header class="flex flex-col gap-6 text-white">
-            <h2 class="font-semibold text-xs">Budget</h2>
+        <section class="flex bg-gradient-to-tr items-start justify-between p-5 rounded-xl gap-5 row-start-2 from-[#FFFFFF] to-[#BEBEBE]/10 shadow-lg dark:shadow-none dark:from-[#3A3A3A] dark:to-[#BEBEBE]/10">
+          <header class="flex flex-col gap-6 dark:text-white">
+            <h2 class="font-semibold text-xs text-zinc-400">Budget</h2>
             <p class="font-medium text-2xl">${{ budgetStore.totalBudget }}</p>
           </header>
 
-          <div class="flex items-center justify-center bg-emerald-300/40 p-2 rounded-lg">
+          <div class="flex items-center justify-center p-2 rounded-lg bg-emerald-300 dark:bg-emerald-300/40">
             <CreditCard 
               class="text-white"
               :size="16"
@@ -195,9 +195,9 @@
       </div>      
       
       <!-- Budget Overview -->
-      <section class="bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 rounded-xl">
-        <header class="p-5">
-          <h2 class="text-lg text-white">Budget Overview</h2>
+      <section class="bg-gradient-to-tr from-[#FFFFFF] to-[#BEBEBE]/10 shadow-lg rounded-xl dark:shadow-none dark:from-[#3A3A3A] dark:to-[#BEBEBE]/10">
+        <header class="p-5 text-zinc-800 dark:text-white">
+          <h2 class="text-lg">Budget Overview</h2>
         </header>
 
         <ul class="flex flex-col gap-5 p-5 pt-0">
@@ -206,8 +206,8 @@
             :key="budget.category"
           >
             <div class="flex flex-col gap-2">
-              <header class="flex justify-between text-white">
-                <h3>{{ budget.category }}</h3>
+              <header class="flex justify-between text-zinc-800 dark:text-white">
+                <h3 class="font-medium">{{ budget.category }}</h3>
                 <p>${{ budget.amount }}</p>
               </header>
 
@@ -229,8 +229,8 @@
       </section>
 
       <!-- Recent Transactions -->
-      <section class="flex flex-col bg-gradient-to-tr from-[#3A3A3A] to-[#BEBEBE]/10 rounded-xl">
-        <header class="flex flex-row items-center justify-between p-5 text-white">
+      <section class="flex flex-col bg-gradient-to-tr from-[#FFFFFF] to-[#BEBEBE]/10 rounded-xl dark:shadow-none dark:from-[#3A3A3A] dark:to-[#BEBEBE]/10">
+        <header class="flex flex-row items-center justify-between p-5 text-zinc-800 dark:text-white">
           <h2 class="text-lg ">Recent Transactions</h2>
           <RouterLink to="/transactions">
             <p class="text-zinc-400 font-balance text-sm hover:underline">View All</p>
