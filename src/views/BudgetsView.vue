@@ -80,67 +80,67 @@
 </script>
 
 <template>
-  <div class="bg-[#FFE3C6] h-62 rounded-bl-3xl rounded-br-3xl">
-    <Header page-title="Budgets" />
+  <Header page-title="Budgets" />
 
-    <Dialog
-      modal
-      header="New Budget"
-      v-model:visible="visible"  
-      position="bottom"
-      :draggable="false"
-    >
-      <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
-        <div class="grid grid-cols-2 gap-6">
-          <div class="flex flex-col gap-1">
-            <Select
-              name="category" 
-              fluid
-              v-model="budgetData.category"
-              placeholder="Select a Category"
-              :options="transactionStore.expenseCategories"
-              option-label="name"
-              size="small"
-              class="flex! items-center!"
-            />
+  <Dialog
+    modal
+    header="New Budget"
+    v-model:visible="visible"  
+    position="bottom"
+    :draggable="false"
+  >
+    <Form v-slot="$form" :resolver="resolver" :initial-values="initialValues" @submit="onFormSubmit">
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-1">
+          <Select
+            name="category" 
+            fluid
+            v-model="budgetData.category"
+            placeholder="Select a Category"
+            :options="transactionStore.expenseCategories"
+            option-label="name"
+            size="small"
+            class="flex! items-center!"
+          />
 
-            <Message 
-              v-if="$form.category?.invalid" 
-              severity="error" 
-              variant="simple"
-              size="small"
-            >
-              {{ $form.category.error?.message }}
-            </Message>
-          </div>
-
-          <div class="flex flex-col gap-1">
-            <InputText 
-              name="budget"
-              v-model="budgetData.amount"
-              v-keyfilter.money
-              fluid
-              placeholder="Budget"
-              size="small"
-            />
-            <Message
-              v-if="$form.budget?.invalid"
-              severity="error"
-              variant="simple"
-              size="small"
-            >
-              {{ $form.budget.error?.message }}
-            </Message>
-          </div>
-
-          <div class="flex col-span-full items-center justify-end gap-4">
-            <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
-            <Button type="submit" label="Add" @click="handleSubmit" />
-          </div>
+          <Message 
+            v-if="$form.category?.invalid" 
+            severity="error" 
+            variant="simple"
+            size="small"
+          >
+            {{ $form.category.error?.message }}
+          </Message>
         </div>
-      </Form>
-    </Dialog>
 
+        <div class="flex flex-col gap-1">
+          <InputText 
+            name="budget"
+            v-model="budgetData.amount"
+            v-keyfilter.money
+            fluid
+            placeholder="Budget"
+            size="small"
+          />
+          <Message
+            v-if="$form.budget?.invalid"
+            severity="error"
+            variant="simple"
+            size="small"
+          >
+            {{ $form.budget.error?.message }}
+          </Message>
+        </div>
+
+        <div class="flex col-span-full items-center justify-end gap-4">
+          <Button type="button" severity="secondary" label="Cancel" @click="visible = false"/>
+          <Button type="submit" label="Add" @click="handleSubmit" />
+        </div>
+      </div>
+    </Form>
+  </Dialog>
+
+  <section class="flex flex-col p-5 pt-0 gap-6 bg-white dark:bg-[#121212]">
     <ScrollPanel>
       <div class="flex flex-col gap-5">
         <!-- Budget Progress -->
@@ -257,5 +257,5 @@
         </div>
       </div>
     </ScrollPanel>
-  </div>
+  </section>
 </template>
