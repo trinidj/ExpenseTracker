@@ -2,6 +2,7 @@
   import { ref } from 'vue';
   import { Menu, Home, ArrowLeftRight, ChartArea, Banknote, CircleDollarSign, MessageCircle, ExternalLink, Bell, Settings, Moon, Sun } from 'lucide-vue-next';
   import { RouterLink } from 'vue-router';
+  import { useThemeStore } from '@/stores/useThemeStore';
   
   import { Drawer, Button } from 'primevue';
 
@@ -13,7 +14,7 @@
   });
 
   const visible = ref(false);
-  const isDarkMode = ref(false);
+  const themeStore = useThemeStore();
   const navLinks = [
     { name: 'Home', path: '/', icon: Home },
     { name: 'Transactions', path: '/transactions', icon: ArrowLeftRight },
@@ -21,11 +22,6 @@
     { name: 'Budgets', path: '/budgets', icon: Banknote },
     { name: 'Settings', path: '/settings', icon: Settings },
   ];
-
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle('dark');
-    isDarkMode.value = !isDarkMode.value;
-  }
 </script>
 
 <template>
@@ -102,10 +98,10 @@
       <Button
         unstyled
         class="cursor-pointer touch-manipulation"
-        @click="toggleDarkMode"
+        @click="themeStore.toggleDarkMode"
       >
         <Sun 
-          v-if="isDarkMode"
+          v-if="themeStore.isDarkMode"
           :size="20"
           class="text-zinc-800 dark:text-white"
         />
