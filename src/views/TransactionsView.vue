@@ -3,9 +3,8 @@
 
   import Header from '@/components/layout/Header.vue';
   
-  import { Filter } from 'lucide-vue-next';
-  import { ScrollPanel, Button, Drawer, SelectButton, Select } from 'primevue';
-  import SearchBar from '@/components/SearchBar.vue';
+  import { Filter, Search } from 'lucide-vue-next';
+  import { ScrollPanel, Button, Drawer, SelectButton, Select, IconField, InputText, InputIcon } from 'primevue';
   import { useTransactionsStore } from '@/stores/useTransactionsStore';
 
   const transactionStore = useTransactionsStore();
@@ -103,69 +102,73 @@
 </script>
 
 <template>
-  <div class="h-screen flex flex-col overflow-hidden">
-    <!-- Header -->
-    <Header page-title="Transactions" />
-
-    <Drawer
-      header="Filter"
-      v-model:visible="visible"
-      position="bottom"
-      class="h-fit! rounded-tl-lg rounded-tr-lg"
-    >
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-2">
-          <h2 class=" font-medium">Start Date</h2>
-          <SelectButton 
-            fluid 
-            v-model="currentDateOption"
-            :options="dateRangeOptions"
-            size="small"
-            class="touch-manipulation"
-          />
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h2 class="font-medium">Transaction Type</h2>
-          <SelectButton 
-            fluid
-            v-model="currentTransactionType"
-            :options="transactionTypeOptions"
-            size="small"
-            class="touch-manipulation"
-          />
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h2 class="font-medium">Category</h2>
-          <Select 
-            placeholder="Select a Category"
-            fluid                     
-            v-model="selectedCategory"
-            :options="availableCategories"
-            option-label="name"
-            option-value="name"
-            :disabled="!currentTransactionType"
-            size="small"
-            class="touch-manipulation"
-          />
-        </div>
-
-        <div class="flex justify-end gap-4">
-          <Button label="Clear" severity="secondary" @click="clearFilters" class="touch-manipulation"/>
-          <Button label="Cancel" severity="secondary" @click="visible = false" class="touch-manipulation"/>
-          <Button label="Filter" @click="handleFilterSubmit" class="touch-manipulation"/>
-        </div>
+  <Drawer
+    header="Filter"
+    v-model:visible="visible"
+    position="bottom"
+    class="h-fit! rounded-tl-lg rounded-tr-lg"
+  >
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <h2 class=" font-medium">Start Date</h2>
+        <SelectButton 
+          fluid 
+          v-model="currentDateOption"
+          :options="dateRangeOptions"
+          size="small"
+          class="touch-manipulation"
+        />
       </div>
-    </Drawer>
-    
-    <div class="mx-6 flex flex-row items-center gap-3 mb-8 flex-shrink-0">
-      <SearchBar />
+
+      <div class="flex flex-col gap-2">
+        <h2 class="font-medium">Transaction Type</h2>
+        <SelectButton 
+          fluid
+          v-model="currentTransactionType"
+          :options="transactionTypeOptions"
+          size="small"
+          class="touch-manipulation"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h2 class="font-medium">Category</h2>
+        <Select 
+          placeholder="Select a Category"
+          fluid                     
+          v-model="selectedCategory"
+          :options="availableCategories"
+          option-label="name"
+          option-value="name"
+          :disabled="!currentTransactionType"
+          size="small"
+          class="touch-manipulation"
+        />
+      </div>
+
+      <div class="flex justify-end gap-4">
+        <Button label="Clear" severity="secondary" @click="clearFilters" class="touch-manipulation"/>
+        <Button label="Cancel" severity="secondary" @click="visible = false" class="touch-manipulation"/>
+        <Button label="Filter" @click="handleFilterSubmit" class="touch-manipulation"/>
+      </div>
+    </div>
+  </Drawer>
+  
+  <Header page-title="Transactions" />
+
+  <section class="h-screen flex flex-col overflow-hidden">
+    <div class="px-6 flex flex-row items-center gap-3 mb-8">         
+      <InputText 
+        fluid
+        unstyled
+        placeholder="Search" 
+        class="flex-1 bg-zinc-200 p-2 rounded-md border border-transparent focus:outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-300/20"
+      />
       
       <Button
         unstyled 
         type="button"
-        class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out touch-manipulation"
+        class="cursor-pointer bg-emerald-300 p-2 rounded-md text-white hover:bg-emerald-400 transition duration-200 ease-in-out touch-manipulation dark:bg-emerald-300/40"
         @click="visible = true"
       >
         <Filter />
@@ -224,5 +227,5 @@
         </div>
       </section>
     </ScrollPanel>
-  </div>
+  </section>
 </template>
